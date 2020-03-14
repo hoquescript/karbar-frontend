@@ -7,7 +7,7 @@ import { menuPathSelection, routeFinding } from '../../Store/Actions/menu'
 
 const { SubMenu } = Menu;
 
-const SideDrawer = ({ data, collapsed }) => {
+const SideDrawer = ({ data, collapsed, setIsHome }) => {
 
   const style = {
     width: collapsed ? 256 : 0,
@@ -45,14 +45,13 @@ const SideDrawer = ({ data, collapsed }) => {
     if(data.formMenu || data.reportMenu){      
       //Genarating slug of third level menu 
       let thirdMenu =  null;
-
       if(item.key.startsWith('03')){
         thirdMenu = data.formMenu.find(dt => dt.ACode === item.key);       
-        dispatch(menuPathSelection(data.AHead,'Forms', thirdMenu.AHead))
+        dispatch(menuPathSelection(data.AHead, 'Forms', thirdMenu.AHead))
       }
       else if(item.key.startsWith('04')){
         thirdMenu = data.reportMenu.find(dt => dt.ACode === item.key);
-        dispatch(menuPathSelection(data.AHead,'Reports', thirdMenu.AHead))
+        dispatch(menuPathSelection(data.AHead, 'Reports', thirdMenu.AHead))
       }   
 
       //Genarating
@@ -60,6 +59,7 @@ const SideDrawer = ({ data, collapsed }) => {
       // const componentStr = componentStringGenarator(thirdMenu.AHead) 
       // console.log(thirdMenu)
       dispatch(routeFinding(slugStr,thirdMenu.MenuParams))
+      setIsHome(false)
     }
   }
 

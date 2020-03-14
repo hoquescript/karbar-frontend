@@ -1,22 +1,24 @@
 import React, { useState, useEffect, } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
-
+import { NavLink } from 'react-router-dom';
 import Header from "../../Components/Layout/Header";
 import SideDrawer from "../../Components/Layout/SideDrawer";
 
 import { fetchModulesMenu } from "../../Store/Actions/menu"
+import Form from "../Form/Form";
+import Home from "../Home/Home";
 
 const { Content, Sider } = Layout;
 
 const LayoutModel = props => {
   const modulesMenu = useSelector ( state => state.menu.modulesMenu )
-  const breadcrumbPathways = useSelector ( state => state.menu.menuPathways )
 
   const [collapse, setCollapse] = useState(true)
   const [subMenuCollapse, setSubMenuCollapse] = useState(false);
   const [key, setKey] = useState(1);
   const [subMenuData, setSubMenuData] = useState({});
+  const [isHome,setIsHome] = useState(true)
   const dispatch = useDispatch();
 
   const modulesMenuCollapseHandler = () => {
@@ -26,6 +28,13 @@ const LayoutModel = props => {
 
   const subMenuHandler = (item, val) => {
     setCollapse(true)
+    // console.log(key, item.key)
+    if(item.key == 1){
+      setSubMenuCollapse(false);
+      setKey(1);
+      setIsHome(true)
+      return;
+    }
     if (key === item.key && subMenuCollapse) {
       setSubMenuCollapse(false);
     } else if (key === item.key && !subMenuCollapse) {
@@ -41,37 +50,35 @@ const LayoutModel = props => {
       setSubMenuData(module);
     }
   };
-
   useEffect(() => {
     dispatch(fetchModulesMenu());
   },[dispatch]);
-
+  // console.log(key ==)
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header collapse={collapse} collapseMenu={modulesMenuCollapseHandler}/>
       <Layout>
         <Sider collapsed={collapse} width={220}>
-          <Menu
-            theme="dark"
-            defaultSelectedKeys={["1"]}
-            mode="inline"
-            onClick={subMenuHandler}
-          >
+          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" onClick={subMenuHandler} >
             <Menu.Item key="1">
-              <Icon type="home" />
-              <span>Home</span>
+              <NavLink to="/">
+                <Icon type="home" />
+                <span>Home</span>
+              </NavLink>
             </Menu.Item>
             <Menu.Item key="2">
-              <Icon type="book" />
-              <span>Bookmarks</span>
+              {/* <NavLink to="/bookmarks"> */}
+                <Icon type="book" />
+                <span>Bookmarks</span>
+              {/* </NavLink> */}
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="history" />
-              <span>History</span>
+              <NavLink to="/history">
+                <Icon type="history" />
+                <span>History</span>
+              </NavLink>
             </Menu.Item>
-            <div
-              style={{ margin: "20px 10px", height: 2, background: "#fff" }}
-            ></div>
+            <div style={{ margin: "20px 10px", height: 2, background: "#fff" }}></div>
             {modulesMenu.map(menu => (
               <Menu.Item key={menu.ACode}>
                 <Icon type={menu.IconName} />
@@ -80,27 +87,12 @@ const LayoutModel = props => {
             ))}
           </Menu>
         </Sider>
-        <SideDrawer data={subMenuData} collapsed={subMenuCollapse} />
+        <SideDrawer data={subMenuData} collapsed={subMenuCollapse} setIsHome={setIsHome}/>
         <Layout style={{ padding: "0 24px 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>{breadcrumbPathways.first || 'Loading'}</Breadcrumb.Item>
-            <Breadcrumb.Item>{breadcrumbPathways.second || '...' }</Breadcrumb.Item>
-            <Breadcrumb.Item>{breadcrumbPathways.third || '...' }</Breadcrumb.Item>
-          </Breadcrumb>
-          <Content
-            style={{
-              background: "#fff",
-              padding: 24,
-              margin: 0,
-              minHeight: 280
-            }}
-          >
-              {props.children}
-          </Content>
+          {isHome ? <Home>{props.children}</Home> : <Form>{props.children}</Form> }
         </Layout>
       </Layout>
     </Layout>
-    // Store Management /  Forms / GL
   );
 };
 

@@ -7,14 +7,17 @@ import GridView from "./GridView";
 import { Typography, Grid } from "@material-ui/core";
 import Label from "./Label";
 
-const Control = ({ ctrlName, ctrlLabel }) => {
+const Control = (props) => {
+	const {ControlName, ControlLabel, ControlElementType, MenuButton, Params} = props;
+
 	let inputEl;
-	switch (ctrlName.slice(0, 3)) {
+	console.log(props)
+	switch (ControlName.slice(0, 3)) {
 		case "txt":
-			inputEl = <TextField ctrlName={ctrlName} ctrlLabel={ctrlLabel} />;
+			inputEl = <TextField ctrlName={ControlName} ctrlLabel={ControlLabel} />;
 			break;
 		case "cbo":
-			inputEl = <ComboBox />;
+			inputEl = <ComboBox ctrlName={ControlName} ctrlLabel={ControlLabel} params={Params} />;
 			break;
 		case "dtp":
 			inputEl = <DatePicker />;
@@ -35,7 +38,7 @@ const Control = ({ ctrlName, ctrlLabel }) => {
 			style={{ marginBottom: 0 }}
 		>
 			<Grid item xs={4}>
-				<Label>{ctrlLabel}</Label>
+				<Label>{ControlLabel}</Label>
 			</Grid>
 			<Grid item xs={8}>
 				{inputEl}

@@ -15,7 +15,7 @@ const Form = () => {
   const controlEl = controls ? controls.map(control => {
     if(control.ControlName.startsWith("lbl") || control.ControlName.startsWith("dgv")) return;
     return (
-        <Control ctrlName={control.ControlName} ctrlLabel={control.ControlLabel}/>
+        <Control {...control}/>
     )
   }) : null
 
