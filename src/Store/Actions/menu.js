@@ -14,9 +14,10 @@ export const storeModulesMenu = (modulesMenu) => ({
   modulesMenu
 });
 
-export const menuPathSelection = (firstMenu, secondMenu, thirdMenu) => ({
+export const menuPathSelection = (firstMenu, icon, secondMenu, thirdMenu) => ({
   type: MENU_PATH_SELECTION,
   firstMenu,
+  icon,
   secondMenu,
   thirdMenu
 });

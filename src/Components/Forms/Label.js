@@ -3,7 +3,7 @@ import { TextField, Typography } from "@material-ui/core";
 
 const Label = (props) => {
     return (
-        <Typography style={{width: 200}}>{props.children}</Typography>       
+        <Typography>{props.children}</Typography>       
     )
 }
 

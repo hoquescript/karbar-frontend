@@ -47,11 +47,11 @@ const SideDrawer = ({ data, collapsed, setIsHome }) => {
       let thirdMenu =  null;
       if(item.key.startsWith('03')){
         thirdMenu = data.formMenu.find(dt => dt.ACode === item.key);       
-        dispatch(menuPathSelection(data.AHead, 'Forms', thirdMenu.AHead))
+        dispatch(menuPathSelection(data.AHead, data.IconName, 'Forms', thirdMenu.AHead))
       }
       else if(item.key.startsWith('04')){
         thirdMenu = data.reportMenu.find(dt => dt.ACode === item.key);
-        dispatch(menuPathSelection(data.AHead, 'Reports', thirdMenu.AHead))
+        dispatch(menuPathSelection(data.AHead, data.IconName, 'Reports', thirdMenu.AHead))
       }   
 
       //Genarating

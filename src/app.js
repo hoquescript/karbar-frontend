@@ -6,10 +6,6 @@ import "antd/dist/antd.css";
 import LayoutModel from "./Containers/Layout/Layout";
 
 const Form = React.lazy(() => import(`./Pages/Form`));
-// const PostGlVoucher = React.lazy(() => import(`./Modules/Accounts/Forms/${val}`));
-// const PostGlVoucher = React.lazy(() => import(`./Modules/Accounts/Forms/${val}`));
-// const PostGlVoucher = React.lazy(() => import(`./Modules/Accounts/Forms/${val}`));
-
 
 const App = () => {
   const route = useSelector ( state => state.menu.route )

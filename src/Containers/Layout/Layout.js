@@ -88,7 +88,7 @@ const LayoutModel = props => {
           </Menu>
         </Sider>
         <SideDrawer data={subMenuData} collapsed={subMenuCollapse} setIsHome={setIsHome}/>
-        <Layout style={{ padding: "0 24px 24px" }}>
+        <Layout>
           {isHome ? <Home>{props.children}</Home> : <Form>{props.children}</Form> }
         </Layout>
       </Layout>

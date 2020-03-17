@@ -8,6 +8,7 @@ const initialState = {
   modulesMenu: [],
   menuPathways: {
     first: "",
+    icon: "",
     second: "",
     third: ""
   },
@@ -30,6 +31,7 @@ export default (state = initialState, action) => {
         ...state,
         menuPathways: {
           first: action.firstMenu,
+          icon: action.icon,
           second: action.secondMenu,
           third: action.thirdMenu
         }

@@ -15,7 +15,7 @@ const HeaderMenu = props => {
         <Icon style={{ fontSize: 25, color: "#fff" }} type={props.collapse ? "menu-unfold" : "menu-fold"} />
       </MenuCollapse>
 
-      <Menubar>
+      <Menubar style={{borderBottom: '2px solid #eee'}}>
         <LogoWrapper>
           <Logo src={logo} alt="Logo of Dot Bangladesh" />
         </LogoWrapper>
