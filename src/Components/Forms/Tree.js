@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "antd/dist/antd.css";
-import { Tree } from "antd";
+import { Tree, Tooltip } from "antd";
 
 const { TreeNode } = Tree;
 const nodeSeparator = params => {
@@ -108,7 +108,8 @@ const levelSeparator = node => {
   return treeData;
 };
 
-const TreeView = ({ params }) => {
+
+const TreeView = ({ params, setChipData }) => {
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [checkedKeys, setCheckedKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
@@ -125,8 +126,9 @@ const TreeView = ({ params }) => {
     setAutoExpandParent(false);
   };
 
-  const onCheck = checkedKeys => {
-    console.log("onCheck", checkedKeys);
+  const onCheck = (checkedKeys, e) => {
+    const chipData = e.checkedNodes.map(node => ({key: node.key, label: node.props.title})).filter(cd => !expandedKeys.includes(cd.key))
+    setChipData(chipData)
     setCheckedKeys(checkedKeys);
   };
 
@@ -136,8 +138,11 @@ const TreeView = ({ params }) => {
   };
 
   return (
+    <Tooltip placement="bottomLeft">
     <Tree
       checkable
+      showLine
+      showIcon={false}
       onExpand={onExpand}
       expandedKeys={expandedKeys}
       autoExpandParent={autoExpandParent}
@@ -147,6 +152,7 @@ const TreeView = ({ params }) => {
       selectedKeys={selectedKeys}
       treeData={treeData}
     />
+    </Tooltip>
   );
 };
 

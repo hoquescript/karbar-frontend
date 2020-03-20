@@ -1,18 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MdPlaylistAdd } from 'react-icons/md';
 import { fetchFormControl } from "../Store/Actions/forms";
 import { makeStyles } from '@material-ui/core/styles';
-import Control from "../Components/Forms/Control";
 import { Grid, Typography } from "@material-ui/core";
-import { Button } from "antd";
+import { useForm, Controller } from 'react-hook-form';
+
+import Control from "../Components/Forms/Control";
+import Tree from "../Components/Forms/Tree"
+import ActionButton from "../Components/Forms/ActionButton";
+import GridView from "../Components/Forms/GridView";
 
 const useStyles = makeStyles(theme => ({
   actionWrapper : {
       backgroundColor: '#fff',
+      height: 80
   },
   bookmarkWrapper: {
       display: 'flex',
+      alignItems: 'center',
       height: '100%',
       padding: '20px',
       backgroundColor: '#f9f9f9',
@@ -34,7 +40,6 @@ const useStyles = makeStyles(theme => ({
   controlWrapper: {
     marginTop: 20,
     backgroundColor: '#fff',
-    padding: '40px 100px',
     position: 'relative',
     '&::before': {
       content: "''",
@@ -47,12 +52,12 @@ const useStyles = makeStyles(theme => ({
       top: 0,
     }
   },
-  // arrow: {
-  //   height: 10
-  // },
 }));
 
 const Form = () => {
+  const classes = useStyles();
+  const { register, handleSubmit, watch, errors, control } = useForm();
+
   const menuParams = useSelector(state => state.menu.route.menuParams);
   const controls = useSelector(state => state.forms.forms);
   const dispatch = useDispatch();
@@ -60,35 +65,51 @@ const Form = () => {
     dispatch(fetchFormControl(menuParams));
   }, [menuParams, dispatch]);
 
-  const controlEl = controls ? controls.map(control => {
-    if(control.ControlName.startsWith("lbl") || control.ControlName.startsWith("dgv")) return;
+  const [chipData,setChipData] = useState([]);
+  const [gridView,setGridView] = useState(false);
+
+  let treeChild = null;
+  let gridData = null;
+  const controlEl = controls ? controls.map(ctrl => {
+    if(ctrl.ControlName.startsWith("lbl")) return null;
+    if(ctrl.ControlName.startsWith("Tre")) treeChild = ctrl.Params;
+    if(ctrl.ControlName.startsWith("dgv")) gridData = ctrl
     return (
-        <Control {...control} key={control.ControlName} style={{marginBottom: 10}}/>
+        <Control {...ctrl} chipData={chipData} register={register} Controller={Controller} control={control} key={ctrl.ControlName} style={{marginBottom: 10}}/>
     )
   }) : null
-  const menuButton = controls.length > 0 ? controls[0].MenuButton.split("~") :  null
-  console.log(menuButton)
-
-  const classes = useStyles();
+  console.log(gridData)
 
   return(
     <>
-      <Grid container justify="space-between" alignItems="center" className={classes.actionWrapper}>
+      <Grid container justify="space-between"  className={classes.actionWrapper}>
         <Grid item className={classes.bookmarkWrapper}>
           <MdPlaylistAdd className={classes.bookmarkIcon}/>
           <Typography variant="subtitle1">Add Bookmark</Typography>
         </Grid>
         <Grid item style={{padding: 20}}>
-          <Button>Create</Button>
-          <Button>Post</Button>
-          <Button>Add</Button>
-          <Button>Delete</Button>
+          <ActionButton controls={controls} handleSubmit={handleSubmit} setGridView={setGridView} chipData={chipData} gridData={gridData}/>
         </Grid>
       </Grid>
-      <Grid container className={classes.controlWrapper}>
-        <span className={classes.arrow}></span>
-        {controlEl}
-      </Grid>
+      <form>
+        <Grid container className={classes.controlWrapper} style={{padding: treeChild ? 40 : '40px 100px'}}>
+          {treeChild ? (
+              <Grid item xs={4} container alignItems="center"  style={{transform: 'translateY(-20px)'}}>
+                <Tree params={treeChild} setChipData={setChipData}/>
+              </Grid>
+          ) : null}
+          <Grid item xs={treeChild ? 8 : 12}>
+            {controlEl}
+          </Grid>
+        </Grid>
+      </form>
+      {
+        gridView ? (
+            <Grid item>
+              <GridView/>
+            </Grid>
+        ) : null
+      }
     </>
   );
 };
