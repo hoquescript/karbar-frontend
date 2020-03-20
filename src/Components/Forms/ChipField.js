@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 
@@ -17,8 +18,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChipField = ({chipData}) => {
+const ChipField = () => {
   const classes = useStyles();
+  const chipData = useSelector(state => state.forms.chipData);
   return (
     <div className={classes.root}>
       {chipData.map(data => {

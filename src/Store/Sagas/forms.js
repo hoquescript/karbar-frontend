@@ -4,7 +4,7 @@ import * as actions from "../Actions/forms";
 
 export function* fetchFormControls(action){
     try {
-        yield put(actions.fetchFormControl(action.hookForm))
+        yield put(actions.fetchFormControl())
 
         const formData = yield Axios.get(`http://localhost:8080/control/${action.menuParams}`);
         const controls = formData.data;
@@ -16,3 +16,16 @@ export function* fetchFormControls(action){
     }
 }
 
+export function* viewReportData(action){
+    try {
+        yield put(actions.initiateFetchReportData())
+
+        // const formData = yield Axios.get(`http://localhost:8080/control/${action.menuParams}`);
+        // const controls = formData.data;
+
+        // yield put(actions.storeFormControl(controls))
+        
+    } catch (error) {
+        console.log(error)
+    }
+}

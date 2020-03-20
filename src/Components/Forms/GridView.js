@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Loading from "../Util/Loading/Loading";
 
 const Table = () => {
@@ -6,10 +7,10 @@ const Table = () => {
 };
 
 const GridView = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    let content = null;
-    console.log(isLoading);
-    content = isLoading ? <Loading /> : <Table />;
+    const isGridLoading = useSelector(state => state.forms.gridData.isGridLoading);
+
+    let content;
+    content = isGridLoading ? <Loading /> : <Table />;
     return <div>{content}</div>;
 };
 

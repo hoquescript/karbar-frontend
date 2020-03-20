@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "antd/dist/antd.css";
+import { useDispatch } from "react-redux";
+import { setChipData } from "../../Store/Actions/forms";
+
 import { Tree, Tooltip } from "antd";
 
 const { TreeNode } = Tree;
@@ -109,7 +111,8 @@ const levelSeparator = node => {
 };
 
 
-const TreeView = ({ params, setChipData }) => {
+const TreeView = ({ params }) => {
+  const dispatch = useDispatch();
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [checkedKeys, setCheckedKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
@@ -128,12 +131,12 @@ const TreeView = ({ params, setChipData }) => {
 
   const onCheck = (checkedKeys, e) => {
     const chipData = e.checkedNodes.map(node => ({key: node.key, label: node.props.title})).filter(cd => !expandedKeys.includes(cd.key))
-    setChipData(chipData)
+    dispatch(setChipData(chipData))
     setCheckedKeys(checkedKeys);
   };
 
   const onSelect = (selectedKeys, info) => {
-    console.log("onSelect", info);
+    console.log("onSelect", selectedKeys, info);
     setSelectedKeys(selectedKeys);
   };
 

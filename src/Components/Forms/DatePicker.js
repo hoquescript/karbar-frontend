@@ -23,7 +23,7 @@ const DatePicker = ({ ctrlName }) => {
                         inputVariant="outlined"
                         format="MM/dd/yyyy"
                         margin="normal"
-                        value={selectedDate}
+                        value="2014-08-18T21:11:54"
                     />
                 }
                 control={control}

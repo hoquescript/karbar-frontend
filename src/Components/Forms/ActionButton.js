@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { viewReportData } from "../../Store/Actions/forms";
 import { useFormContext } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 
@@ -30,15 +32,15 @@ const style = {
     width: 90
 }
 
-const viewHandler = ({ text, chipData, gridData, handleSubmit, setGridView },data) => {
-    setGridView(true);
+const viewHandler = (dispatch, data, gridSQL) => {
+    dispatch(viewReportData(gridSQL, data))
 }
 
-const MenuButton = (props) => {
+const MenuButton = ({ type, gridSQL }) => {
+    const dispatch = useDispatch();
     const { handleSubmit } = useFormContext() 
     const btnHandler = data => {
-        console.log(data)
-        switch (props.text) {
+        switch (type) {
             case "Post":
                 return '#16a085'
             case "Journal":
@@ -48,7 +50,7 @@ const MenuButton = (props) => {
             case "Help":
                 return '#c44569'
             case "View":
-                viewHandler(props,data);
+                viewHandler(dispatch, data, gridSQL);
                 break;
             case "Add":
                 return '#706fd3'
@@ -59,17 +61,17 @@ const MenuButton = (props) => {
         }    
     };
     return (
-        <Button variant="contained" style={{ ...style, backgroundColor: btnColorGenarator(props.text)}} onClick={handleSubmit(btnHandler)}>
-            {props.text}
+        <Button variant="contained" style={{ ...style, backgroundColor: btnColorGenarator(type)}} onClick={handleSubmit(btnHandler)}>
+            {type}
         </Button>
     );
 };
 
-const ActionButton = ({ controls, handleSubmit, chipData, gridData, setGridView }) => {
+const ActionButton = ({ controls, gridSQL }) => {
     const menuButton =
         controls.length > 0 ? controls[0].MenuButton.split("~") : null;
     const buttons = menuButton
-        ? menuButton.map(btn => <MenuButton key={btn} text={btn} chipData={chipData} gridData={gridData} setGridView={setGridView} handleSubmit={handleSubmit}/>)
+        ? menuButton.map(btnType => <MenuButton key={btnType} type={btnType} gridSQL={gridSQL}/>)
         : null;
     return <div>{buttons}</div>;
 };

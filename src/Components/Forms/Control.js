@@ -8,20 +8,20 @@ import Label from "./Label";
 import ChipField from "./ChipField";
 
 const Control = (props) => {
-	const { ControlLabel, chipData, ControlName, Params } = props;
+	const { ControlLabel, ControlName, Params } = props;
 	let inputEl;
 	switch (ControlName.slice(0, 3)) {
 		case "txt":
-			inputEl = <TextField ctrlName={ControlName}/>;
+			inputEl = < TextField ctrlName={ControlName} />;
 			break;
 		case "cbo":
-			inputEl = <ComboBox ctrlName={ControlName} ctrlLabel={ControlLabel} params={Params}/>;
+			inputEl = < ComboBox ctrlName={ControlName} ctrlLabel={ControlLabel} params={Params} />;
 			break;
 		case "dtp":
-			inputEl = <DatePicker ctrlName={ControlName}/>;
+			inputEl = < DatePicker ctrlName={ControlName} />;
 			break;
 		case "chp":
-			inputEl = <ChipField chipData={chipData}/>;
+			inputEl = < ChipField />;
 			break;
 		default:
 			break;
