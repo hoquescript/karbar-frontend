@@ -1,14 +1,19 @@
 import {
+    INITIATE_FETCH_FORM_CONTROL,
     FETCH_FORM_CONTROL,
-    INITIATE_FETCH_FORM_CONTROL
+    STORE_FORM_CONTROL,
 } from './actionTypes'
 
-export const fetchFormControl = menuParams => ({
+export const initiateFetchFormControl = menuParams => ({
     type: INITIATE_FETCH_FORM_CONTROL,
     menuParams
 });
-  
+
+export const fetchFormControl = () => ({
+  type: FETCH_FORM_CONTROL
+});
+
 export const storeFormControl = formsControl => ({
-  type: FETCH_FORM_CONTROL,
+  type: STORE_FORM_CONTROL,
   formsControl
 });

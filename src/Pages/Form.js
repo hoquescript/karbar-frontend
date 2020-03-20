@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MdPlaylistAdd } from 'react-icons/md';
-import { fetchFormControl } from "../Store/Actions/forms";
+import { initiateFetchFormControl } from "../Store/Actions/forms";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from "@material-ui/core";
 import { useForm, Controller } from 'react-hook-form';
 
+import Loading from '../Components/Util/Loading/Loading'
 import Control from "../Components/Forms/Control";
 import Tree from "../Components/Forms/Tree"
 import ActionButton from "../Components/Forms/ActionButton";
@@ -62,9 +63,11 @@ const Form = () => {
 
   const menuParams = useSelector(state => state.menu.route.menuParams);
   const controls = useSelector(state => state.forms.forms);
+  const isLoading = useSelector(state => state.forms.isFormLoading);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchFormControl(menuParams));
+    dispatch(initiateFetchFormControl(menuParams));
   }, [menuParams, dispatch]);
 
   const [chipData,setChipData] = useState([]);
@@ -76,11 +79,12 @@ const Form = () => {
     if(ctrl.ControlName.startsWith("lbl")) return null;
     if(ctrl.ControlName.startsWith("Tre")) treeChild = ctrl.Params;
     if(ctrl.ControlName.startsWith("dgv")) gridData = ctrl
+    // setIsLoading(false)
     return (
         <Control {...ctrl} chipData={chipData} register={register} Controller={Controller} control={control} key={ctrl.ControlName} style={{marginBottom: 10}}/>
     )
   }) : null
-  console.log(gridData)
+  console.log(controls)
 
   return(
     <>
@@ -101,7 +105,7 @@ const Form = () => {
               </Grid>
           ) : null}
           <Grid item xs={treeChild ? 8 : 12}>
-            {controlEl}
+            {isLoading ? <Loading/> : controlEl}
           </Grid>
         </Grid>
       </form>
