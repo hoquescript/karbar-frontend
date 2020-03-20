@@ -37,8 +37,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     color: '#0f236f'
   },
-  controlWrapper: {
+  contentWrapper: {
+    position: 'relative',
     marginTop: 20,
+    minHeight: 350,
     backgroundColor: '#fff',
     position: 'relative',
     '&::before': {
@@ -92,7 +94,7 @@ const Form = () => {
         </Grid>
       </Grid>
       <form>
-        <Grid container className={classes.controlWrapper} style={{padding: treeChild ? 40 : '40px 100px'}}>
+        <Grid container className={classes.contentWrapper} style={{padding: treeChild ? 40 : '40px 100px'}}>
           {treeChild ? (
               <Grid item xs={4} container alignItems="center"  style={{transform: 'translateY(-20px)'}}>
                 <Tree params={treeChild} setChipData={setChipData}/>
@@ -105,7 +107,7 @@ const Form = () => {
       </form>
       {
         gridView ? (
-            <Grid item>
+            <Grid item className={classes.contentWrapper} style={{marginBottom: 40}}>
               <GridView/>
             </Grid>
         ) : null
