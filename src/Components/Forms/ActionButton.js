@@ -1,4 +1,5 @@
 import React from "react";
+import { useFormContext } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 
 const btnColorGenarator = type => {
@@ -29,13 +30,14 @@ const style = {
     width: 90
 }
 
-const viewHandler = ({ text, chipData, gridData, handleSubmit, setGridView }) => {
+const viewHandler = ({ text, chipData, gridData, handleSubmit, setGridView },data) => {
     setGridView(true);
-    // gridData.ControlSQl
 }
 
 const MenuButton = (props) => {
+    const { handleSubmit } = useFormContext() 
     const btnHandler = data => {
+        console.log(data)
         switch (props.text) {
             case "Post":
                 return '#16a085'
@@ -57,7 +59,7 @@ const MenuButton = (props) => {
         }    
     };
     return (
-        <Button variant="contained" style={{ ...style, backgroundColor: btnColorGenarator(props.text)}} onClick={props.handleSubmit(btnHandler)}>
+        <Button variant="contained" style={{ ...style, backgroundColor: btnColorGenarator(props.text)}} onClick={handleSubmit(btnHandler)}>
             {props.text}
         </Button>
     );

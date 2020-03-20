@@ -1,7 +1,9 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { TextField } from '@material-ui/core';
 
-const Input = ({ctrlName, ctrlLabel, register}) => {
+const Input = ({ctrlName}) => {
+    const { register } = useFormContext() 
     return (
         <TextField variant="outlined" name={ctrlName} inputRef={register} style={{width: '100%'}} id={ctrlName}/>
     )

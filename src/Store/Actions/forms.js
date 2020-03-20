@@ -4,13 +4,15 @@ import {
     STORE_FORM_CONTROL,
 } from './actionTypes'
 
-export const initiateFetchFormControl = menuParams => ({
+export const initiateFetchFormControl = (menuParams,hookForm) => ({
     type: INITIATE_FETCH_FORM_CONTROL,
-    menuParams
+    menuParams,
+    hookForm
 });
 
-export const fetchFormControl = () => ({
-  type: FETCH_FORM_CONTROL
+export const fetchFormControl = (hookForm) => ({
+  type: FETCH_FORM_CONTROL,
+  hookForm
 });
 
 export const storeFormControl = formsControl => ({

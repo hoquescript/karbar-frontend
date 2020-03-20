@@ -2,7 +2,10 @@ import { FETCH_FORM_CONTROL, STORE_FORM_CONTROL } from "../Actions/actionTypes";
 
 const initialState = {
     isFormLoading: true,
-    forms: []
+    forms: [],
+    chipData: [],
+    isGridLoading: true,
+    gridData: [],
 };
 
 const formReducer = (state = initialState, action) => {
@@ -10,7 +13,7 @@ const formReducer = (state = initialState, action) => {
         case FETCH_FORM_CONTROL:
             return {
                 ...state,
-                isFormLoading: true
+                isFormLoading: true,
             };
         case STORE_FORM_CONTROL:
             return {

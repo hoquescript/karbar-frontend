@@ -4,7 +4,7 @@ import { MdPlaylistAdd } from 'react-icons/md';
 import { initiateFetchFormControl } from "../Store/Actions/forms";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from "@material-ui/core";
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, FormContext } from 'react-hook-form';
 
 import Loading from '../Components/Util/Loading/Loading'
 import Control from "../Components/Forms/Control";
@@ -59,11 +59,11 @@ const useStyles = makeStyles(theme => ({
 
 const Form = () => {
   const classes = useStyles();
-  const { register, handleSubmit, watch, errors, control } = useForm();
+  const hookFormMethods = useForm();
 
   const menuParams = useSelector(state => state.menu.route.menuParams);
-  const controls = useSelector(state => state.forms.forms);
   const isLoading = useSelector(state => state.forms.isFormLoading);
+  const controls = useSelector(state => state.forms.forms);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -79,36 +79,32 @@ const Form = () => {
     if(ctrl.ControlName.startsWith("lbl")) return null;
     if(ctrl.ControlName.startsWith("Tre")) treeChild = ctrl.Params;
     if(ctrl.ControlName.startsWith("dgv")) gridData = ctrl
-    // setIsLoading(false)
     return (
-        <Control {...ctrl} chipData={chipData} register={register} Controller={Controller} control={control} key={ctrl.ControlName} style={{marginBottom: 10}}/>
+        <Control key={ctrl.ControlName} {...ctrl} chipData={chipData}/>
     )
   }) : null
-  console.log(controls)
 
   return(
-    <>
+    <FormContext {...hookFormMethods}> 
       <Grid container justify="space-between"  className={classes.actionWrapper}>
         <Grid item className={classes.bookmarkWrapper}>
           <MdPlaylistAdd className={classes.bookmarkIcon}/>
           <Typography variant="subtitle1">Add Bookmark</Typography>
         </Grid>
         <Grid item style={{padding: 20}}>
-          <ActionButton controls={controls} handleSubmit={handleSubmit} setGridView={setGridView} chipData={chipData} gridData={gridData}/>
+          <ActionButton controls={controls} setGridView={setGridView} chipData={chipData} gridData={gridData}/>
         </Grid>
       </Grid>
-      <form>
-        <Grid container className={classes.contentWrapper} style={{padding: treeChild ? 40 : '40px 100px'}}>
-          {treeChild ? (
-              <Grid item xs={4} container alignItems="center"  style={{transform: 'translateY(-20px)'}}>
-                <Tree params={treeChild} setChipData={setChipData}/>
-              </Grid>
-          ) : null}
-          <Grid item xs={treeChild ? 8 : 12}>
-            {isLoading ? <Loading/> : controlEl}
-          </Grid>
+      <Grid item container className={classes.contentWrapper} style={{padding: treeChild ? 40 : '40px 100px'}}>
+        {treeChild ? (
+            <Grid item xs={4} container alignItems="center"  style={{transform: 'translateY(-20px)'}}>
+              <Tree params={treeChild} setChipData={setChipData}/>
+            </Grid>
+        ) : null}
+        <Grid item xs={treeChild ? 8 : 12}>
+          {isLoading ? <Loading/> : controlEl}
         </Grid>
-      </form>
+      </Grid>
       {
         gridView ? (
             <Grid item className={classes.contentWrapper} style={{marginBottom: 40}}>
@@ -116,7 +112,7 @@ const Form = () => {
             </Grid>
         ) : null
       }
-    </>
+    </FormContext>
   );
 };
 

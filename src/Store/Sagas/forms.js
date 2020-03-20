@@ -4,7 +4,7 @@ import * as actions from "../Actions/forms";
 
 export function* fetchFormControls(action){
     try {
-        yield put(actions.fetchFormControl())
+        yield put(actions.fetchFormControl(action.hookForm))
 
         const formData = yield Axios.get(`http://localhost:8080/control/${action.menuParams}`);
         const controls = formData.data;
