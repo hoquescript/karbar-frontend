@@ -8,6 +8,7 @@ import { useForm, FormContext } from 'react-hook-form';
 
 import Loading from '../Components/Util/Loading/Loading'
 import Control from "../Components/Forms/Control";
+import GridControl from "../Components/Forms/GridControl/GridControl";
 import Tree from "../Components/Forms/Tree"
 import ActionButton from "../Components/Forms/ActionButton";
 import GridView from "../Components/Forms/GridView";
@@ -74,7 +75,12 @@ const Form = () => {
 
 
   let treeChild, gridSQL;
+  let gridControlChild = [];
   const controlEl = controls ? controls.map(ctrl => {
+    if(ctrl.IsGridControl) {
+      gridControlChild.push(ctrl);
+      return;
+    }
     if(ctrl.ControlName.startsWith("lbl")) return;  
     if(ctrl.ControlName.startsWith("Tre")) {
       treeChild = ctrl.Params;
@@ -88,7 +94,6 @@ const Form = () => {
         < Control key={ctrl.ControlName} {...ctrl} />
     )
   }) : null
-
   return(
     <FormContext {...hookFormMethods}> 
       <Grid container justify="space-between"  className={classes.actionWrapper}>
@@ -100,15 +105,27 @@ const Form = () => {
           <ActionButton controls={controls} gridSQL={gridSQL}/>
         </Grid>
       </Grid>
-      <Grid item container className={classes.contentWrapper} style={{padding: treeChild ? 40 : '40px 100px'}}>
-        {treeChild ? (
-            <Grid item xs={4} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
-              <Tree params={treeChild}/>
-            </Grid>
-        ) : null}
-        <Grid item xs={treeChild ? 8 : 12}>
-          {isLoading ? <Loading/> : controlEl}
-        </Grid>
+      <Grid item container className={classes.contentWrapper} style={{padding: 20,marginBottom: isGridView ? 20 : 40}}>
+        {
+          isLoading ? 
+            <Loading/> : (
+            <>
+              <div style={{padding: treeChild ? 40 : '40px 100px',width:'100%'}}>
+                {treeChild ? (
+                    <Grid item xs={4} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
+                      <Tree params={treeChild}/>
+                    </Grid>
+                ) : null}
+                <Grid item xs={treeChild ? 8 : 12}>
+                  {controlEl}
+                </Grid>
+              </div>
+              {gridControlChild.length > 0 ? (
+                <GridControl controls={gridControlChild}/>
+              ) : null }
+            </>
+          )
+        }
       </Grid>
       {
         isGridView ? (

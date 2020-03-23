@@ -22,9 +22,10 @@ export const menuPathSelection = (firstMenu, icon, secondMenu, thirdMenu) => ({
   thirdMenu
 });
 
-export const routeFinding = (path, menuParams) => ({
+export const routeFinding = (path, menuParams,displayField) => ({
   type: ROUTE_FINDING,
   path,
-  menuParams
+  menuParams,
+  displayField
 });
 

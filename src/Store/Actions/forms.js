@@ -3,8 +3,12 @@ import {
     FETCH_FORM_CONTROL,
     STORE_FORM_CONTROL,
     SET_CHIP_DATA,
+    ADD_GRID_CONTROL_DATA,
+    EDIT_GRID_CONTROL_DATA,
+    DELETE_GRID_CONTROL_DATA,
     VIEW_REPORT_DATA,
     INITIATE_FETCH_REPORT_DATA,
+    STORE_REPORT_DATA
 } from './actionTypes'
 
 export const initiateFetchFormControl = (menuParams) => ({
@@ -26,14 +30,34 @@ export const setChipData = chipData => ({
   chipData
 });
 
-export const viewReportData = (gridSql,data) => ({
+export const addGridControlData = gridControlData => ({
+  type: ADD_GRID_CONTROL_DATA,
+  gridControlData
+});
+
+export const editGridControlData = gridControlData => ({
+  type: EDIT_GRID_CONTROL_DATA,
+  gridControlData
+});
+
+export const deleteGridControlData = gridControlKey => ({
+  type: DELETE_GRID_CONTROL_DATA,
+  gridControlKey
+});
+
+export const viewReportData = (gridSQL, data, chipData) => ({
   type: VIEW_REPORT_DATA,
-  gridSql,
-  data
+  gridSQL,
+  data,
+  chipData
 });
 
 export const initiateFetchReportData = () => ({
   type: INITIATE_FETCH_REPORT_DATA
 });
 
+export const storeReportData = (reportData) => ({
+  type: STORE_REPORT_DATA,
+  reportData
+});
 

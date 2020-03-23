@@ -2,7 +2,7 @@ import React from "react";
 import { useFormContext, Controller } from 'react-hook-form';
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
-const ComboBox = ({ctrlName, ctrlLabel, params}) => {
+const ComboBox = ({ctrlName, ctrlLabel, params, placeHolder}) => {
     const { control } = useFormContext();
 
     const inputLabel = React.useRef(null);
@@ -11,11 +11,11 @@ const ComboBox = ({ctrlName, ctrlLabel, params}) => {
         setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
     return (
-        <FormControl variant="outlined" name={ctrlName} style={{ width: "100%", height: 50 }}>
+        <FormControl variant="outlined" size="small" name={ctrlName} style={{ width: "100%" }}>
             <InputLabel ref={inputLabel}>{ctrlLabel}</InputLabel>
             <Controller
                 as={
-                    <Select value={""} labelWidth={labelWidth}>
+                    <Select value={""} labelWidth={labelWidth} value={placeHolder || ''}>
                         {params && params.length > 0 ? (
                             params.map(({ ACode, AHead }) => (
                                 <MenuItem
@@ -31,7 +31,7 @@ const ComboBox = ({ctrlName, ctrlLabel, params}) => {
                     </Select>
                 }
                 name = {ctrlName}
-                defaultValue = ''
+                defaultValue = {''}
                 control = {control}
             />
         </FormControl>

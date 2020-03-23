@@ -1,17 +1,27 @@
-import React from 'react';
-import { useFormContext } from 'react-hook-form';
-import { TextField } from '@material-ui/core';
+import React from "react";
+import { useFormContext } from "react-hook-form";
+import { TextField } from "@material-ui/core";
 
-const Input = ({ctrlName}) => {
-    const { register } = useFormContext() 
+const Input = ({ ctrlName, placeHolder }) => {
+    const { register } = useFormContext();
     return (
-        <TextField variant="outlined" name={ctrlName} inputRef={register} style={{width: '100%'}} id={ctrlName}/>
-    )
-}
+        <TextField
+            variant="outlined"
+            size="small"
+            name={ctrlName}
+            inputRef={register}
+            fullWidth
+            placeholder={placeHolder}
+            value={placeHolder || null}
+            id={ctrlName}
+        />
+    );
+};
 
 export default Input;
 
-{/* <TextField
+{
+    /* <TextField
 variant="outlined"
 margin="normal"
 required
@@ -24,4 +34,5 @@ name="name"
 autoComplete="name"
 InputLabelProps={{ className: classes.label }}
 style={{ marginBottom: xs ? 0 : "2rem" }}
-/> */}
+/> */
+}

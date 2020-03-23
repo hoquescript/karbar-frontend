@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { viewReportData } from "../../Store/Actions/forms";
 import { useFormContext } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
@@ -32,17 +32,24 @@ const style = {
     width: 90
 }
 
-const viewHandler = (dispatch, data, gridSQL) => {
-    dispatch(viewReportData(gridSQL, data))
+const viewHandler = (dispatch, data, gridSQL, chipData) => {
+    dispatch(viewReportData(gridSQL, data, chipData))
 }
+const postHandler = (data) => {
+    // dispatch(viewReportData(gridSQL, data, chipData))
+    console.log(data)
+}
+
 
 const MenuButton = ({ type, gridSQL }) => {
     const dispatch = useDispatch();
+    const chipData = useSelector(state => state.forms.chipData).map(chip => chip.key)
     const { handleSubmit } = useFormContext() 
     const btnHandler = data => {
         switch (type) {
             case "Post":
-                return '#16a085'
+                postHandler(data);
+                break;
             case "Journal":
                 return '#9b59b6'
             case "Print":
@@ -50,7 +57,7 @@ const MenuButton = ({ type, gridSQL }) => {
             case "Help":
                 return '#c44569'
             case "View":
-                viewHandler(dispatch, data, gridSQL);
+                viewHandler(dispatch, data, gridSQL, chipData);
                 break;
             case "Add":
                 return '#706fd3'

@@ -58,7 +58,7 @@ const SideDrawer = ({ data, collapsed, setIsHome }) => {
       const slugStr = slugStringGenarator(thirdMenu.AHead)
       // const componentStr = componentStringGenarator(thirdMenu.AHead) 
       // console.log(thirdMenu)
-      dispatch(routeFinding(slugStr,thirdMenu.MenuParams))
+      dispatch(routeFinding(slugStr,thirdMenu.MenuParams,thirdMenu.DisplayField))
       setIsHome(false)
     }
   }

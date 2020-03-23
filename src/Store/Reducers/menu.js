@@ -14,7 +14,8 @@ const initialState = {
   },
   route: {
     path: "",
-    menuParams: ""
+    menuParams: "",
+    displayField: ""
   }
 };
 
@@ -42,7 +43,8 @@ export default (state = initialState, action) => {
         ...state,
         route: {
           path: action.path,
-          menuParams: action.menuParams
+          menuParams: action.menuParams,
+          displayField: action.displayField
         }
       };
 

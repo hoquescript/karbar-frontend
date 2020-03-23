@@ -1,13 +1,23 @@
-import { FETCH_FORM_CONTROL, STORE_FORM_CONTROL, SET_CHIP_DATA, INITIATE_FETCH_REPORT_DATA } from "../Actions/actionTypes";
+import {
+    FETCH_FORM_CONTROL,
+    STORE_FORM_CONTROL,
+    SET_CHIP_DATA,
+    ADD_GRID_CONTROL_DATA,
+    EDIT_GRID_CONTROL_DATA,
+    DELETE_GRID_CONTROL_DATA,
+    INITIATE_FETCH_REPORT_DATA,
+    STORE_REPORT_DATA
+} from "../Actions/actionTypes";
 
 const initialState = {
     isFormLoading: true,
     forms: [],
     chipData: [],
+    gridControlData: [],
     gridData: {
         isGridView: false,
         isGridLoading: false,
-        gridSQL: '',
+        gridSQL: "",
         gridData: []
     }
 };
@@ -36,6 +46,21 @@ const formReducer = (state = initialState, action) => {
                 ...state,
                 chipData: action.chipData
             };
+        case ADD_GRID_CONTROL_DATA:
+            return {
+                ...state,
+                gridControlData: state.gridControlData.concat(action.gridControlData)
+            };
+        case EDIT_GRID_CONTROL_DATA:
+            return {
+                ...state,
+                gridControlData: state.gridControlData.filter(ctrl => ctrl.key !== action.gridControlKey)
+            };
+        case DELETE_GRID_CONTROL_DATA:
+            return {
+                ...state,
+                gridControlData: state.gridControlData.filter(ctrl => ctrl.key !== action.gridControlKey)
+            };
         case INITIATE_FETCH_REPORT_DATA:
             return {
                 ...state,
@@ -45,7 +70,17 @@ const formReducer = (state = initialState, action) => {
                     isGridLoading: true
                 }
             };
-    
+        case STORE_REPORT_DATA:
+            return {
+                ...state,
+                chipData: [],
+                gridData: {
+                    ...state.gridData,
+                    isGridLoading: false,
+                    gridData: action.reportData
+                }
+            };
+
         default:
             return state;
     }
