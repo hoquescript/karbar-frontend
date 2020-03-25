@@ -1,38 +1,24 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { TextField } from "@material-ui/core";
 
-const Input = ({ ctrlName, placeHolder }) => {
-    const { register } = useFormContext();
+const Input = ({ ctrlName, placeHolder, disabled, rowData, editControl, keyIndex }) => {
+    const { control } = useFormContext();
+    // console.log(rowData, editControl)
+    console.log(`${ctrlName}[${keyIndex}]`)
     return (
-        <TextField
+        <Controller
+            fullWidth
             variant="outlined"
             size="small"
+            disabled={rowData && rowData.key !== editControl}
             name={ctrlName}
-            inputRef={register}
-            fullWidth
-            placeholder={placeHolder}
-            value={placeHolder || null}
-            id={ctrlName}
+            // name={`table[${keyIndex}].${ctrlName}`}
+            defaultValue={placeHolder || ""}
+            as={TextField}
+            control={control}
         />
     );
 };
 
 export default Input;
-
-{
-    /* <TextField
-variant="outlined"
-margin="normal"
-required
-fullWidth
-id="name"
-onChange={handleChange}
-value={values.name}
-label="Full Name"
-name="name"
-autoComplete="name"
-InputLabelProps={{ className: classes.label }}
-style={{ marginBottom: xs ? 0 : "2rem" }}
-/> */
-}

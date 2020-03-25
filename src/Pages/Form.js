@@ -110,16 +110,16 @@ const Form = () => {
           isLoading ? 
             <Loading/> : (
             <>
-              <div style={{padding: treeChild ? 40 : '40px 100px',width:'100%'}}>
+              <Grid item container style={{padding: treeChild ? 40 : '40px 100px',width:'100%'}}>
                 {treeChild ? (
                     <Grid item xs={4} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
                       <Tree params={treeChild}/>
                     </Grid>
                 ) : null}
-                <Grid item xs={treeChild ? 8 : 12}>
+                <Grid item xs={treeChild ?  8 : 12}>
                   {controlEl}
                 </Grid>
-              </div>
+              </Grid>
               {gridControlChild.length > 0 ? (
                 <GridControl controls={gridControlChild}/>
               ) : null }

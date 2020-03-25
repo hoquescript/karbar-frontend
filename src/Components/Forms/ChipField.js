@@ -8,10 +8,12 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    padding: theme.spacing(0.8),
+    padding: theme.spacing(0.5),
     border: '1px solid #c1c1c1',
     borderRadius: 4,
-    minHeight: 55
+    minHeight: 45,
+    maxHeight: 130,
+    overflow: 'auto'
   },
   chip: {
     margin: theme.spacing(0.5),

@@ -1,44 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm, FormContext } from "react-hook-form";
-import { Table, TableBody } from "@material-ui/core";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow, Paper } from "@material-ui/core";
 import Control from "../Control";
 import ActionIcon from "../../Util/ActionIcon/ActionIcon";
 import GridControlHead from "./GridControlHead";
-import GridControlToolbar from "./GridControlToolbar";
-
-const rows = [];
-function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
-
-function getComparator(order, orderBy) {
-    return order === "desc"
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) return order;
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map(el => el[0]);
-}
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -64,129 +31,86 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function EnhancedTable({ controls }) {
+const GridControl = ({ controls }) => {
     const classes = useStyles();
-    const gridControlForm = useForm();
-    const [order, setOrder] = React.useState("asc");
-    const [orderBy, setOrderBy] = React.useState("calories");
-    const [selected, setSelected] = React.useState([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    // const [state, setstate] = useState({})
 
-    const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === "asc";
-        setOrder(isAsc ? "desc" : "asc");
-        setOrderBy(property);
-    };
-
-    const handleSelectAllClick = event => {
-        if (event.target.checked) {
-            const newSelecteds = rows.map(n => n.name);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
-    };
-
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected = [];
-
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1)
-            );
-        }
-
-        setSelected(newSelected);
-    };
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = event => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const isSelected = name => selected.indexOf(name) !== -1;
-
-    const emptyRows =
-        rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-    const gridControlData = useSelector(state => state.forms.gridControlData);
+    const defaultValues = {}
+    const hookForm = {}
     const refs = controls.map(ctrl => ctrl.ControlName);
+    refs.forEach(ref => {
+        defaultValues[ref] = ''
+        // hookForm[ref] = useForm()
+    });
+
+    const [editControl, setEditControl] = useState('')
+    const [isControlEditMode, setIsControlEditMode] = useState(false)
+    const gridControlData = useSelector(state => state.forms.gridControlData);
+    const rd = {}
+    // gridControlData.forEach(gc => {
+    //     hookForm[gc.key] = useForm(defaultValues)
+    // })
+    // console.log(rd)
+    // console.log(state)
+    const gridRowControlForm = useForm({defaultValues});
+    // console.log(rd)
+    // refs.map()
+
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                {/* <GridControlToolbar numSelected={selected.length} /> */}
-                <FormContext {...gridControlForm}>
-                    <TableContainer>
-                        <Table className={classes.table}>
-                            <GridControlHead
-                                classes={classes}
-                                numSelected={selected.length}
-                                order={order}
-                                orderBy={orderBy}
-                                onSelectAllClick={handleSelectAllClick}
-                                onRequestSort={handleRequestSort}
-                                rowCount={rows.length}
-                                headCells={controls}
-                            />
-                            <TableBody>
-                                <TableRow>
-                                    {controls.map(ctrl => (
-                                        <TableCell align="center" style={{borderRight: '1px solid rgb(210, 225, 238)'}}>
-                                            <Control
-                                                key={ctrl.ControlName}
-                                                {...ctrl}
-                                            />
-                                        </TableCell>
-                                    ))}
-                                    <TableCell>
-                                        <ActionIcon type="add" />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    {controls.map(ctrl => (
-                                        <TableCell align="center" style={{borderRight: '1px solid rgb(210, 225, 238)'}}>
-                                            <Control
-                                                key={ctrl.ControlName}
-                                                Placeholder={ctrl.ControlLabel}
-                                                {...ctrl}
-                                            />
-                                        </TableCell>
-                                    ))}
-                                    <TableCell>
-                                        <ActionIcon/>
-                                    </TableCell>
-                                </TableRow>
+                <TableContainer>
+                    <Table className={classes.table}>
+                        <GridControlHead
+                            classes={classes}
+                            headCells={controls}
+                            isControlEditMode={isControlEditMode}
+                            defaultValues={defaultValues}
+                        />
 
-                                {gridControlData
-                                    ? gridControlData.map(data => (
-                                          <TableRow>
-                                              {refs.map(ref => (
-                                                  <TableCell align="center" style={{borderRight: '1px solid rgb(210, 225, 238)'}}>
-                                                      {data[ref]}
-                                                  </TableCell>
-                                              ))}
-                                              <TableCell>
-                                                  <ActionIcon rowData={data}/>
-                                              </TableCell>
-                                          </TableRow>
-                                      ))
-                                    : null}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </FormContext>
+                        
+                        <TableBody>
+                            {gridControlData && gridControlData.map((data) => (
+                            <TableRow key={data.key}>
+                                <FormContext {...gridRowControlForm}>
+                                    {controls.map((ctrl,index) => (
+                                    <TableCell align="center" key={ctrl.ControlName} style={{borderRight: '1px solid rgb(210, 225, 238)'}}>
+                                        <Control
+                                            Placeholder={data[ctrl.ControlName]}
+                                            disabled ={rd[data.key]}
+                                            editControl={editControl}
+                                            rowData={data} 
+                                            keyIndex = {index}
+                                            {...ctrl}
+                                        />
+                                    </TableCell>
+                                    ))}
+                                    <TableCell>
+                                        <ActionIcon 
+                                            rowData={data} 
+                                            defaultValues={defaultValues} 
+                                            isControlEditMode={isControlEditMode} 
+                                            setIsControlEditMode={setIsControlEditMode}
+                                            editControl={editControl}
+                                            setEditControl={setEditControl}
+                                            rd={rd}
+                                        />
+                                    </TableCell>
+                                </FormContext>
+                            </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper>
+        </div>
+    );
+}
+
+export default GridControl;
+
+
+
                 {/* <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
@@ -196,10 +120,12 @@ export default function EnhancedTable({ controls }) {
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 /> */}
-            </Paper>
-        </div>
-    );
-}
+
+
+
+
+
+
 
 // {stableSort(rows, getComparator(order, orderBy))
 //     .slice(
@@ -250,3 +176,62 @@ export default function EnhancedTable({ controls }) {
 //             </TableRow>
 //         );
 //     })}
+
+
+
+
+    //-------------------------------------------------------- Start Form
+    // const [order, setOrder] = React.useState("asc");
+    // const [orderBy, setOrderBy] = React.useState("calories");
+    // const [selected, setSelected] = React.useState([]);
+    // const [page, setPage] = React.useState(0);
+    // const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    // const handleRequestSort = (event, property) => {
+    //     const isAsc = orderBy === property && order === "asc";
+    //     setOrder(isAsc ? "desc" : "asc");
+    //     setOrderBy(property);
+    // };
+
+    // const handleSelectAllClick = event => {
+    //     if (event.target.checked) {
+    //         const newSelecteds = rows.map(n => n.name);
+    //         setSelected(newSelecteds);
+    //         return;
+    //     }
+    //     setSelected([]);
+    // };
+
+    // const handleClick = (event, name) => {
+    //     const selectedIndex = selected.indexOf(name);
+    //     let newSelected = [];
+
+    //     if (selectedIndex === -1) {
+    //         newSelected = newSelected.concat(selected, name);
+    //     } else if (selectedIndex === 0) {
+    //         newSelected = newSelected.concat(selected.slice(1));
+    //     } else if (selectedIndex === selected.length - 1) {
+    //         newSelected = newSelected.concat(selected.slice(0, -1));
+    //     } else if (selectedIndex > 0) {
+    //         newSelected = newSelected.concat(
+    //             selected.slice(0, selectedIndex),
+    //             selected.slice(selectedIndex + 1)
+    //         );
+    //     }
+
+    //     setSelected(newSelected);
+    // };
+
+    // const handleChangePage = (event, newPage) => {
+    //     setPage(newPage);
+    // };
+
+    // const handleChangeRowsPerPage = event => {
+    //     setRowsPerPage(parseInt(event.target.value, 10));
+    //     setPage(0);
+    // };
+
+    // const isSelected = name => selected.indexOf(name) !== -1;
+
+    // const emptyRows =
+    //     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);

@@ -51,10 +51,20 @@ const formReducer = (state = initialState, action) => {
                 ...state,
                 gridControlData: state.gridControlData.concat(action.gridControlData)
             };
-        case EDIT_GRID_CONTROL_DATA:
+        case DELETE_GRID_CONTROL_DATA:
             return {
                 ...state,
                 gridControlData: state.gridControlData.filter(ctrl => ctrl.key !== action.gridControlKey)
+            };
+        case EDIT_GRID_CONTROL_DATA:
+            return {
+                ...state,
+                gridControlData: state.gridControlData.map(ctrl => {
+                    if(ctrl.key === action.key){
+                        return {...action.gridControlData, key: ctrl.key}
+                    }
+                    return ctrl;
+                })
             };
         case DELETE_GRID_CONTROL_DATA:
             return {

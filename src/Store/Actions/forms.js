@@ -35,8 +35,14 @@ export const addGridControlData = gridControlData => ({
   gridControlData
 });
 
-export const editGridControlData = gridControlData => ({
+export const deleteAllGridControlData = gridControlKey => ({
+  type: DELETE_GRID_CONTROL_DATA,
+  gridControlKey
+});
+
+export const editGridControlData = (key, gridControlData) => ({
   type: EDIT_GRID_CONTROL_DATA,
+  key,
   gridControlData
 });
 

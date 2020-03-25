@@ -14,12 +14,13 @@ const Control = props => {
         ControlName,
         Params,
         IsGridControl,
-        Placeholder
+        Placeholder,
+        disabled,rowData,editControl,keyIndex,index
     } = props;
     let inputEl;
-    switch (ControlElementType.trim()) {
+    switch (ControlElementType && ControlElementType.trim()) {
         case "textfield":
-            inputEl = <TextField ctrlName={ControlName} placeHolder={Placeholder}/>;
+            inputEl = <TextField ctrlName={ControlName} placeHolder={Placeholder} disabled={disabled} rowData={rowData} editControl={editControl} keyIndex={keyIndex}/>;
             break;
         case "select":
             inputEl = (
@@ -28,6 +29,7 @@ const Control = props => {
                     ctrlLabel={ControlLabel}
                     params={Params}
                     placeHolder={Placeholder}
+                    disabled={disabled}
                 />
             );
             break;
