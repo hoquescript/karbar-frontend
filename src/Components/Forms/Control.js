@@ -8,28 +8,28 @@ import Label from "./Label";
 import ChipField from "./ChipField";
 
 const Control = props => {
-    const {
-        ControlLabel,
-        ControlElementType,
-        ControlName,
-        Params,
-        IsGridControl,
-        Placeholder,
-        disabled,rowData,editControl,keyIndex,index
-    } = props;
+    const { ControlLabel, ControlElementType, ControlName, IsGridControl, Params, Placeholder, rowData, editControl } = props;
+
     let inputEl;
     switch (ControlElementType && ControlElementType.trim()) {
         case "textfield":
-            inputEl = <TextField ctrlName={ControlName} placeHolder={Placeholder} disabled={disabled} rowData={rowData} editControl={editControl} keyIndex={keyIndex}/>;
+            inputEl = (
+                <TextField
+                    ctrlName={ControlName}
+                    placeHolder={Placeholder}
+                    rowData={rowData}
+                    editControl={editControl}
+                />
+            );
             break;
         case "select":
             inputEl = (
                 <ComboBox
                     ctrlName={ControlName}
-                    ctrlLabel={ControlLabel}
                     params={Params}
                     placeHolder={Placeholder}
-                    disabled={disabled}
+                    rowData={rowData}
+                    editControl={editControl}
                 />
             );
             break;
@@ -60,7 +60,9 @@ const Control = props => {
                 {inputEl}
             </Grid>
         </Grid>
-    ) : inputEl;
+    ) : (
+        inputEl
+    );
 };
 
 export default Control;

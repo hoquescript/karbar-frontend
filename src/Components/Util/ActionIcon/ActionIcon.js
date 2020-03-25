@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 });
 
-const ActionIcon = ({ type, rowData, defaultValues, isControlEditMode, setIsControlEditMode ,editControl, setEditControl, rd }) => {
+const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { handleSubmit, reset} = useFormContext();
@@ -51,20 +51,12 @@ const ActionIcon = ({ type, rowData, defaultValues, isControlEditMode, setIsCont
     };
 
     const editBtnHandler = () => {
-
         setEditControl(rowData.key)
-        setIsControlEditMode(true)
     };
 
     const saveBtnHandler = data => {
-        console.log(data)
-        const defaultValues = {}
-        Object.keys(data).forEach(k => defaultValues[k] = '')
         dispatch(editGridControlData(rowData.key, data));
-        reset(defaultValues);
         setEditControl('')
-
-        setIsControlEditMode(false)
     };
 
     const deleteBtnHandler = data => {
@@ -100,38 +92,3 @@ const ActionIcon = ({ type, rowData, defaultValues, isControlEditMode, setIsCont
 };
 
 export default ActionIcon;
-
-{/* <div className={classes.root}>
-<div
-    style={{
-        backgroundColor: "#00aa0063",
-        marginRight: 5,
-        color: "#157915"
-    }}
-    className={classes.iconHolder}
-    onClick={editBtnHandler}
->
-    <MdEdit />
-</div>
-<div
-    style={{
-        backgroundColor: "rgba(255, 0, 0, 0.29)",
-        color: "rgb(217, 20, 20)"
-    }}
-    className={classes.iconHolder}
-    
->
-    <AiTwotoneDelete />
-</div>
-</div> */}
-
-
-        // <Button
-        //     variant="outlined"
-        //     color="primary"
-        //     startIcon={<MdAdd style={{ marginRight: "-7px" }} />}
-        //     style={{ borderRadius: 15, textTransform: "capitalize" }}
-        //     onClick={handleSubmit(addBtnHandler)}
-        // >
-        //     Add
-        // </Button>

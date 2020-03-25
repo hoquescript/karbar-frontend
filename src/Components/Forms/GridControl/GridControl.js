@@ -33,29 +33,17 @@ const useStyles = makeStyles(theme => ({
 
 const GridControl = ({ controls }) => {
     const classes = useStyles();
-    // const [state, setstate] = useState({})
 
     const defaultValues = {}
-    const hookForm = {}
     const refs = controls.map(ctrl => ctrl.ControlName);
     refs.forEach(ref => {
         defaultValues[ref] = ''
-        // hookForm[ref] = useForm()
     });
 
     const [editControl, setEditControl] = useState('')
     const [isControlEditMode, setIsControlEditMode] = useState(false)
     const gridControlData = useSelector(state => state.forms.gridControlData);
-    const rd = {}
-    // gridControlData.forEach(gc => {
-    //     hookForm[gc.key] = useForm(defaultValues)
-    // })
-    // console.log(rd)
-    // console.log(state)
     const gridRowControlForm = useForm({defaultValues});
-    // console.log(rd)
-    // refs.map()
-
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -64,11 +52,9 @@ const GridControl = ({ controls }) => {
                         <GridControlHead
                             classes={classes}
                             headCells={controls}
-                            isControlEditMode={isControlEditMode}
+                            // isControlEditMode={isControlEditMode}
                             defaultValues={defaultValues}
                         />
-
-                        
                         <TableBody>
                             {gridControlData && gridControlData.map((data) => (
                             <TableRow key={data.key}>
@@ -77,7 +63,6 @@ const GridControl = ({ controls }) => {
                                     <TableCell align="center" key={ctrl.ControlName} style={{borderRight: '1px solid rgb(210, 225, 238)'}}>
                                         <Control
                                             Placeholder={data[ctrl.ControlName]}
-                                            disabled ={rd[data.key]}
                                             editControl={editControl}
                                             rowData={data} 
                                             keyIndex = {index}
@@ -93,7 +78,6 @@ const GridControl = ({ controls }) => {
                                             setIsControlEditMode={setIsControlEditMode}
                                             editControl={editControl}
                                             setEditControl={setEditControl}
-                                            rd={rd}
                                         />
                                     </TableCell>
                                 </FormContext>
