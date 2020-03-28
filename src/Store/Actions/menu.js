@@ -1,5 +1,7 @@
 import {
   INITIATE_FETCH_MODULES_MENU,
+  FETCH_BASIC_MENU,
+  FETCH_MASTER_MENU,
   FETCH_MODULES_MENU,
   MENU_PATH_SELECTION,
   ROUTE_FINDING
@@ -7,6 +9,16 @@ import {
 
 export const fetchModulesMenu = () => ({
   type: INITIATE_FETCH_MODULES_MENU
+});
+
+export const storeBasicMenu = (basicMenu) => ({
+  type: FETCH_BASIC_MENU,
+  basicMenu
+});
+
+export const storeMasterMenu = (masterMenu) => ({
+  type: FETCH_MASTER_MENU,
+  masterMenu
 });
 
 export const storeModulesMenu = (modulesMenu) => ({
@@ -26,6 +38,5 @@ export const routeFinding = (path, menuParams,displayField) => ({
   type: ROUTE_FINDING,
   path,
   menuParams,
-  displayField
 });
 

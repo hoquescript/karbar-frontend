@@ -1,13 +1,16 @@
 import React from "react";
 import { Menu, Icon } from "antd";
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { slugStringGenarator } from '../../Constants/StringHelper'
 import { menuPathSelection, routeFinding } from '../../Store/Actions/menu'
 
 const { SubMenu } = Menu;
 
-const SideDrawer = ({ data, collapsed, setIsHome }) => {
+const SideDrawer = ({ data, collapsed, setIsHome, isBasic, isMaster }) => {
+  const dispatch = useDispatch()
+  const basicMenuData = useSelector ( state => state.menu.basicMenu )
+  const masterMenuData = useSelector ( state => state.menu.masterMenu )
 
   const style = {
     width: collapsed ? 256 : 0,
@@ -15,10 +18,56 @@ const SideDrawer = ({ data, collapsed, setIsHome }) => {
     transition: "width 0.3s"
   };
 
+  let basicMenu = null, masterMenu = null, formMenu = null, reportMenu = null;
+
+  //Rendering Basic Data
+  if(basicMenuData && isBasic && !isMaster){
+    basicMenu = basicMenuData.map(dt => (
+      <SubMenu key={dt.ACode} title={
+          <span>
+            <Icon type="form" />
+            <span>{dt.AHead}</span>
+          </span>
+        }        
+      > 
+      {
+        dt.children.length && dt.children.map(data => (
+          <Menu.Item key={data.ACode}>
+            <NavLink to={`/${slugStringGenarator(data.AHead)}`}>
+              {data.AHead}
+            </NavLink>
+          </Menu.Item>
+        ))
+      }
+      </SubMenu>
+    ))
+  }
+
+  //Rendering Master Data
+  if(masterMenuData && isMaster  && !isBasic){
+    masterMenu = masterMenuData.map(dt => (
+      <SubMenu key={dt.ACode} title={
+          <span>
+            <Icon type="form" />
+            <span>{dt.AHead}</span>
+          </span>
+        }        
+      > 
+      {
+        dt.children.length && dt.children.map(data => (
+          <Menu.Item key={data.ACode}>
+            <NavLink to={`/${slugStringGenarator(data.AHead)}`}>
+              {data.AHead}
+            </NavLink>
+          </Menu.Item>
+        ))
+      }
+      </SubMenu>
+    ))
+  }
+
   //Rendering form menu and reports menu
-  let formMenu = null,
-  reportMenu = null;
-  if(data){
+  if(data && !isBasic && !isMaster){
     if (data.formMenu) {
       formMenu = data.formMenu.map(dt => (
           <Menu.Item key={dt.ACode}>
@@ -40,11 +89,24 @@ const SideDrawer = ({ data, collapsed, setIsHome }) => {
   }
 
 
-  const dispatch = useDispatch()
   const subMenuHandler = (item) => {
-    if(data.formMenu || data.reportMenu){      
-      //Genarating slug of third level menu 
-      let thirdMenu =  null;
+    let thirdMenu =  null;
+
+    if(isBasic){
+      const secondACode = item.key.slice(0,4);
+      const secondMenu = basicMenuData.find(data => data.ACode === secondACode);
+      thirdMenu = secondMenu.children.find(data => data.ACode === item.key)
+      dispatch(menuPathSelection('Basic Data', secondMenu.IconName, secondMenu.AHead, thirdMenu.AHead))
+    }
+
+    if(isMaster){
+      const secondACode = item.key.slice(0,4);
+      const secondMenu = masterMenuData.find(data => data.ACode === secondACode);
+      thirdMenu = secondMenu.children.find(data => data.ACode === item.key)
+      dispatch(menuPathSelection('Master Data', secondMenu.IconName, secondMenu.AHead, thirdMenu.AHead))
+    }
+
+    if(!isBasic && !isMaster && (data.formMenu || data.reportMenu)){      
       if(item.key.startsWith('03')){
         thirdMenu = data.formMenu.find(dt => dt.ACode === item.key);       
         dispatch(menuPathSelection(data.AHead, data.IconName, 'Forms', thirdMenu.AHead))
@@ -53,36 +115,47 @@ const SideDrawer = ({ data, collapsed, setIsHome }) => {
         thirdMenu = data.reportMenu.find(dt => dt.ACode === item.key);
         dispatch(menuPathSelection(data.AHead, data.IconName, 'Reports', thirdMenu.AHead))
       }   
-
-      //Genarating
-      const slugStr = slugStringGenarator(thirdMenu.AHead)
-      // const componentStr = componentStringGenarator(thirdMenu.AHead) 
-      // console.log(thirdMenu)
-      dispatch(routeFinding(slugStr,thirdMenu.MenuParams,thirdMenu.DisplayField))
-      setIsHome(false)
     }
-  }
 
+    const slugStr = slugStringGenarator(thirdMenu.AHead)
+    dispatch(routeFinding(slugStr,thirdMenu.MenuParams))
+    setIsHome(false)
+  }
+  if(isBasic){
+    return (
+      <Menu style={style} mode="inline" onClick={subMenuHandler}>
+        {basicMenu}
+      </Menu>
+    ) 
+  }
+  if(isMaster){
+    return (
+      <Menu style={style} mode="inline" onClick={subMenuHandler}>
+        {masterMenu}
+      </Menu>
+    ) 
+  }
+  
   return (
-    <Menu style={style} defaultSelectedKeys={["1"]} defaultOpenKeys={["sub1","sub2"]} mode="inline" onClick={subMenuHandler}>
-      <SubMenu key="sub1" title={
-          <span>
-            <Icon type="form" />
-            <span>Forms</span>
-          </span>
-        }        
-      >
-        {formMenu}
-      </SubMenu>
-      <SubMenu key="sub2" title={
-          <span>
-            <Icon type="copy" />
-            <span>Reports</span>
-          </span>
-        }
-      >
-        {reportMenu}
-      </SubMenu>
+    <Menu style={style} mode="inline" onClick={subMenuHandler}>
+        <SubMenu key="sub1" title={
+            <span>
+              <Icon type="form" />
+              <span>Forms</span>
+            </span>
+          }        
+        >
+          {formMenu}
+        </SubMenu>
+        <SubMenu key="sub2" title={
+            <span>
+              <Icon type="copy" />
+              <span>Reports</span>
+            </span>
+          }
+        >
+          {reportMenu}
+        </SubMenu>
     </Menu>
   );
 };
