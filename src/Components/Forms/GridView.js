@@ -25,7 +25,7 @@ const TableView = () => {
 
     const rows = useSelector(state => state.forms.gridData.gridData);
     const columns = Object.keys(rows[0]);
-    console.log(columns)
+    // console.log(columns)
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -57,12 +57,12 @@ const TableView = () => {
                     </TableHead>
                     <TableBody>
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
-                        console.log(row)
+                        // console.log(row)
                         return (
                         <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                             {columns.map(column => {
                                 const value = row[column];
-                                console.log(value)
+                                // console.log(value)
                                 return (
                                     <TableCell key={column} align={column.align}>
                                     {column.format && typeof value === 'number' ? column.format(value) : value}

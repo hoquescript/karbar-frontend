@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { viewReportData } from "../../Store/Actions/forms";
+import { postFormData, viewReportData } from "../../Store/Actions/forms";
 import { useFormContext } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 
@@ -32,35 +32,38 @@ const style = {
     width: 90
 }
 
-const viewHandler = (dispatch, data, gridSQL, chipData) => {
-    dispatch(viewReportData(gridSQL, data, chipData))
-}
-const postHandler = (data) => {
-    // dispatch(viewReportData(gridSQL, data, chipData))
+const postHandler = (dispatch, data, chipData, gridControlData) => {
     console.log(data)
+    dispatch(postFormData(data, chipData, gridControlData))
+}
+
+const viewHandler = (dispatch, data, gridSQL, chipData) => {
+    console.log(2)
+    dispatch(viewReportData(gridSQL, data, chipData))
 }
 
 
 const MenuButton = ({ type, gridSQL }) => {
     const dispatch = useDispatch();
     const chipData = useSelector(state => state.forms.chipData).map(chip => chip.key)
+    const gridControlData = useSelector(state => state.forms.gridControlData)
     const { handleSubmit } = useFormContext() 
     const btnHandler = data => {
         switch (type) {
             case "Post":
-                postHandler(data);
-                break;
+                postHandler(dispatch, data, chipData, gridControlData);
+                return;
             case "Journal":
                 return '#9b59b6'
             case "Print":
                 return '#f39c12'
             case "Help":
                 return '#c44569'
+            case "Add":
+                return;
             case "View":
                 viewHandler(dispatch, data, gridSQL, chipData);
-                break;
-            case "Add":
-                return '#706fd3'
+                return;
             case "Delete":
                 return '#e17055'
             default:

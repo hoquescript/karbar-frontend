@@ -1,7 +1,7 @@
 import Axios from 'axios';
-import datefns from 'date-fns'
-import { put } from 'redux-saga/effects'
+import { put } from 'redux-saga/effects';
 import * as actions from "../Actions/forms";
+import DateHelper from '../../Constants/DateHelper'
 
 export function* fetchFormControls(action){
     try {
@@ -17,21 +17,23 @@ export function* fetchFormControls(action){
     }
 }
 
+export function* postFormData({data, chipData, gridControlData}){
+    try {
+        const formData = DateHelper(data)
+        const reportData = yield Axios.post(`http://localhost:8080/form-post`,{formData, chipData, gridControlData});
+
+        console.log(reportData)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export function* viewReportData({gridSQL, data, chipData}){
     try {
         yield put(actions.initiateFetchReportData())
-        for (const key in data) {
-            if(Object.prototype.toString.call(data[key]) === '[object Date]'){
-                const date = data[key];
-                const day = date.getDate()
-                const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-                const month = months[date.getMonth()];
-                const year = date.getFullYear();
-                data[key] = `${day} ${month} ${year}`
-            }
-        }
-
-        const reportData = yield Axios.post(`http://localhost:8080/report`,{gridSQL, data, chipData});
+        const formData = DateHelper(data)
+        console.log(formData)
+        const reportData = yield Axios.post(`http://localhost:8080/report`,{gridSQL, formData, chipData});
 
         yield put(actions.storeReportData(reportData.data))
 
@@ -39,3 +41,4 @@ export function* viewReportData({gridSQL, data, chipData}){
         console.log(error)
     }
 }
+

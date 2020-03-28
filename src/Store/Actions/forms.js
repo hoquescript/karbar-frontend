@@ -6,6 +6,7 @@ import {
     ADD_GRID_CONTROL_DATA,
     EDIT_GRID_CONTROL_DATA,
     DELETE_GRID_CONTROL_DATA,
+    POST_FORM_DATA,
     VIEW_REPORT_DATA,
     INITIATE_FETCH_REPORT_DATA,
     STORE_REPORT_DATA
@@ -49,6 +50,13 @@ export const editGridControlData = (key, gridControlData) => ({
 export const deleteGridControlData = gridControlKey => ({
   type: DELETE_GRID_CONTROL_DATA,
   gridControlKey
+});
+
+export const postFormData = (data, chipData, gridControlData) => ({
+  type: POST_FORM_DATA,
+  data,
+  chipData,
+  gridControlData
 });
 
 export const viewReportData = (gridSQL, data, chipData) => ({

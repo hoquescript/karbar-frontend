@@ -28,5 +28,4 @@ const ComboBox = ({ctrlName, params, placeHolder, rowData, editControl}) => {
         </FormControl>
     );
 };
-
 export default ComboBox;
