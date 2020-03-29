@@ -94,6 +94,7 @@ const Form = () => {
         < Control key={ctrl.ControlName} {...ctrl} />
     )
   }) : null
+  console.log(controlEl)
   return(
     <FormContext {...hookFormMethods}> 
       <Grid container justify="space-between"  className={classes.actionWrapper}>

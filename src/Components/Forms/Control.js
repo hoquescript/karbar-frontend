@@ -2,6 +2,8 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 
 import TextField from "./TextField";
+import PriceField from "./PriceField";
+// import TextField from "./TextField";
 import ComboBox from "./ComboBox";
 import DatePicker from "./DatePicker";
 import Label from "./Label";
@@ -12,7 +14,7 @@ const Control = props => {
 
     let inputEl;
     switch (ControlElementType && ControlElementType.trim()) {
-        case "textfield":
+        case "txt":
             inputEl = (
                 <TextField
                     ctrlName={ControlName}
@@ -22,7 +24,7 @@ const Control = props => {
                 />
             );
             break;
-        case "select":
+        case "cbo":
             inputEl = (
                 <ComboBox
                     ctrlName={ControlName}
@@ -33,12 +35,23 @@ const Control = props => {
                 />
             );
             break;
-        case "date":
+        case "dtp":
             inputEl = <DatePicker ctrlName={ControlName} />;
             break;
-        case "chipfield":
+        case "chp":
             inputEl = <ChipField />;
             break;
+        case "cur":
+            inputEl = (
+                <PriceField
+                    ctrlName={ControlName}
+                    placeHolder={Placeholder}
+                    rowData={rowData}
+                    editControl={editControl}
+                />
+            );
+            break;
+    
         default:
             break;
     }

@@ -20,8 +20,8 @@ const GridControlHead = props => {
                         align="center"
                         style={{
                             textAlign: "center",
-                            width: `${headCell.GridWidth.trim()}%`,
-                            borderRight: "1px solid rgb(210, 225, 238)"
+                            width: `${headCell.GridWidth}%`,
+                            borderRight: "1px solid rgb(210, 225, 238)" 
                         }}
                     >
                         <TableSortLabel>
