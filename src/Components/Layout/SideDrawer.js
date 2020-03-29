@@ -137,8 +137,8 @@ const SideDrawer = ({ data, collapsed, setIsHome, isBasic, isMaster }) => {
   }
   
   return (
-    <Menu style={style} mode="inline" onClick={subMenuHandler}>
-        <SubMenu key="sub1" title={
+    <Menu style={style} mode="inline" defaultOpenKeys={['form', 'report']} onClick={subMenuHandler}>
+        <SubMenu key="form" title={
             <span>
               <Icon type="form" />
               <span>Forms</span>
@@ -147,7 +147,7 @@ const SideDrawer = ({ data, collapsed, setIsHome, isBasic, isMaster }) => {
         >
           {formMenu}
         </SubMenu>
-        <SubMenu key="sub2" title={
+        <SubMenu key="report" title={
             <span>
               <Icon type="copy" />
               <span>Reports</span>

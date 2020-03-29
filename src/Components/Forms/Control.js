@@ -63,7 +63,7 @@ const Control = props => {
             direction="row"
             alignItems="center"
             justify="space-around"
-            xs={12}
+            xs={9}
             style={{ marginBottom: 20 }}
         >
             <Grid item xs={3}>

@@ -7,7 +7,7 @@ import {
 } from "@material-ui/pickers";
 
 const DatePicker = ({ ctrlName }) => {
-    const { control } = useFormContext();
+    const { control, errors } = useFormContext();
     
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -18,12 +18,15 @@ const DatePicker = ({ ctrlName }) => {
                         autoOk
                         inputVariant="outlined"
                         format="dd/MM/yyyy"
-                        margin="normal"
                         size="small"
                     />
                 }
                 control={control}
                 name={ctrlName}
+                defaultValue=""
+                rules={{required: true}}
+                error={errors[ctrlName]}
+                helperText={errors[ctrlName] && '* Your Input is Required'}
             />
         </MuiPickersUtilsProvider>
     );

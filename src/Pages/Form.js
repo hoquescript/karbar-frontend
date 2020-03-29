@@ -76,7 +76,7 @@ const Form = () => {
 
   let treeChild, gridSQL;
   let gridControlChild = [];
-  const controlEl = controls ? controls.map(ctrl => {
+  const controlEl = controls && controls.map(ctrl => {
     if(ctrl.IsGridControl) {
       gridControlChild.push(ctrl);
       return;
@@ -93,8 +93,7 @@ const Form = () => {
     return (
         < Control key={ctrl.ControlName} {...ctrl} />
     )
-  }) : null
-  console.log(controlEl)
+  })
   return(
     <FormContext {...hookFormMethods}> 
       <Grid container justify="space-between"  className={classes.actionWrapper}>
@@ -111,32 +110,33 @@ const Form = () => {
           isLoading ? 
             <Loading/> : (
             <>
-              <Grid item container style={{padding: treeChild ? 40 : '40px 100px',width:'100%'}}>
-                {treeChild ? (
+              <Grid item container style={{padding: 40, width:'100%'}}>
+                {treeChild && (
                     <Grid item xs={4} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
                       <Tree params={treeChild}/>
                     </Grid>
-                ) : null}
-                <Grid item xs={treeChild ?  8 : 12}>
+                )}
+                <Grid item container justify="center" alignItems="center" xs={treeChild ?  8 : 12}>
                   {controlEl}
                 </Grid>
               </Grid>
-              {gridControlChild.length > 0 ? (
+              {gridControlChild.length > 0 && (
                 <GridControl controls={gridControlChild}/>
-              ) : null }
+              )}
             </>
           )
         }
       </Grid>
       {
-        isGridView ? (
+        isGridView && (
             <Grid item className={classes.contentWrapper} style={{marginBottom: 40}}>
               <GridView/>
             </Grid>
-        ) : null
+        )
       }
     </FormContext>
   );
 };
 
 export default Form;
+// treeChild ? 40 : '40px 100px'
