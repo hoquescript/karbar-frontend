@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { initiateFetchFormControl } from "../Store/Actions/forms";
 import { MdPlaylistAdd } from 'react-icons/md';
@@ -45,7 +45,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: 20,
     minHeight: 350,
     backgroundColor: '#fff',
-    position: 'relative',
     '&::before': {
       content: "''",
       width: 0,
@@ -79,16 +78,16 @@ const Form = () => {
   const controlEl = controls && controls.map(ctrl => {
     if(ctrl.IsGridControl) {
       gridControlChild.push(ctrl);
-      return;
+      return null;
     }
-    if(ctrl.ControlName.startsWith("lbl")) return;  
+    if(ctrl.ControlName.startsWith("lbl"))return null;
     if(ctrl.ControlName.startsWith("Tre")) {
       treeChild = ctrl.Params;
-      return;
+      return null;
     }
     if(ctrl.ControlName.startsWith("dgv")) {
       gridSQL = genarateSQL(ctrl)
-      return;
+      return null;
     }
     return (
         < Control key={ctrl.ControlName} {...ctrl} />

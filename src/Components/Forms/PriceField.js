@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { TextField } from "@material-ui/core";
 import taka from "../../Assets/Taka.svg";
@@ -54,7 +54,7 @@ const PriceField = ({ ctrlName, placeHolder, rowData, editControl }) => {
                 control={control}
             />
             <div className={classes.iconWrapper}>
-                <img src={taka} className={classes.icon} />
+                <img src={taka} className={classes.icon} alt='$'/>
             </div>
         </div>
     );

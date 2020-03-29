@@ -3,6 +3,7 @@ import {
     STORE_FORM_CONTROL,
     SET_CHIP_DATA,
     ADD_GRID_CONTROL_DATA,
+    DELETE_ALL_GRID_CONTROL_DATA,
     EDIT_GRID_CONTROL_DATA,
     DELETE_GRID_CONTROL_DATA,
     INITIATE_FETCH_REPORT_DATA,
@@ -51,7 +52,7 @@ const formReducer = (state = initialState, action) => {
                 ...state,
                 gridControlData: state.gridControlData.concat(action.gridControlData)
             };
-        case DELETE_GRID_CONTROL_DATA:
+        case DELETE_ALL_GRID_CONTROL_DATA:
             return {
                 ...state,
                 gridControlData: state.gridControlData.filter(ctrl => ctrl.key !== action.gridControlKey)

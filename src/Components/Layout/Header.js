@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../../Assets/logo-color.png";
 import HeaderSubMenu from "./HeaderSubMenu";
-import { Menu, Icon, Dropdown, Input, Row, Col } from "antd";
-const { SubMenu } = Menu;
+import { Icon, Dropdown, Input } from "antd";
+import IconGenarator from '../Util/IconGenarator/IconGenarator'
 
 const HeaderMenu = props => {
   const handleButtonClick = () => {
@@ -32,26 +32,20 @@ const HeaderMenu = props => {
         </SearchBoxWrapper>
 
         <SettingsMenuWrapper>
-          <Dropdown  overlay={<HeaderSubMenu/>} onClick={handleButtonClick} overlay={<HeaderSubMenu/>} trigger={["hover","click"]}>
-            <a className="ant-dropdown-link" href="#">
+          <Dropdown overlay={<HeaderSubMenu/>} onClick={handleButtonClick} trigger={["hover","click"]}>
               <IconWrapper>
-                <Icon style={{ fontSize: 25 }} type="setting" />
+                {IconGenarator('Home')}
               </IconWrapper>
-            </a>
           </Dropdown>
           <Dropdown overlay={<HeaderSubMenu/>} trigger={["click"]} style={{marginLeft: 5}}>
-            <a className="ant-dropdown-link" href="#">
               <IconWrapper>
                 <Icon style={{ fontSize: 25 }} type="bell" />
               </IconWrapper>
-            </a>
           </Dropdown>
           <Dropdown  overlay={<HeaderSubMenu/>} trigger={["click"]} style={{marginLeft: 5}}>
-            <a className="ant-dropdown-link" href="#">
               <IconWrapper>
                 <Icon style={{ fontSize: 25 }} type="github" />
               </IconWrapper>
-            </a>
           </Dropdown>
         </SettingsMenuWrapper>
       </Menubar>

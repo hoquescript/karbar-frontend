@@ -25,7 +25,7 @@ const DatePicker = ({ ctrlName }) => {
                 name={ctrlName}
                 defaultValue=""
                 rules={{required: true}}
-                error={errors[ctrlName]}
+                error={errors && errors[ctrlName] ? true : false}
                 helperText={errors[ctrlName] && '* Your Input is Required'}
             />
         </MuiPickersUtilsProvider>

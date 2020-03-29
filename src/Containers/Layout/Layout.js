@@ -1,6 +1,11 @@
 import React, { useState, useEffect, } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { Layout, Menu, Icon } from "antd";
+import {
+  HomeOutlined,
+  PicCenterOutlined,
+  ApartmentOutlined,
+} from '@ant-design/icons'
 import { NavLink } from 'react-router-dom';
 import Header from "../../Components/Layout/Header";
 import SideDrawer from "../../Components/Layout/SideDrawer";
@@ -9,7 +14,7 @@ import { fetchModulesMenu } from "../../Store/Actions/menu"
 import Form from "../Form/Form";
 import Home from "../Home/Home";
 
-const { Content, Sider } = Layout;
+const { Sider } = Layout;
 
 const LayoutModel = props => {
   const dispatch = useDispatch();
@@ -31,7 +36,7 @@ const LayoutModel = props => {
   const subMenuHandler = (item, val) => {
     setCollapse(true)
 
-    if(item.key == 1){
+    if(parseInt(item.key) === 1){
       setSubMenuCollapse(false);
       setKey(1);
       setIsHome(true)
@@ -46,13 +51,13 @@ const LayoutModel = props => {
     }
     setKey(item.key);
 
-    if(item.key == 2){
+    if(parseInt(item.key) === 2){
       setIsBasic(true);
       setIsMaster(false);
       return;
     }
 
-    if(item.key == 3){
+    if(parseInt(item.key) === 3){
       setIsBasic(false)
       setIsMaster(true);
       return;
@@ -78,16 +83,16 @@ const LayoutModel = props => {
           <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" onClick={subMenuHandler} >
             <Menu.Item key="1">
               <NavLink to="/">
-                <Icon type="home" />
+                <HomeOutlined />
                 <span>Home</span>
               </NavLink>
             </Menu.Item>
             <Menu.Item key="2">
-              <Icon type="dashboard" />
+              <PicCenterOutlined />
               <span>Basic Data</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="history" />
+              <ApartmentOutlined />
               <span>Master Data</span>
             </Menu.Item>
             <div style={{ margin: "20px 10px", height: 2, background: "#fff" }}></div>

@@ -28,6 +28,7 @@ export function* fetchModulesMenu(action) {
               );
               return { ...menu, children };
             }
+            return null;
       }).filter(menu => menu);
       yield put(actions.storeBasicMenu(basicMenu));
 
@@ -39,6 +40,7 @@ export function* fetchModulesMenu(action) {
             );
             return { ...menu, children };
           }
+          return null;
       }).filter(menu => menu);
       yield put(actions.storeMasterMenu(masterMenu));
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     addGridControlData,
     editGridControlData,
@@ -11,7 +11,7 @@ import {
 import { useFormContext } from "react-hook-form";
 import { MdAdd, MdEdit, MdDeleteSweep, MdSave } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
-import { Grid, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles({
     root: {

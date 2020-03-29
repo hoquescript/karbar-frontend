@@ -4,7 +4,6 @@ import { setChipData } from "../../Store/Actions/forms";
 
 import { Tree, Tooltip } from "antd";
 
-const { TreeNode } = Tree;
 const nodeSeparator = params => {
   const node1 = [];
   const node2 = [];
@@ -55,6 +54,8 @@ const levelSeparator = node => {
         return;
       case 23:
         level7.push(nd);
+        return;
+      default:
         return;
     }
   });

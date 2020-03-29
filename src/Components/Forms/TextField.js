@@ -16,7 +16,7 @@ const Input = ({ ctrlName, placeHolder, rowData, editControl }) => {
                 as={TextField}
                 control={control}
                 rules={{required: true, maxLength: 2}}
-                error={errors[ctrlName]}
+                error={errors && errors[ctrlName] ? true : false}
                 helperText={errors[ctrlName] && '* Your Input is Required'}
             />
         </>
