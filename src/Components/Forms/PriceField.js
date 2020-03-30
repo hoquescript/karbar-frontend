@@ -52,6 +52,7 @@ const PriceField = ({ ctrlName, placeHolder, rowData, editControl }) => {
                 defaultValue={placeHolder || ""}
                 as={TextField}
                 control={control}
+                placeholder='0.00'
             />
             <div className={classes.iconWrapper}>
                 <img src={taka} className={classes.icon} alt='$'/>

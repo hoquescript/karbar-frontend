@@ -13,6 +13,7 @@ import SideDrawer from "../../Components/Layout/SideDrawer";
 import { fetchModulesMenu } from "../../Store/Actions/menu"
 import Form from "../Form/Form";
 import Home from "../Home/Home";
+import IconGenarator from "../../Components/Util/IconGenarator/IconGenarator";
 
 const { Sider } = Layout;
 
@@ -98,7 +99,7 @@ const LayoutModel = props => {
             <div style={{ margin: "20px 10px", height: 2, background: "#fff" }}></div>
             {modulesMenu.map(menu => (
               <Menu.Item key={menu.ACode}>
-                <Icon type={menu.IconName} />
+                {IconGenarator(menu.IconName)}
                 <span>{menu.AHead}</span>
               </Menu.Item>
             ))}

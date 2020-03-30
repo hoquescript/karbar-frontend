@@ -1,14 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../Assets/logo-color.png";
-import HeaderSubMenu from "./HeaderSubMenu";
 import { Icon, Dropdown, Input } from "antd";
-import IconGenarator from '../Util/IconGenarator/IconGenarator'
+import Profile from "./HeaderMenu/Profile";
+import Notification from "./HeaderMenu/Notifcation";
+import Settings from "./HeaderMenu/Settings";
+import { makeStyles } from '@material-ui/core/styles';
+import Bookmarks from "./HeaderMenu/Bookmarks";
+import Searchbar from "./Searchbar/Searchbar";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  paper: {
+    marginRight: theme.spacing(2),
+  },
+}));
+
 
 const HeaderMenu = props => {
-  const handleButtonClick = () => {
-
-  }
+  const classes = useStyles();
   return (
     <Layout>
       <MenuCollapse onClick={props.collapseMenu} style={props.collapse ? {minWidth: 80} : {minWidth: 220}}>
@@ -19,8 +31,8 @@ const HeaderMenu = props => {
         <LogoWrapper>
           <Logo src={logo} alt="Logo of Dot Bangladesh" />
         </LogoWrapper>
-
-        <SearchBoxWrapper>
+        <Searchbar/>
+        {/* <SearchBoxWrapper>
           <Input.Search
             placeholder="Search Menu"
             onSearch={value => console.log(value)}
@@ -29,26 +41,15 @@ const HeaderMenu = props => {
             size="large"
             allowClear={true}
           />
-        </SearchBoxWrapper>
-
-        <SettingsMenuWrapper>
-          <Dropdown overlay={<HeaderSubMenu/>} onClick={handleButtonClick} trigger={["hover","click"]}>
-              <IconWrapper>
-                {IconGenarator('Home')}
-              </IconWrapper>
-          </Dropdown>
-          <Dropdown overlay={<HeaderSubMenu/>} trigger={["click"]} style={{marginLeft: 5}}>
-              <IconWrapper>
-                <Icon style={{ fontSize: 25 }} type="bell" />
-              </IconWrapper>
-          </Dropdown>
-          <Dropdown  overlay={<HeaderSubMenu/>} trigger={["click"]} style={{marginLeft: 5}}>
-              <IconWrapper>
-                <Icon style={{ fontSize: 25 }} type="github" />
-              </IconWrapper>
-          </Dropdown>
-        </SettingsMenuWrapper>
+        </SearchBoxWrapper> */}
+        <IconWrapper>
+          <Bookmarks/>
+          <Notification/>
+          <Settings/>
+          <Profile/>
+        </IconWrapper>
       </Menubar>
+      
     </Layout>
   );
 };
@@ -68,11 +69,12 @@ const MenuCollapse = styled.div`
 `;
 
 const Menubar = styled.div`
-  flex-grow: 1;
+  /* flex-grow: 1; */
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -80,7 +82,7 @@ const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 265px;
+  /* width: 265px; */
 `;
 
 const Logo = styled.img`
@@ -88,7 +90,7 @@ const Logo = styled.img`
 `;
 
 const SearchBoxWrapper = styled.div`
-  flex-grow:5;
+  /* flex-grow:5; */
   height:100%;
   display: flex;
   justify-content: center;
@@ -98,7 +100,7 @@ const SettingsMenuWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-grow:2;
+  /* flex-grow:2; */
 `;
 
 const IconWrapper = styled.div`
@@ -114,3 +116,21 @@ const IconWrapper = styled.div`
 
 
 export default HeaderMenu;
+
+{/* <SettingsMenuWrapper>
+<Dropdown overlay={<HeaderSubMenu/>} onClick={handleButtonClick} trigger={["hover","click"]}>
+    <IconWrapper>
+      {IconGenarator('Home')}
+    </IconWrapper>
+</Dropdown>
+<Dropdown overlay={<HeaderSubMenu/>} trigger={["click"]} style={{marginLeft: 5}}>
+    <IconWrapper>
+      <Icon style={{ fontSize: 25 }} type="bell" />
+    </IconWrapper>
+</Dropdown>
+<Dropdown  overlay={<HeaderSubMenu/>} trigger={["click"]} style={{marginLeft: 5}}>
+    <IconWrapper>
+      <Icon style={{ fontSize: 25 }} type="github" />
+    </IconWrapper>
+</Dropdown>
+</SettingsMenuWrapper> */}
