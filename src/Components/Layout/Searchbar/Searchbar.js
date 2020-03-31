@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: 'aliceblue',
         },
         '&::-webkit-input-placeholder' : {
-            fontSize: '1.4rem',
-            fontWeight: 100,
-            color: 'blue',
+            // fontSize: '1.4rem',
+            // fontWeight: 100,
+            // color: 'blue',
         }
     },
     button: {

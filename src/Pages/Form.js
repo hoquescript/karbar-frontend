@@ -66,7 +66,7 @@ const Form = () => {
   const isLoading = useSelector(state => state.forms.isFormLoading);
   const controls = useSelector(state => state.forms.forms);
   const isGridView = useSelector(state => state.forms.gridData.isGridView);
-
+  console.log(controls)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(initiateFetchFormControl(menuParams));

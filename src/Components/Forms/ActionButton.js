@@ -79,7 +79,7 @@ const MenuButton = ({ type, gridSQL }) => {
 
 const ActionButton = ({ controls, gridSQL }) => {
     const menuButton =
-        controls.length > 0 ? controls[0].MenuButton.split("~") : null;
+        controls.length > 0 && controls[0].MenuButton && controls[0].MenuButton.split("~");
     const buttons = menuButton
         ? menuButton.map(btnType => <MenuButton key={btnType} type={btnType} gridSQL={gridSQL}/>)
         : null;

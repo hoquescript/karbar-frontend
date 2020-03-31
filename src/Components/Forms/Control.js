@@ -53,6 +53,14 @@ const Control = props => {
             break;
     
         default:
+            inputEl = (
+                <TextField
+                    ctrlName={ControlName}
+                    placeHolder={Placeholder}
+                    rowData={rowData}
+                    editControl={editControl}
+                />
+            );
             break;
     }
 

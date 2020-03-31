@@ -31,17 +31,9 @@ const HeaderMenu = props => {
         <LogoWrapper>
           <Logo src={logo} alt="Logo of Dot Bangladesh" />
         </LogoWrapper>
+        
         <Searchbar/>
-        {/* <SearchBoxWrapper>
-          <Input.Search
-            placeholder="Search Menu"
-            onSearch={value => console.log(value)}
-            enterButton
-            style= {{width: 600, borderRadius: 25}}
-            size="large"
-            allowClear={true}
-          />
-        </SearchBoxWrapper> */}
+
         <IconWrapper>
           <Bookmarks/>
           <Notification/>
