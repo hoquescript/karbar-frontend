@@ -119,7 +119,6 @@ const SideDrawer = ({ data, collapsed, setIsHome, isBasic, isMaster }) => {
 
     const slugStr = slugStringGenarator(thirdMenu.AHead)
     dispatch(routeFinding(slugStr,thirdMenu.MenuParams))
-    setIsHome(false)
   }
   if(isBasic){
     return (

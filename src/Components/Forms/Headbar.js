@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Breadcrumb, Icon } from "antd";
+import { Breadcrumb, Icon } from "antd";
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from "react-redux"
 import { Grid, Typography } from '@material-ui/core';
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
         padding: '5px'
     }
 }));
-  
+
 const Headbar = () => {
     const classes = useStyles();
     const {icon, first, second, third} = useSelector ( state => state.menu.menuPathways )
@@ -62,15 +62,4 @@ const Headbar = () => {
     )
 }
 
-const Form = (props) => {
-    return (
-        <>
-            <Headbar/>
-            <Layout.Content style={{padding: '20px 200px', margin: 0, maxHeight: 800 }}>
-                {props.children}
-            </Layout.Content>
-        </>
-    )
-}
-
-export default Form
+export default Headbar;

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { initiateFetchFormControl } from "../Store/Actions/forms";
-import { MdPlaylistAdd } from 'react-icons/md';
+import { AppstoreAddOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Box } from "@material-ui/core";
 import { useForm, FormContext } from 'react-hook-form';
-
+import Headbar from '../Components/Forms/Headbar';
 import Loading from '../Components/Util/Loading/Loading'
 import Control from "../Components/Forms/Control";
 import GridControl from "../Components/Forms/GridControl/GridControl";
@@ -66,7 +66,7 @@ const Form = () => {
   const isLoading = useSelector(state => state.forms.isFormLoading);
   const controls = useSelector(state => state.forms.forms);
   const isGridView = useSelector(state => state.forms.gridData.isGridView);
-  console.log(controls)
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(initiateFetchFormControl(menuParams));
@@ -93,49 +93,54 @@ const Form = () => {
         < Control key={ctrl.ControlName} {...ctrl} />
     )
   })
+
   return(
-    <FormContext {...hookFormMethods}> 
-      <Grid container justify="space-between"  className={classes.actionWrapper}>
-        <Grid item className={classes.bookmarkWrapper}>
-          <MdPlaylistAdd className={classes.bookmarkIcon}/>
-          <Typography variant="subtitle1">Add Bookmark</Typography>
-        </Grid>
-        <Grid item style={{padding: 20}}>
-          <ActionButton controls={controls} gridSQL={gridSQL}/>
-        </Grid>
-      </Grid>
-      <Grid item container className={classes.contentWrapper} style={{padding: 20,marginBottom: isGridView ? 20 : 40}}>
-        {
-          isLoading ? 
-            <Loading/> : (
-            <>
-              <Grid item container style={{padding: 40, width:'100%'}}>
-                {treeChild && (
-                    <Grid item xs={4} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
-                      <Tree params={treeChild}/>
-                    </Grid>
-                )}
-                <Grid item container justify="center" alignItems="center" xs={treeChild ?  8 : 12}>
-                  {controlEl}
-                </Grid>
-              </Grid>
-              {gridControlChild.length > 0 && (
-                <GridControl controls={gridControlChild}/>
-              )}
-            </>
-          )
-        }
-      </Grid>
-      {
-        isGridView && (
-            <Grid item className={classes.contentWrapper} style={{marginBottom: 40}}>
-              <GridView/>
+    <>
+      <Headbar/>
+      <Box style={{padding: '20px 200px', margin: 0, maxHeight: 800 }}>
+        <FormContext {...hookFormMethods}> 
+          <Grid container justify="space-between"  className={classes.actionWrapper}>
+            <Grid item className={classes.bookmarkWrapper}>
+              <AppstoreAddOutlined className={classes.bookmarkIcon}/>
+              <Typography variant="subtitle1">Add Bookmark</Typography>
             </Grid>
-        )
-      }
-    </FormContext>
+            <Grid item style={{padding: 20}}>
+              <ActionButton controls={controls} gridSQL={gridSQL}/>
+            </Grid>
+          </Grid>
+          <Grid item container className={classes.contentWrapper} style={{padding: 20,marginBottom: isGridView ? 20 : 40}}>
+            {
+              isLoading ? 
+                <Loading/> : (
+                <>
+                  <Grid item container style={{padding: 40, width:'100%'}}>
+                    {treeChild && (
+                        <Grid item xs={4} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
+                          <Tree params={treeChild}/>
+                        </Grid>
+                    )}
+                    <Grid item container justify="center" alignItems="center" xs={treeChild ?  8 : 12}>
+                      {controlEl}
+                    </Grid>
+                  </Grid>
+                  {gridControlChild.length > 0 && (
+                    <GridControl controls={gridControlChild}/>
+                  )}
+                </>
+              )
+            }
+          </Grid>
+          {
+            isGridView && (
+                <Grid item className={classes.contentWrapper} style={{marginBottom: 40}}>
+                  <GridView/>
+                </Grid>
+            )
+          }
+        </FormContext>
+      </Box>
+    </>
   );
 };
 
 export default Form;
-// treeChild ? 40 : '40px 100px'

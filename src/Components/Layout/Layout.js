@@ -1,19 +1,17 @@
 import React, { useState, useEffect, } from "react";
 import { useSelector, useDispatch } from "react-redux"
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu } from "antd";
 import {
   HomeOutlined,
   PicCenterOutlined,
   ApartmentOutlined,
 } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom';
-import Header from "../../Components/Layout/Header";
-import SideDrawer from "../../Components/Layout/SideDrawer";
+import Header from "./Header";
+import SideDrawer from "./SideDrawer";
 
 import { fetchModulesMenu } from "../../Store/Actions/menu"
-import Form from "../Form/Form";
-import Home from "../Home/Home";
-import IconGenarator from "../../Components/Util/IconGenarator/IconGenarator";
+import IconGenarator from "../Util/IconGenarator/IconGenarator";
 
 const { Sider } = Layout;
 
@@ -22,7 +20,6 @@ const LayoutModel = props => {
   const modulesMenu = useSelector ( state => state.menu.modulesMenu )
   
   const [key, setKey] = useState(1);
-  const [isHome,setIsHome] = useState(true)
   const [isBasic,setIsBasic] = useState(false)
   const [isMaster,setIsMaster] = useState(false)
   const [collapse, setCollapse] = useState(true)
@@ -40,7 +37,6 @@ const LayoutModel = props => {
     if(parseInt(item.key) === 1){
       setSubMenuCollapse(false);
       setKey(1);
-      setIsHome(true)
       return;
     }
     if (key === item.key && subMenuCollapse) {
@@ -105,9 +101,9 @@ const LayoutModel = props => {
             ))}
           </Menu>
         </Sider>
-        <SideDrawer data={subMenuData} collapsed={subMenuCollapse} setIsHome={setIsHome} isBasic={isBasic} isMaster={isMaster}/>
+        <SideDrawer data={subMenuData} collapsed={subMenuCollapse} isBasic={isBasic} isMaster={isMaster}/>
         <Layout>
-          {isHome ? <Home>{props.children}</Home> : <Form>{props.children}</Form> }
+          {props.children}
         </Layout>
       </Layout>
     </Layout>

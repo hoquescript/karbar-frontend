@@ -3,20 +3,22 @@ import { Switch, Route } from "react-router";
 import { useSelector } from "react-redux"
 import "antd/dist/antd.css";
 
-import LayoutModel from "./Containers/Layout/Layout";
+import Layout from "./Components/Layout/Layout";
 
+const Home = React.lazy(() => import(`./Pages/Home`));
 const Form = React.lazy(() => import(`./Pages/Form`));
 
 const App = () => {
-  const route = useSelector ( state => state.menu.route )
+  const path = useSelector ( state => state.menu.route.path )
   return (
-      <LayoutModel>
+      <Layout>
         <Suspense fallback={<p>Loading.......</p>}>
           <Switch>
-            <Route path={`/${route.path}`} exact render={(props) => <Form {...props}/>}/>
+            <Route path="/" exact render={(props) => <Home {...props}/>}/>
+            <Route path={`/${path}`} exact render={(props) => <Form {...props}/>}/>
           </Switch>
         </Suspense>
-      </LayoutModel>
+      </Layout>
   );
 };
 export default App;
