@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setChipData } from "../../Store/Actions/forms";
+import { setChipData } from "../../../Store/Actions/forms";
 
 import { Tree, Tooltip } from "antd";
 

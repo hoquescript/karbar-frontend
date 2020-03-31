@@ -5,19 +5,20 @@ import { AppstoreAddOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Box } from "@material-ui/core";
 import { useForm, FormContext } from 'react-hook-form';
-import Headbar from '../Components/Forms/Headbar';
 import Loading from '../Components/Util/Loading/Loading'
+import Headbar from '../Components/Forms/Headbar';
 import Control from "../Components/Forms/Control";
 import GridControl from "../Components/Forms/GridControl/GridControl";
-import Tree from "../Components/Forms/Tree"
-import ActionButton from "../Components/Forms/ActionButton";
 import GridView from "../Components/Forms/GridView";
+import ActionButton from "../Components/Forms/ActionButton";
+import Tree from "../Components/Util/ControlElement/Tree"
 import { genarateSQL } from "../Constants/StringHelper";
 
 const useStyles = makeStyles(theme => ({
   actionWrapper : {
       backgroundColor: '#fff',
-      height: 80
+      height: 80,
+      margin: "20px 0",
   },
   bookmarkWrapper: {
       display: 'flex',
@@ -42,8 +43,8 @@ const useStyles = makeStyles(theme => ({
   },
   contentWrapper: {
     position: 'relative',
-    marginTop: 20,
     minHeight: 350,
+    width: 1200,
     backgroundColor: '#fff',
     '&::before': {
       content: "''",
@@ -90,16 +91,16 @@ const Form = () => {
       return null;
     }
     return (
-        < Control key={ctrl.ControlName} {...ctrl} />
+        <Control key={ctrl.ControlName} {...ctrl} />
     )
   })
 
   return(
     <>
       <Headbar/>
-      <Box style={{padding: '20px 200px', margin: 0, maxHeight: 800 }}>
+      <Box style={{margin: '0 auto'}}>
         <FormContext {...hookFormMethods}> 
-          <Grid container justify="space-between"  className={classes.actionWrapper}>
+          <Grid container justify="space-between" className={classes.actionWrapper}>
             <Grid item className={classes.bookmarkWrapper}>
               <AppstoreAddOutlined className={classes.bookmarkIcon}/>
               <Typography variant="subtitle1">Add Bookmark</Typography>
@@ -115,11 +116,11 @@ const Form = () => {
                 <>
                   <Grid item container style={{padding: 40, width:'100%'}}>
                     {treeChild && (
-                        <Grid item xs={4} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
+                        <Grid item xs={3} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
                           <Tree params={treeChild}/>
                         </Grid>
                     )}
-                    <Grid item container justify="center" alignItems="center" xs={treeChild ?  8 : 12}>
+                    <Grid item container justify="center" alignItems="center" xs={treeChild ?  9 : 12}>
                       {controlEl}
                     </Grid>
                   </Grid>

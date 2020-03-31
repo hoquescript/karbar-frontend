@@ -13,7 +13,7 @@ const SideDrawer = ({ data, collapsed, setIsHome, isBasic, isMaster }) => {
   const masterMenuData = useSelector ( state => state.menu.masterMenu )
 
   const style = {
-    width: collapsed ? 256 : 0,
+    width: collapsed ? '256px' : 0,
     transform: collapsed ? "translateX(0)" : "translateX(-400px)",
     transition: "width 0.3s"
   };

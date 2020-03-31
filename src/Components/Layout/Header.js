@@ -1,26 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../Assets/logo-color.png";
-import { Icon, Dropdown, Input } from "antd";
+import { Icon } from "antd";
 import Profile from "./HeaderMenu/Profile";
 import Notification from "./HeaderMenu/Notifcation";
 import Settings from "./HeaderMenu/Settings";
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Bookmarks from "./HeaderMenu/Bookmarks";
 import Searchbar from "./Searchbar/Searchbar";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  paper: {
-    marginRight: theme.spacing(2),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: 'flex',
+//   },
+//   paper: {
+//     marginRight: theme.spacing(2),
+//   },
+// }));
 
 
 const HeaderMenu = props => {
-  const classes = useStyles();
+  // const classes = useStyles();
   return (
     <Layout>
       <MenuCollapse onClick={props.collapseMenu} style={props.collapse ? {minWidth: 80} : {minWidth: 220}}>
@@ -81,19 +81,6 @@ const Logo = styled.img`
   height: 40px;
 `;
 
-const SearchBoxWrapper = styled.div`
-  /* flex-grow:5; */
-  height:100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const SettingsMenuWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  /* flex-grow:2; */
-`;
 
 const IconWrapper = styled.div`
   padding: 10px;
@@ -106,23 +93,4 @@ const IconWrapper = styled.div`
   margin: 5px;
 `
 
-
 export default HeaderMenu;
-
-{/* <SettingsMenuWrapper>
-<Dropdown overlay={<HeaderSubMenu/>} onClick={handleButtonClick} trigger={["hover","click"]}>
-    <IconWrapper>
-      {IconGenarator('Home')}
-    </IconWrapper>
-</Dropdown>
-<Dropdown overlay={<HeaderSubMenu/>} trigger={["click"]} style={{marginLeft: 5}}>
-    <IconWrapper>
-      <Icon style={{ fontSize: 25 }} type="bell" />
-    </IconWrapper>
-</Dropdown>
-<Dropdown  overlay={<HeaderSubMenu/>} trigger={["click"]} style={{marginLeft: 5}}>
-    <IconWrapper>
-      <Icon style={{ fontSize: 25 }} type="github" />
-    </IconWrapper>
-</Dropdown>
-</SettingsMenuWrapper> */}
