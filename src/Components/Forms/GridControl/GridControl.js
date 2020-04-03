@@ -9,26 +9,16 @@ import GridControlHead from "./GridControlHead";
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: "100%"
+        width: "100%",
+        marginTop: '1rem'
     },
     paper: {
         width: "100%",
         marginBottom: theme.spacing(2)
     },
     table: {
-        minWidth: 750,
+        minWidth: '75rem',
     },
-    visuallyHidden: {
-        border: 0,
-        clip: "rect(0 0 0 0)",
-        height: 1,
-        margin: -1,
-        overflow: "hidden",
-        padding: 0,
-        position: "absolute",
-        top: 20,
-        width: 1
-    }
 }));
 
 const GridControl = ({ controls }) => {
@@ -52,7 +42,6 @@ const GridControl = ({ controls }) => {
                         <GridControlHead
                             classes={classes}
                             headCells={controls}
-                            // isControlEditMode={isControlEditMode}
                             defaultValues={defaultValues}
                         />
                         <TableBody>

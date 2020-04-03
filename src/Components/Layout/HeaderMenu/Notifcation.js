@@ -14,14 +14,14 @@ import MailIcon from "@material-ui/icons/Mail";
 
 const useStyles = makeStyles({
     list: {
-        width: 250
+        width: '25rem'
     },
     fullList: {
         width: "auto"
     }
 });
 
-const Notification = () => {
+const Notification = ({style}) => {
     const classes = useStyles();
     const [state, setState] = React.useState(false);
 
@@ -72,7 +72,7 @@ const Notification = () => {
     return (
         <div>
             <IconButton onClick={toggleDrawer(true)}>
-                <BellOutlined />
+                <BellOutlined className={style}/>
             </IconButton>
             <Drawer anchor={"right"} open={state} onClose={toggleDrawer(false)}>
                 {list("right")}

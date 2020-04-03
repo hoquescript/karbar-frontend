@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm, FormContext } from "react-hook-form";
+import { makeStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -7,37 +8,47 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Control from "../Control";
 import ActionIcon from "../../Util/ActionIcon/ActionIcon";
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        backgroundColor: theme.palette.drawer.side.selectedMenuBackground
+    },
+    tableHead: {
+        color: theme.palette.primary.light
+    },
+    tableCell: {
+        textAlign: "center",
+        borderRight: `1px solid ${theme.palette.grey[200]}` ,
+        borderBottom: `1px solid ${theme.palette.grey[200]}` 
+    },
+    actionCell: {
+        textAlign: "center",
+        width: `10%`,
+        color: theme.palette.primary.light
+    }
+}));
+
 const GridControlHead = props => {
+    const classes = useStyles();
+
     const { isControlEditMode, headCells, defaultValues } = props;
     const gridControlForm = useForm({ defaultValues });
 
     return (
         <TableHead>
-            <TableRow style={{ backgroundColor: "#e6f7ff" }}>
+            <TableRow className={classes.root}>
                 {headCells.map(headCell => (
                     <TableCell
                         key={headCell.ControlName}
                         align="center"
-                        style={{
-                            textAlign: "center",
-                            width: `${headCell.GridWidth}%`,
-                            borderRight: "1px solid rgb(210, 225, 238)" 
-                        }}
+                        className={classes.tableCell}
+                        style={{width: `${headCell.GridWidth}%`}}
                     >
-                        <TableSortLabel>
-                            <span style={{ color: "rgb(0, 109, 210)" }}>
-                                {headCell.ControlLabel}
-                            </span>
+                        <TableSortLabel className={classes.tableHead}>
+                            {headCell.ControlLabel}
                         </TableSortLabel>
                     </TableCell>
                 ))}
-                <TableCell
-                    style={{
-                        textAlign: "center",
-                        width: `10%`,
-                        color: "rgb(0, 109, 210)"
-                    }}
-                >
+                <TableCell className={classes.actionCell}>
                     Action
                 </TableCell>
             </TableRow>
@@ -47,9 +58,7 @@ const GridControlHead = props => {
                     <TableCell
                         key={ctrl.ControlName}
                         align="center"
-                        style={{
-                            borderRight: "1px solid rgb(210, 225, 238)"
-                        }}
+                        className={classes.tableCell}
                     >
                         <Control
                             disabled={isControlEditMode}

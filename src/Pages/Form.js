@@ -16,42 +16,48 @@ import { genarateSQL } from "../Constants/StringHelper";
 
 const useStyles = makeStyles(theme => ({
   actionWrapper : {
-      backgroundColor: '#fff',
-      height: 80,
+      backgroundColor: theme.palette.background.default,
       margin: "20px 0",
+  },
+  actionButton:{
+    display: 'flex',
+    alignItems: 'center',
+    marginRight:'2rem'
   },
   bookmarkWrapper: {
       display: 'flex',
+      color: theme.palette.typography.main,
       alignItems: 'center',
       height: '100%',
-      padding: '20px',
-      backgroundColor: '#f9f9f9',
+      padding: '1.8rem',
+      backgroundColor: theme.palette.grey[100],
       fontFamily: "'Open Sans', sans-serif",
       transition: 'background-color 0.5s',
       cursor: 'pointer',
       '&:hover': {
-        backgroundColor: '#e1e1e1',
+        backgroundColor: `${theme.palette.grey[150]} !important`,
       },
   },
   bookmarkIcon: {
     marginRight: theme.spacing(1.5),
-    fontSize: 30,
+    fontSize: '3rem',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#0f236f'
+    color: theme.palette.primary.main
   },
   contentWrapper: {
     position: 'relative',
-    minHeight: 350,
-    width: 1200,
-    backgroundColor: '#fff',
+    minHeight: '35rem',
+    width: '120rem',
+    padding: '4rem 2rem 3rem 2rem',
+    backgroundColor: theme.palette.background.default,
     '&::before': {
       content: "''",
       width: 0,
       height: 0,
-      borderTop: '15px solid #0f236f',
-      borderRight: '15px solid transparent',
+      borderTop: `1.5rem solid ${theme.palette.primary.main}`,
+      borderRight: '1.5rem solid transparent',
       position: 'absolute',
       left: 0,
       top: 0,
@@ -103,18 +109,18 @@ const Form = () => {
           <Grid container justify="space-between" className={classes.actionWrapper}>
             <Grid item className={classes.bookmarkWrapper}>
               <AppstoreAddOutlined className={classes.bookmarkIcon}/>
-              <Typography variant="subtitle1">Add Bookmark</Typography>
+              <Typography variant="subtitle1" style={{color: 'inherit'}}>Add Bookmark</Typography>
             </Grid>
-            <Grid item style={{padding: 20}}>
+            <Grid item className={classes.actionButton}>
               <ActionButton controls={controls} gridSQL={gridSQL}/>
             </Grid>
           </Grid>
-          <Grid item container className={classes.contentWrapper} style={{padding: 20,marginBottom: isGridView ? 20 : 40}}>
+          <Grid item container className={classes.contentWrapper} style={{marginBottom: isGridView ? 20 : 40}}>
             {
               isLoading ? 
                 <Loading/> : (
                 <>
-                  <Grid item container style={{padding: 40, width:'100%'}}>
+                  <Grid item container>
                     {treeChild && (
                         <Grid item xs={3} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
                           <Tree params={treeChild}/>

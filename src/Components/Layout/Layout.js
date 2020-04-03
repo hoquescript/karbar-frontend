@@ -1,21 +1,51 @@
 import React, { useState, useEffect, } from "react";
-import { useSelector, useDispatch } from "react-redux"
-import { Layout, Menu } from "antd";
-import {
-  HomeOutlined,
-  PicCenterOutlined,
-  ApartmentOutlined,
-} from '@ant-design/icons'
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux"
+import { makeStyles } from "@material-ui/core/styles";
+import { Layout, Menu } from "antd";
+import { HomeOutlined, PicCenterOutlined, ApartmentOutlined} from '@ant-design/icons'
+
 import Header from "./Header";
 import SideDrawer from "./SideDrawer";
-
 import { fetchModulesMenu } from "../../Store/Actions/menu"
 import IconGenarator from "../Util/IconGenarator/IconGenarator";
 
 const { Sider } = Layout;
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxHeight: '100vh',
+    height: '100vh'
+  },
+  mainDrawer: {
+    backgroundColor: theme.palette.drawer.main.background
+  },
+  body: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  '@global': {
+    //Selected MainDrawer's Head Menu Style
+    '.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected':{
+      backgroundColor: `${theme.palette.drawer.main.selectedBackground} !important`,
+    },
+    //Selected SideDrawer's Head Menu Style
+    '.ant-menu-submenu-selected':{
+      color: theme.palette.drawer.side.selectedHeadText
+    },
+    //Selected SideDrawer's  menu Background Style
+    '.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected': {
+      background: theme.palette.drawer.side.selectedMenuBackground,
+    },
+    //Selected SideDrawer's menu Font Color Style
+    '.ant-menu-item-selected > a, .ant-menu-item-selected > a:hover':{
+      color: `${theme.palette.drawer.side.selectedMenuText} !important`
+    },
+
+  }
+}));
+
 const LayoutModel = props => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const modulesMenu = useSelector ( state => state.menu.modulesMenu )
   
@@ -73,11 +103,11 @@ const LayoutModel = props => {
   },[dispatch]);
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout className={classes.root}>
       <Header collapse={collapse} collapseMenu={modulesMenuCollapseHandler}/>
       <Layout>
-        <Sider collapsed={collapse} width={220}>
-          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" onClick={subMenuHandler} >
+        <Sider className={classes.mainDrawer} collapsed={collapse} width={220}>
+          <Menu className={classes.mainDrawer} theme="dark" defaultSelectedKeys={["1"]} mode="inline" onClick={subMenuHandler} >
             <Menu.Item key="1">
               <NavLink to="/">
                 <HomeOutlined />
@@ -102,7 +132,7 @@ const LayoutModel = props => {
           </Menu>
         </Sider>
         <SideDrawer data={subMenuData} collapsed={subMenuCollapse} isBasic={isBasic} isMaster={isMaster}/>
-        <Layout>
+        <Layout className={classes.body}>
           {props.children}
         </Layout>
       </Layout>

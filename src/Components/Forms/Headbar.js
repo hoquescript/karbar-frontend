@@ -1,13 +1,15 @@
-import React from 'react'
-import { Breadcrumb, Icon } from "antd";
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from "react-redux"
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Breadcrumbs } from '@material-ui/core';
+import { CaretRightOutlined  } from '@ant-design/icons'
+import IconGenarator from "../Util/IconGenarator/IconGenarator"
 
 const useStyles = makeStyles(theme => ({
     root : {
-        padding: '20px 200px',
-        backgroundColor: '#fff',
+        padding: '15px 0',
+        width:'100%',
+        backgroundColor: theme.palette.background.default
     },
     headbar: {
         display: 'flex',
@@ -15,50 +17,74 @@ const useStyles = makeStyles(theme => ({
     titleWrapper: {
       display: 'flex',
       flexDirection: 'column',
-      fontFamily: "'Open Sans', sans-serif"
     },
-    icon: {
+    headIcon: {
       marginRight: theme.spacing(3),
       fontSize: 50,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      color: '#0f236f'
+      color: theme.palette.primary.main
+    },
+    mainTitle: {
+        color: theme.palette.primary.main
+    },
+    subTitle:{
+        color: theme.palette.primary.light
     },
     breadcrumb: {
-        fontSize: 14,
-        fontWeight: 600,
-        color: '#6c78a6;',
-        border: '1px solid #ccc',
-        padding: '5px'
-    }
+        fontSize: 13,
+        fontWeight: 400,
+        color: theme.palette.primary.main,
+        border: `1px solid ${theme.palette.grey[1000]}`,
+        padding: '5px 10px',
+    },
+    link: {
+        display: 'flex',
+        fontSize: '1.4rem',
+        color: theme.palette.primary.dark
+    },
+    main: {
+        color: theme.palette.primary.main,
+    },
+    icon: {
+        marginRight: theme.spacing(0.5),
+        width: '2rem',
+        height: '2rem',
+    },
+
+    
 }));
 
 const Headbar = () => {
     const classes = useStyles();
     const {icon, first, second, third} = useSelector ( state => state.menu.menuPathways )
     return (
-        <Grid container justify="space-between" alignItems="center" className={classes.root}>
-            <Grid item className={classes.headbar}> 
-                <Icon type={second === "Forms" ? "form" : "copy"} className={classes.icon}/>
-                <div className={classes.titleWrapper}>
-                    <Typography variant="h6" style={{color: '#0f236f'}}>{third}</Typography>
-                    <Typography variant="subtitle2">{first}</Typography>
-                </div>
+        <div className={classes.root}>
+            <Grid container justify="space-between" alignItems="center" style={{width: '130rem', margin: '0 auto'}}>
+                <Grid item className={classes.headbar}> 
+                    <span className={classes.headIcon}>{IconGenarator(second === "Forms" ? "FormOutlined" : "CopyOutlined")}</span>
+                    <div className={classes.titleWrapper}>
+                        <Typography variant="h6" className={classes.mainTitle}>{third}</Typography>
+                        <Typography variant="subtitle2" className={classes.subTitle}>{first}</Typography>
+                    </div>
+                </Grid>
+                <Grid item>
+                    <Breadcrumbs separator={<CaretRightOutlined/>} className={classes.breadcrumb}>
+                        <Typography className={classes.link}>
+                            <span className={classes.icon}>{IconGenarator(icon)}</span>
+                            {first || 'Loading'}
+                        </Typography>
+                        <Typography className={classes.link}>
+                            {second || '...' }
+                        </Typography>
+                        <Typography className={`${classes.link} ${classes.main}`}>
+                            {third || '...' }
+                        </Typography>
+                    </Breadcrumbs>
+                </Grid>
             </Grid>
-            <Grid item>
-                <Breadcrumb className={classes.breadcrumb}>
-                    <Breadcrumb.Item>
-                        <Icon type={icon} style={{marginRight: 5}}/>
-                        {first || 'Loading'}
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item>
-                        {second || '...' }
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item style={{color: '#0f236f'}}>{third || '...' }</Breadcrumb.Item>
-                </Breadcrumb>
-            </Grid>
-        </Grid>
+        </div>
     )
 }
 

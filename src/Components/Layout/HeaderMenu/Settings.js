@@ -8,7 +8,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
-const Settings = () => {
+const Settings = ({style}) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -34,7 +34,7 @@ const Settings = () => {
     <div>
       <div>
         <IconButton ref={anchorRef} onClick={handleToggle}>
-            <SettingOutlined />
+            <SettingOutlined className={style}/>
         </IconButton>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (
