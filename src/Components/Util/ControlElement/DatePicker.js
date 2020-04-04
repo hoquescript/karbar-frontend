@@ -24,7 +24,7 @@ const DatePicker = ({ ctrlName }) => {
                 control={control}
                 name={ctrlName}
                 defaultValue=""
-                rules={{required: true}}
+                // rules={{required: true}}
                 error={errors && errors[ctrlName] ? true : false}
                 helperText={errors[ctrlName] && '* Your Input is Required'}
             />

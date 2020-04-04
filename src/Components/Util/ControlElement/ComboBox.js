@@ -24,7 +24,7 @@ const ComboBox = ({ctrlName, params, placeHolder, rowData, editControl}) => {
                 defaultValue = {placeHolder || ''}
                 disabled = {rowData && rowData.key !== editControl}
                 control = {control}
-                rules={{required: true}}
+                // rules={{required: true}}
             />
             <FormHelperText>{errors[ctrlName] && '⚠️ Your Input is Required'}</FormHelperText>
         </FormControl>

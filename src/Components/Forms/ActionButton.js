@@ -38,7 +38,6 @@ const postHandler = (dispatch, data, chipData, gridControlData) => {
 }
 
 const viewHandler = (dispatch, data, gridSQL, chipData) => {
-    console.log(2)
     dispatch(viewReportData(gridSQL, data, chipData))
 }
 

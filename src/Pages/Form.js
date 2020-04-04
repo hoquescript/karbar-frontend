@@ -13,6 +13,7 @@ import GridView from "../Components/Forms/GridView";
 import ActionButton from "../Components/Forms/ActionButton";
 import Tree from "../Components/Util/ControlElement/Tree"
 import { genarateSQL } from "../Constants/StringHelper";
+import EditControl from "../Components/Forms/EditControl/EditControl";
 
 const useStyles = makeStyles(theme => ({
   actionWrapper : {
@@ -80,7 +81,7 @@ const Form = () => {
   }, [menuParams, dispatch]);
 
 
-  let treeChild, gridSQL;
+  let treeChild, editGridData, gridSQL;
   let gridControlChild = [];
   const controlEl = controls && controls.map(ctrl => {
     if(ctrl.IsGridControl) {
@@ -90,6 +91,10 @@ const Form = () => {
     if(ctrl.ControlName.startsWith("lbl"))return null;
     if(ctrl.ControlName.startsWith("Tre")) {
       treeChild = ctrl.Params;
+      return null;
+    }
+    if(ctrl.ControlElementType.trim() === ("egv")) {
+      editGridData = ctrl.Params;
       return null;
     }
     if(ctrl.ControlName.startsWith("dgv")) {
@@ -132,6 +137,9 @@ const Form = () => {
                   </Grid>
                   {gridControlChild.length > 0 && (
                     <GridControl controls={gridControlChild}/>
+                  )}
+                  {editGridData && editGridData.length > 0 && (
+                    <EditControl data={editGridData}/>
                   )}
                 </>
               )

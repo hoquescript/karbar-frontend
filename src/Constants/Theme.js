@@ -49,17 +49,10 @@ const theme = createMuiTheme({
 
 export default theme;
 
-// palette: {
-//     type: 'dark',
-//     primary: {
-//         ...indigo,
-//         main: '#162160',
-//         light: '#1890ff',
-//         dark: '#001529',
-//         search: '#0f2080e3',
-//         icon: '#1c2e93'
-//     }
-// },
+
+
+
+
 
 
 // palette: {
