@@ -58,3 +58,18 @@ export const genarateSQL = control => {
         : null;
     return sql;
 };
+
+
+{/* <Controller
+fullWidth
+// variant="outlined"
+size="small"
+// disabled={rowData && rowData.key !== editControl}
+name={`${data.key}[${ctrl.ControlName}]`}
+defaultValue={data[ctrl.ControlName]}
+as={TextField}
+control={control}
+// rules={{required: true, maxLength: 2}}
+// error={errors && errors[ctrlName] ? true : false}
+// helperText={errors[ctrlName] && '* Your Input is Required'}
+/> */}

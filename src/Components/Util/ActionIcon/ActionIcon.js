@@ -55,7 +55,8 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
     };
 
     const saveBtnHandler = data => {
-        dispatch(editGridControlData(rowData.key, data));
+        console.log(rowData.key, data)
+        dispatch(editGridControlData(rowData.key, data[rowData.key]));
         setEditControl('')
     };
 

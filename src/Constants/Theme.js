@@ -6,7 +6,8 @@ const theme = createMuiTheme({
         type: 'light',
         background: {
             paper: '#ececee',
-            default: '#fff' 
+            default: '#fff',
+            table: '#fff' 
         },
         header: {
             collapseBackground: '#162160',

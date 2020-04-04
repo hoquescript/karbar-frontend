@@ -62,7 +62,7 @@ const GridControlHead = props => {
                     >
                         <Control
                             disabled={isControlEditMode}
-                            {...ctrl}
+                            control={ctrl}
                         />
                     </TableCell>
                     ))}

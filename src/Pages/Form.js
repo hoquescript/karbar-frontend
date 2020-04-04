@@ -102,7 +102,7 @@ const Form = () => {
       return null;
     }
     return (
-        <Control key={ctrl.ControlName} {...ctrl} />
+        <Control key={ctrl.ControlName} control={ctrl} />
     )
   })
 

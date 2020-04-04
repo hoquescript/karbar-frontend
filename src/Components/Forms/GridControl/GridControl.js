@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
     table: {
         minWidth: '75rem',
+        background: theme.palette.background.table
     },
 }));
 
@@ -51,11 +52,12 @@ const GridControl = ({ controls }) => {
                                     {controls.map((ctrl,index) => (
                                     <TableCell align="center" key={ctrl.ControlName} style={{borderRight: '1px solid rgb(210, 225, 238)'}}>
                                         <Control
-                                            Placeholder={data[ctrl.ControlName]}
+                                            name = {`${data.key}[${ctrl.ControlName}]`}
+                                            placeholder={data[ctrl.ControlName]}
                                             editControl={editControl}
                                             rowData={data} 
                                             keyIndex = {index}
-                                            {...ctrl}
+                                            control={ctrl}
                                         />
                                     </TableCell>
                                     ))}

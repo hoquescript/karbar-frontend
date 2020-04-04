@@ -9,15 +9,16 @@ import ComboBox from "../Util/ControlElement/ComboBox";
 import DatePicker from "../Util/ControlElement/DatePicker";
 
 const Control = props => {
-    const { ControlLabel, ControlElementType, ControlName, IsGridControl, Params, Placeholder, rowData, editControl } = props;
+    const { control, name, placeholder, rowData, editControl } = props;
+    const { ControlLabel, ControlElementType, ControlName, IsGridControl, Params } = control;
 
     let inputEl;
     switch (ControlElementType && ControlElementType.trim()) {
         case "txt":
             inputEl = (
                 <TextField
-                    ctrlName={ControlName}
-                    placeHolder={Placeholder}
+                    ctrlName={name || ControlName}
+                    placeHolder={placeholder}
                     rowData={rowData}
                     editControl={editControl}
                 />
@@ -26,16 +27,16 @@ const Control = props => {
         case "cbo":
             inputEl = (
                 <ComboBox
-                    ctrlName={ControlName}
+                    ctrlName={name || ControlName}
                     params={Params}
-                    placeHolder={Placeholder}
+                    placeHolder={placeholder}
                     rowData={rowData}
                     editControl={editControl}
                 />
             );
             break;
         case "dtp":
-            inputEl = <DatePicker ctrlName={ControlName} />;
+            inputEl = <DatePicker ctrlName={name || ControlName} />;
             break;
         case "chp":
             inputEl = <ChipField />;
@@ -43,8 +44,8 @@ const Control = props => {
         case "dec":
             inputEl = (
                 <PriceField
-                    ctrlName={ControlName}
-                    placeHolder={Placeholder}
+                    ctrlName={name || ControlName}
+                    placeHolder={placeholder}
                     rowData={rowData}
                     editControl={editControl}
                 />
