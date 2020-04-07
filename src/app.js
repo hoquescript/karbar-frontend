@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { ThemeProvider, CssBaseline } from '@material-ui/core'
 import theme from './Constants/Theme';
 import "antd/dist/antd.css";
-import "./index.css"
+import "./style.css"
 
 import Layout from "./Components/Layout/Layout";
 

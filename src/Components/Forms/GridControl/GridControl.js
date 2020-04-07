@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm, FormContext } from "react-hook-form";
-import { Table, TableBody, TableCell, TableContainer, TableRow, Paper } from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, TableFooter } from "@material-ui/core";
 import Control from "../Control";
 import ActionIcon from "../../Util/ActionIcon/ActionIcon";
 import GridControlHead from "./GridControlHead";
@@ -74,7 +74,14 @@ const GridControl = ({ controls }) => {
                                 </FormContext>
                             </TableRow>
                             ))}
+                            <TableRow>
+                                <TableCell>Total</TableCell>
+                            </TableRow>
+
                         </TableBody>
+                        {/* <TableFooter>
+                        </TableFooter> */}
+
                     </Table>
                 </TableContainer>
             </Paper>
