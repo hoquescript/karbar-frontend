@@ -9,11 +9,10 @@ import {
     deleteAllGridControlData
 } from "../../../Store/Actions/forms";
 import { useFormContext } from "react-hook-form";
-import { MdAdd, MdEdit, MdDeleteSweep, MdSave } from "react-icons/md";
-import { AiTwotoneDelete } from "react-icons/ai";
+import { PlusOutlined, EditOutlined, DeleteOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons'
 import { IconButton } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
         width: "100%",
         display: "flex",
@@ -26,15 +25,13 @@ const useStyles = makeStyles({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        // width: 30,
-        // height: 30,
         borderRadius: "50%",
-        backgroundColor: '#e6f7ff',
-        // padding: 5,
-        fontSize: 18,
+        backgroundColor: theme.palette.drawer.side.selectedMenuBackground,
+        color: theme.palette.primary.light,
+        fontSize: 16,
         cursor: "pointer"
     }
-});
+}));
 
 const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}) => {
     const classes = useStyles();
@@ -42,7 +39,14 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
     const { handleSubmit, reset} = useFormContext();
 
     const addBtnHandler = data => {
-        dispatch(addGridControlData({ ...data, key: uuid() }));
+        if(+data.decDebit > -1 && +data.decCredit > -1){
+            if(+data.decDebit > 0 && +data.decCredit > 0)
+                alert('Debit & Credit cant be valued together')
+            else if(+data.decDebit === +data.decCredit)
+                alert('Debit & Credit cant be both Zero')
+            else
+                dispatch(addGridControlData({ ...data, key: uuid() }));
+        }
         reset(defaultValues);
     };
 
@@ -55,7 +59,6 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
     };
 
     const saveBtnHandler = data => {
-        console.log(rowData.key, data)
         dispatch(editGridControlData(rowData.key, data[rowData.key]));
         setEditControl('')
     };
@@ -67,10 +70,10 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
     return type === "add" ? (
         <div style={{display: 'flex', justifyContent: 'center'}}>
             <IconButton color="primary" className={classes.iconHolder} onClick={handleSubmit(addBtnHandler)} style={{marginRight: 10}}>
-                <MdAdd />
+                <PlusOutlined />
             </IconButton>
             <IconButton color="primary" className={classes.iconHolder} onClick={deleteAllBtnHandler}>
-                <MdDeleteSweep />
+                <DeleteOutlined />
             </IconButton>
         </div>
     ) 
@@ -83,10 +86,10 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
                 onClick={rowData && rowData.key === editControl ? handleSubmit(saveBtnHandler) : editBtnHandler} 
                 style={{marginRight: 10}}
             >
-                {rowData && rowData.key === editControl ? <MdSave/> : <MdEdit />}
+                {rowData && rowData.key === editControl ? <SaveOutlined/> : <EditOutlined />}
             </IconButton>
             <IconButton color="primary" className={classes.iconHolder} onClick={deleteBtnHandler}>
-                <AiTwotoneDelete />
+                <CloseOutlined/>
             </IconButton>
         </div>
     );

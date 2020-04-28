@@ -1,4 +1,5 @@
 import React from "react";
+import { isFuture, compareAsc } from 'date-fns'
 import { useSelector, useDispatch } from "react-redux";
 import { postFormData, viewReportData } from "../../Store/Actions/forms";
 import { useFormContext } from 'react-hook-form';
@@ -34,11 +35,30 @@ const style = {
 
 const postHandler = (dispatch, data, chipData, gridControlData) => {
     console.log(data)
-    dispatch(postFormData(data, chipData, gridControlData))
+    if(data && data.dtpVDate && isFuture(data.dtpVDate)){
+        alert('Future Date');
+    }
+    if(gridControlData.length > 0  && +gridControlData[0].decDebit > -1 && +gridControlData[0].decCredit > -1){
+        let totalDebit = 0, totalCredit = 0;
+        gridControlData.forEach(({decDebit, decCredit}) => {
+            totalDebit += +decDebit
+            totalCredit += +decCredit
+        })
+        if(totalDebit !== totalCredit) 
+            alert('Total Debit & Credit Should be Same')
+    }else{
+        dispatch(postFormData(data, chipData, gridControlData))
+    }    
 }
 
 const viewHandler = (dispatch, data, gridSQL, chipData) => {
-    dispatch(viewReportData(gridSQL, data, chipData))
+    if(data && data.dtpFrom && data.dtpTo && compareAsc(data.dtpTo, data.dtpFrom) === -1){
+        alert('To date is before from date')
+    }else if(chipData.length === 0){
+        alert('You must select atleast one node from Tree')
+    }else{
+        dispatch(viewReportData(gridSQL, data, chipData))
+    }
 }
 
 

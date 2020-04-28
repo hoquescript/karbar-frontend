@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { initiateFetchFormControl } from "../Store/Actions/forms";
 import { AppstoreAddOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Box } from "@material-ui/core";
+import { Grid, Typography, Box, Snackbar } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 import { useForm, FormContext } from 'react-hook-form';
 import Loading from '../Components/Util/Loading/Loading'
 import Headbar from '../Components/Forms/Headbar';
@@ -14,6 +15,7 @@ import ActionButton from "../Components/Forms/ActionButton";
 import Tree from "../Components/Util/ControlElement/Tree"
 import { genarateSQL } from "../Constants/StringHelper";
 import EditControl from "../Components/Forms/EditControl/EditControl";
+import { Alert } from "antd";
 
 const useStyles = makeStyles(theme => ({
   actionWrapper : {
@@ -120,6 +122,7 @@ const Form = () => {
               <ActionButton controls={controls} gridSQL={gridSQL}/>
             </Grid>
           </Grid>
+          <MuiAlert elevation={6} variant="filled" severity="success">This is a success message!</MuiAlert>
           <Grid item container className={classes.contentWrapper} style={{marginBottom: isGridView ? 20 : 40}}>
             {
               isLoading ? 
@@ -153,6 +156,11 @@ const Form = () => {
             )
           }
         </FormContext>
+        <Snackbar open={true} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+          <MuiAlert elevation={6} variant="filled" severity="success">
+            This is a success message!
+          </MuiAlert>
+        </Snackbar>
       </Box>
     </>
   );

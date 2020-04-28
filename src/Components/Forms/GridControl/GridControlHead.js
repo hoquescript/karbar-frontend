@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 const GridControlHead = props => {
     const classes = useStyles();
 
-    const { isControlEditMode, headCells, defaultValues } = props;
+    const { headCells, defaultValues } = props;
     const gridControlForm = useForm({ defaultValues });
 
     return (
@@ -60,10 +60,7 @@ const GridControlHead = props => {
                         align="center"
                         className={classes.tableCell}
                     >
-                        <Control
-                            disabled={isControlEditMode}
-                            control={ctrl}
-                        />
+                        <Control control={ctrl}/>
                     </TableCell>
                     ))}
                     <TableCell>

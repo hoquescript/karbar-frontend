@@ -2,7 +2,7 @@ import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { TextField } from "@material-ui/core";
 
-const Input = ({ ctrlName, placeHolder, rowData, editControl, disabled }) => {
+const Input = ({ ctrlName, placeHolder, rowData, editControl }) => {
     const { control, errors } = useFormContext();
     return (
         <>

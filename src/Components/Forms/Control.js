@@ -9,7 +9,7 @@ import ComboBox from "../Util/ControlElement/ComboBox";
 import DatePicker from "../Util/ControlElement/DatePicker";
 
 const Control = props => {
-    const { control, name, placeholder, rowData, editControl } = props;
+    const { control, name, placeholder, rowData, editControl, value } = props;
     const { ControlLabel, ControlElementType, ControlName, IsGridControl, Params } = control;
 
     let inputEl;
@@ -17,7 +17,7 @@ const Control = props => {
         case "txt":
             inputEl = (
                 <TextField
-                    ctrlName={name || ControlName}
+                    ctrlName={name || ControlName.trim()}
                     placeHolder={placeholder}
                     rowData={rowData}
                     editControl={editControl}
@@ -48,6 +48,7 @@ const Control = props => {
                     placeHolder={placeholder}
                     rowData={rowData}
                     editControl={editControl}
+                    value={value}
                 />
             );
             break;

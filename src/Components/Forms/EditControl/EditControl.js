@@ -1,4 +1,6 @@
 import React from 'react';
+import { useForm, FormContext, useFormContext, Controller } from "react-hook-form";
+import { v4 as uuid } from "uuid";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -67,13 +69,13 @@ const EditControl = ({data}) => {
   const headCells = Object.keys(data[0]);
   const [rows, setRows] = React.useState(data);
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('Credit');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleSearchRow = (e) => {
-    const filteredRows = rows.filter(row => row.ACode.matches(e.target.value))
-    setRows(filteredRows);
+    const filteredRows = rows.filter(row => row.ACode.indexOf(e.target.value) > -1)
+    setRows(filteredRows)
   }
 
   const handleRequestSort = (event, property) => {
@@ -90,7 +92,6 @@ const EditControl = ({data}) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
@@ -110,12 +111,18 @@ const EditControl = ({data}) => {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
+                .map((row, index) => {
                   return (
                     <TableRow hover tabIndex={-1}>
                        {headCells.map(head => (
-                          <TableCell>
-                              <TextField placeholder={row[head]}/>
+                          <TableCell key={uuid()}>
+                            <Controller
+                                fullWidth
+                                size="small"
+                                name={`data.${index}[${head}]`}
+                                defaultValue={row[head]}
+                                as={TextField}
+                            />
                           </TableCell>
                         ))}
                     </TableRow>

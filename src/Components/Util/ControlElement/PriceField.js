@@ -35,25 +35,27 @@ const useStyles = makeStyles({
     }
 });
 
-const PriceField = ({ ctrlName, placeHolder, rowData, editControl }) => {
+const PriceField = ({ ctrlName, placeHolder, rowData, editControl, value }) => {
     const classes = useStyles();
     
     const { control } = useFormContext();
-
     return (
         <div className={classes.root}>
-            <Controller
-                fullWidth
-                variant="outlined"
-                size="small"
-                className={classes.control}
-                disabled={rowData && rowData.key !== editControl}
-                name={ctrlName}
-                defaultValue={placeHolder || ""}
-                as={TextField}
-                control={control}
-                placeholder='0.00'
-            />
+            {
+                value ? <TextField variant="outlined" size="small" className={classes.control} disabled value={value}/> : (
+                <Controller
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    className={classes.control}
+                    disabled={rowData && rowData.key !== editControl}
+                    name={ctrlName}
+                    defaultValue={placeHolder}
+                    as={TextField}
+                    control={control}
+                    placeholder='0.00'
+                />
+            )}
             <div className={classes.iconWrapper}>
                 <img src={taka} className={classes.icon} alt='$'/>
             </div>
