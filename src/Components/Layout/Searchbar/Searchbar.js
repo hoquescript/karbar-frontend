@@ -1,7 +1,6 @@
 import React from 'react'
 import { SearchOutlined  } from "@ant-design/icons";
 import { makeStyles } from '@material-ui/core/styles';
-import "./Searchbar.scss";
 
 const useStyles = makeStyles((theme) => ({
     search: {

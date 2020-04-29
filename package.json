@@ -44,6 +44,8 @@
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
     "html-webpack-plugin": "4.0.0-beta.11",
+    "http-server": "^0.12.3",
+    "idb": "^5.0.2",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
     "jest-environment-jsdom-fourteen": "1.0.1",
@@ -90,7 +92,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "sw": "yarn build && workbox injectManifest workbox-config.js && workbox copyLibraries build/ && http-server build/ -c 0"
   },
   "eslintConfig": {
     "extends": "react-app"
