@@ -29,7 +29,9 @@ const formReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFormLoading: true,
+                forms: [],
                 chipData: [],
+                gridControlData: [],
                 gridData: {
                     ...state.gridData,
                     isGridView: false,

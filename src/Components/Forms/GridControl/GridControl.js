@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const GridControl = ({ controls }) => {
+    console.log(1)
     const classes = useStyles();
 
     const defaultValues = {}
@@ -47,7 +48,7 @@ const GridControl = ({ controls }) => {
     const [isControlEditMode, setIsControlEditMode] = useState(false)
     const gridControlData = useSelector(state => state.forms.gridControlData);
     const gridRowControlForm = useForm({defaultValues});
-
+    console.log(controls)
     const totalCounter = (ctrlName) => {
         return `${gridControlData.reduce((total, row) => total + parseInt(row[ctrlName] || 0), 0)}`
     }

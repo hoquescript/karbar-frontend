@@ -107,7 +107,7 @@ const Form = () => {
         <Control key={ctrl.ControlName} control={ctrl} />
     )
   })
-
+  console.log(gridControlChild)
   return(
     <>
       <Headbar/>
@@ -122,7 +122,7 @@ const Form = () => {
               <ActionButton controls={controls} gridSQL={gridSQL}/>
             </Grid>
           </Grid>
-          <MuiAlert elevation={6} variant="filled" severity="success">This is a success message!</MuiAlert>
+          {/* <MuiAlert elevation={6} variant="filled" severity="success">This is a success message!</MuiAlert> */}
           <Grid item container className={classes.contentWrapper} style={{marginBottom: isGridView ? 20 : 40}}>
             {
               isLoading ? 
@@ -156,11 +156,11 @@ const Form = () => {
             )
           }
         </FormContext>
-        <Snackbar open={true} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+        {/* <Snackbar open={true} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
           <MuiAlert elevation={6} variant="filled" severity="success">
             This is a success message!
           </MuiAlert>
-        </Snackbar>
+        </Snackbar> */}
       </Box>
     </>
   );

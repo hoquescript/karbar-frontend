@@ -13,7 +13,7 @@ const Form = React.lazy(() => import(`./Pages/Form`));
 
 const App = () => {
   const path = useSelector ( state => state.menu.route.path )
-  console.log(theme)
+  // console.log(theme)
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
