@@ -86,6 +86,7 @@ const Form = () => {
   let treeChild, editGridData, gridSQL;
   let gridControlChild = [];
   const controlEl = controls && controls.map(ctrl => {
+    ctrl.ControlName = ctrl.ControlName.trim()
     if(ctrl.IsGridControl) {
       gridControlChild.push(ctrl);
       return null;

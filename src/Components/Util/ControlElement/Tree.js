@@ -5,6 +5,7 @@ import { setChipData } from "../../../Store/Actions/forms";
 import { Tree, Tooltip } from "antd";
 
 const nodeSeparator = params => {
+  const node = [];
   const node1 = [];
   const node2 = [];
   const node3 = [];
@@ -20,8 +21,14 @@ const nodeSeparator = params => {
     if (ACode.startsWith("05")) node5.push({ key: ACode, title: AHead });
     if (ACode.startsWith("06")) node6.push({ key: ACode, title: AHead });
     if (ACode.startsWith("07")) node7.push({ key: ACode, title: AHead });
+    else node.push({ key: ACode, title: AHead })
   });
-  return [node1, node2, node3, node4, node5, node6, node7];
+  if(node.length>0){
+    return [ node ]
+  }
+  else{
+    return [node1, node2, node3, node4, node5, node6, node7];
+  }
 };
 
 const levelSeparator = node => {
@@ -140,7 +147,7 @@ const TreeView = ({ params }) => {
     console.log("onSelect", selectedKeys, info);
     setSelectedKeys(selectedKeys);
   };
-
+  // console.log(treeData)
   return (
     <Tooltip placement="bottomLeft">
     <Tree

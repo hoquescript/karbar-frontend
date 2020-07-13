@@ -62,7 +62,8 @@ export function* postFormData({ data, chipData, gridControlData }) {
                 sw.sync.register('postFormData');
             })
         }else {
-            yield Axios.post(`http://localhost:8080/form-post`, {
+            console.log(data, chipData, gridControlData)
+            yield Axios.post(`http://localhost:8080/api/form`, {
                 formData,
                 chipData,
                 gridControlData,

@@ -34,7 +34,7 @@ const style = {
 }
 
 const postHandler = (dispatch, data, chipData, gridControlData) => {
-    console.log(data)
+    console.log(data,chipData, gridControlData)
     if(data && data.dtpVDate && isFuture(data.dtpVDate)){
         alert('Future Date');
     }

@@ -39,13 +39,16 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
     const { handleSubmit, reset} = useFormContext();
 
     const addBtnHandler = data => {
+        console.log(data, data.decDebit, data.decCredit)
         if(+data.decDebit > -1 && +data.decCredit > -1){
             if(+data.decDebit > 0 && +data.decCredit > 0)
                 alert('Debit & Credit cant be valued together')
             else if(+data.decDebit === +data.decCredit)
                 alert('Debit & Credit cant be both Zero')
-            else
+            else{
+                console.log(data, data.decDebit, data.decCredit)
                 dispatch(addGridControlData({ ...data, key: uuid() }));
+            }
         }
         reset(defaultValues);
     };
