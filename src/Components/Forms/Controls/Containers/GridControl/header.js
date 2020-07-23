@@ -5,8 +5,8 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Control from "../Control";
-import ActionIcon from "../../Util/ActionIcon/ActionIcon";
+import Control from "../../Control";
+import ActionIcon from "./ActionIcon/ActionIcon";
 
 const useStyles = makeStyles(theme => ({
     root: {

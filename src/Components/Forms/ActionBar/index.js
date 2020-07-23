@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from "@material-ui/core";
-import ActionButton from "./ActionButton/ActionButton";
-import AddBookmark from "./AddBookmark/AddBookmark";
+import ActionButton from "./ActionButton";
+import AddBookmark from "./AddBookmark";
 
 const useStyles = makeStyles(theme => ({
     actionWrapper : {

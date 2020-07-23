@@ -1,12 +1,12 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 
-import Label from "../Util/ControlElement/Label";
-import TextField from "../Util/ControlElement/TextField";
-import PriceField from "../Util/ControlElement/PriceField";
-import ChipField from "../Util/ControlElement/ChipField";
-import ComboBox from "../Util/ControlElement/ComboBox";
-import DatePicker from "../Util/ControlElement/DatePicker";
+import Label from "./ControlElement/Label";
+import TextField from "./ControlElement/TextField";
+import PriceField from "./ControlElement/PriceField";
+import ChipField from "./ControlElement/ChipField";
+import ComboBox from "./ControlElement/ComboBox";
+import DatePicker from "./ControlElement/DatePicker";
 
 const Control = props => {
     const { control, name, placeholder, rowData, editControl, value } = props;

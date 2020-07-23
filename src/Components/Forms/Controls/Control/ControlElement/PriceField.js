@@ -2,7 +2,7 @@ import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import taka from "../../../Assets/Taka.svg";
+import taka from "../../../../../Assets/Taka.svg";
 
 const useStyles = makeStyles({
     root: {

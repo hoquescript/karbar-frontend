@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm, FormContext } from "react-hook-form";
 import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, TableFooter, TextField } from "@material-ui/core";
-import Control from "../Control";
-import ActionIcon from "../../Util/ActionIcon/ActionIcon";
-import GridControlHead from "./GridControlHead";
+import Control from "../../Control";
+import ActionIcon from "./ActionIcon/ActionIcon";
+import GridControlHead from "./header";
 
 const useStyles = makeStyles(theme => ({
     root: {

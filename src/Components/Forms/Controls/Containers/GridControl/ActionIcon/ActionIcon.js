@@ -7,7 +7,7 @@ import {
     editGridControlData,
     deleteGridControlData,
     deleteAllGridControlData
-} from "../../../Store/Actions/forms";
+} from "../../../../../../Store/Actions/forms";
 import { useFormContext } from "react-hook-form";
 import { PlusOutlined, EditOutlined, DeleteOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons'
 import { IconButton } from "@material-ui/core";
