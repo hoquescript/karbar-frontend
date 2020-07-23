@@ -6,13 +6,13 @@ import theme from './Constants/Theme';
 import "antd/dist/antd.css";
 import "./style.css"
 
-import Layout from "./Components/Layout/Layout";
+import Layout from "./Pages/Layout";
 
 const Home = React.lazy(() => import(`./Pages/Home`));
 const Form = React.lazy(() => import(`./Pages/Form`));
 
 const App = () => {
-  const path = useSelector ( state => state.menu.route.path )
+  const path = useSelector( state => state.menu.route.path )
   // console.log(theme)
   return (
     <ThemeProvider theme={theme}>

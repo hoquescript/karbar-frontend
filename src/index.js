@@ -1,13 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import App from "./app";
 import { BrowserRouter as Router } from "react-router-dom";
+
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
+
 import createSaga from "redux-saga"
-import { watchMenu, watchControl } from "./Store/Sagas";
 import menuReducer from './Store/Reducers/menu'
 import formReducer from "./Store/Reducers/forms";
+import { watchMenu, watchControl } from "./Store/Sagas";
 
 const rootReducer = combineReducers({
     menu: menuReducer,
@@ -29,4 +31,4 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(app, document.getElementById("root"));
+render(app, document.getElementById("root"));

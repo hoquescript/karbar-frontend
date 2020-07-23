@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from "react-redux"
 import { Grid, Typography, Breadcrumbs } from '@material-ui/core';
 import { CaretRightOutlined  } from '@ant-design/icons'
-import IconGenarator from "../Util/IconGenarator/IconGenarator"
+import IconGenarator from "../../Util/IconGenarator/IconGenarator"
 
 const useStyles = makeStyles(theme => ({
     root : {
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     
 }));
 
-const Headbar = () => {
+const FormHeader = () => {
     const classes = useStyles();
     const {icon, first, second, third} = useSelector ( state => state.menu.menuPathways )
     return (
@@ -88,4 +88,4 @@ const Headbar = () => {
     )
 }
 
-export default Headbar;
+export default FormHeader;

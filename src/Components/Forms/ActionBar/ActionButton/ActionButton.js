@@ -1,7 +1,7 @@
 import React from "react";
 import { isFuture, compareAsc } from 'date-fns'
 import { useSelector, useDispatch } from "react-redux";
-import { postFormData, viewReportData } from "../../Store/Actions/forms";
+import { postFormData, viewReportData } from "../../../../Store/Actions/forms";
 import { useFormContext } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 
@@ -70,10 +70,18 @@ const MenuButton = ({ type, gridSQL }) => {
     const btnHandler = data => {
         switch (type) {
             case "Post":
-                postHandler(dispatch, data, chipData, gridControlData);
-                return;
+            // Insert in Voucher Table
+            postHandler(dispatch, data, chipData, gridControlData);
+            return;
+            // Print + Previeww Report
             case "Journal":
+            return '#9b59b6'
+                //Insert in COA Table
+                case "Save":
                 return '#9b59b6'
+                case "Journal":
+                return '#9b59b6'
+
             case "Print":
                 return '#f39c12'
             case "Help":
@@ -96,12 +104,9 @@ const MenuButton = ({ type, gridSQL }) => {
     );
 };
 
-const ActionButton = ({ controls, gridSQL }) => {
-    const menuButton =
-        controls.length > 0 && controls[0].MenuButton && controls[0].MenuButton.split("~");
-    const buttons = menuButton
-        ? menuButton.map(btnType => <MenuButton key={btnType} type={btnType} gridSQL={gridSQL}/>)
-        : null;
+const ActionButton = ({ menuButton, gridSQL }) => {
+    console.log(menuButton)
+    const buttons = menuButton && menuButton.map(btnType => <MenuButton key={btnType} type={btnType} gridSQL={gridSQL}/>);
     return <div>{buttons}</div>;
 };
 

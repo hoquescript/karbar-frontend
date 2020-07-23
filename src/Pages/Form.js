@@ -1,54 +1,21 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { initiateFetchFormControl } from "../Store/Actions/forms";
-import { AppstoreAddOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Box, Snackbar } from "@material-ui/core";
-import MuiAlert from '@material-ui/lab/Alert';
+import { Grid, Box, Snackbar } from "@material-ui/core";
+// import MuiAlert from '@material-ui/lab/Alert';
 import { useForm, FormContext } from 'react-hook-form';
 import Loading from '../Components/Util/Loading/Loading'
-import Headbar from '../Components/Forms/Headbar';
+import FormHeader from '../Components/Forms/FormHeader/FormHeader';
 import Control from "../Components/Forms/Control";
 import GridControl from "../Components/Forms/GridControl/GridControl";
 import GridView from "../Components/Forms/GridView";
-import ActionButton from "../Components/Forms/ActionButton";
+import ActionBar from "../Components/Forms/ActionBar/ActionBar";
 import Tree from "../Components/Util/ControlElement/Tree"
 import { genarateSQL } from "../Constants/StringHelper";
 import EditControl from "../Components/Forms/EditControl/EditControl";
-import { Alert } from "antd";
 
 const useStyles = makeStyles(theme => ({
-  actionWrapper : {
-      backgroundColor: theme.palette.background.default,
-      margin: "20px 0",
-  },
-  actionButton:{
-    display: 'flex',
-    alignItems: 'center',
-    marginRight:'2rem'
-  },
-  bookmarkWrapper: {
-      display: 'flex',
-      color: theme.palette.typography.main,
-      alignItems: 'center',
-      height: '100%',
-      padding: '1.8rem',
-      backgroundColor: theme.palette.grey[100],
-      fontFamily: "'Open Sans', sans-serif",
-      transition: 'background-color 0.5s',
-      cursor: 'pointer',
-      '&:hover': {
-        backgroundColor: `${theme.palette.grey[150]} !important`,
-      },
-  },
-  bookmarkIcon: {
-    marginRight: theme.spacing(1.5),
-    fontSize: '3rem',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: theme.palette.primary.main
-  },
   contentWrapper: {
     position: 'relative',
     minHeight: '35rem',
@@ -76,6 +43,7 @@ const Form = () => {
   const isLoading = useSelector(state => state.forms.isFormLoading);
   const controls = useSelector(state => state.forms.forms);
   const isGridView = useSelector(state => state.forms.gridData.isGridView);
+  const menuButton = controls && controls.length > 0 && controls[0].MenuButton && controls[0].MenuButton.split(  "~");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -108,21 +76,12 @@ const Form = () => {
         <Control key={ctrl.ControlName} control={ctrl} />
     )
   })
-  console.log(gridControlChild)
   return(
     <>
-      <Headbar/>
+      <FormHeader/>
       <Box style={{margin: '0 auto'}}>
         <FormContext {...hookFormMethods}> 
-          <Grid container justify="space-between" className={classes.actionWrapper}>
-            <Grid item className={classes.bookmarkWrapper}>
-              <AppstoreAddOutlined className={classes.bookmarkIcon}/>
-              <Typography variant="subtitle1" style={{color: 'inherit'}}>Add Bookmark</Typography>
-            </Grid>
-            <Grid item className={classes.actionButton}>
-              <ActionButton controls={controls} gridSQL={gridSQL}/>
-            </Grid>
-          </Grid>
+          <ActionBar menuButton={menuButton} gridSQL={gridSQL}/>
           {/* <MuiAlert elevation={6} variant="filled" severity="success">This is a success message!</MuiAlert> */}
           <Grid item container className={classes.contentWrapper} style={{marginBottom: isGridView ? 20 : 40}}>
             {

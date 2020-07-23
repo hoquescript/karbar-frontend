@@ -5,10 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Layout, Menu } from "antd";
 import { HomeOutlined, PicCenterOutlined, ApartmentOutlined} from '@ant-design/icons'
 
-import Header from "./Header";
-import SideDrawer from "./SideDrawer";
-import { fetchModulesMenu } from "../../Store/Actions/menu"
-import IconGenarator from "../Util/IconGenarator/IconGenarator";
+import Header from "../Components/Layout/Header";
+import SideDrawer from "../Components/Layout/SideDrawer";
+import { fetchModulesMenu } from "../Store/Actions/menu"
+import IconGenarator from "../Components/Util/IconGenarator/IconGenarator";
 
 const { Sider } = Layout;
 
