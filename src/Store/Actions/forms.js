@@ -12,9 +12,10 @@ import {
     STORE_REPORT_DATA
 } from './actionTypes'
 
-export const initiateFetchFormControl = (menuParams) => ({
+export const initiateFetchFormControl = (menuParams, tabParams) => ({
     type: INITIATE_FETCH_FORM_CONTROL,
-    menuParams
+    menuParams,
+    tabParams
 });
 
 export const fetchFormControl = () => ({

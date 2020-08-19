@@ -4,15 +4,20 @@ import Control from "./Control";
 import Tree from "../Controls/Control/ControlElement/Tree"
 import GridControl from "./Containers/GridControl";
 import EditControl from "./Containers/EditControl";
+import TabMenu from "./Containers/TabMenu";
 
 // import { genarateSQL } from "../Constants/StringHelper";
 
-const Controls = ({ controls }) => {
-    let treeChild, editGridData, gridSQL;
-    let gridControlChild = [];
+const Controls = ({ controls, menuParams }) => {
+    let treeChild, editGridData, gridSQL ;
+    let gridControlChild = [], tabData= [];
   
     const controlEl = controls && controls.map(ctrl => {
         ctrl.ControlName = ctrl.ControlName.trim()
+        if(ctrl.MenuParams !== menuParams){
+          tabData.push(ctrl)
+          return null;
+        }
         if(ctrl.IsGridControl) {
           gridControlChild.push(ctrl);
           return null;
@@ -36,7 +41,7 @@ const Controls = ({ controls }) => {
       })
     
     return (
-        <>
+      <>
         <Grid item container>
           {treeChild && (
               <Grid item xs={3} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
@@ -47,11 +52,14 @@ const Controls = ({ controls }) => {
             {controlEl}
           </Grid>
         </Grid>
-        {gridControlChild.length > 0 && (
+        {gridControlChild && gridControlChild.length > 0 && (
           <GridControl controls={gridControlChild}/>
         )}
         {editGridData && editGridData.length > 0 && (
           <EditControl data={editGridData}/>
+        )}
+        {tabData && tabData.length > 0 && (
+          <TabMenu controls = {tabData}/>
         )}
       </>
 )

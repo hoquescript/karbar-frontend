@@ -38,6 +38,8 @@ const Form = () => {
   const hookFormMethods = useForm();
 
   const menuParams = useSelector(state => state.menu.route.menuParams);
+  const tabParams = useSelector(state => state.menu.menuPathways.tabParams);
+
   const isLoading = useSelector(state => state.forms.isFormLoading);
   const controls = useSelector(state => state.forms.forms);
   const isGridView = useSelector(state => state.forms.gridData.isGridView);
@@ -45,8 +47,8 @@ const Form = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(initiateFetchFormControl(menuParams));
-  }, [menuParams, dispatch]);
+    dispatch(initiateFetchFormControl(menuParams, tabParams));
+  }, [menuParams, tabParams, dispatch]);
 
   return(
     <>
@@ -56,7 +58,7 @@ const Form = () => {
           <ActionBar menuButton={menuButton} gridSQL={""}/>
           {/* <MuiAlert elevation={6} variant="filled" severity="success">This is a success message!</MuiAlert> */}
           <Grid item container className={classes.contentWrapper} style={{marginBottom: isGridView ? 20 : 40}}>
-            { isLoading ? <Loading/> : <Controls controls={controls}/> }
+            { isLoading ? <Loading/> : <Controls controls={controls} menuParams={menuParams}/> }
           </Grid>
           {isGridView && (
             <Grid item className={classes.contentWrapper} style={{marginBottom: 40}}>

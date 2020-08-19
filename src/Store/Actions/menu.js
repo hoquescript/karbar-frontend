@@ -4,7 +4,8 @@ import {
   FETCH_MASTER_MENU,
   FETCH_MODULES_MENU,
   MENU_PATH_SELECTION,
-  ROUTE_FINDING
+  ROUTE_FINDING,
+  RESET_TAB_MENU_PROPERTY
 } from "./actionTypes";
 
 export const fetchModulesMenu = () => ({
@@ -26,12 +27,15 @@ export const storeModulesMenu = (modulesMenu) => ({
   modulesMenu
 });
 
-export const menuPathSelection = (firstMenu, icon, secondMenu, thirdMenu) => ({
+export const menuPathSelection = (firstMenu, icon, secondMenu, thirdMenu, menuButton, tabButton, tabParams) => ({
   type: MENU_PATH_SELECTION,
   firstMenu,
   icon,
   secondMenu,
-  thirdMenu
+  thirdMenu,
+  menuButton,
+  tabButton,
+  tabParams
 });
 
 export const routeFinding = (path, menuParams,displayField) => ({
@@ -40,3 +44,6 @@ export const routeFinding = (path, menuParams,displayField) => ({
   menuParams,
 });
 
+export const resetTabMenuProperty = () => ({
+  type: RESET_TAB_MENU_PROPERTY
+});

@@ -1,0 +1,49 @@
+{
+    "ControlName": "cboVType",
+    "GCode": "20",
+    "GLevel": "3",
+    "AType": "",
+    "ADType": "TRAN",
+    "ACode": "030108",
+    "UIType": "JV",
+    "ALevel": "3",
+    "GridControl": [
+        {
+            "ACode": "BP",
+            "AHead": "BP"
+        },
+        {
+            "ACode": "BR",
+            "AHead": "BR"
+        }
+    ],
+    "TabMenu": {
+        "BRCareer": {
+            "ACode": "0101",
+            "ClientCode": "0010",
+            "ModuleCode": "0100",
+            "GCode": null,
+            "GLevel": null,
+            "AHead": "Basic Data",
+            "MenuType": "WA",
+            "MenuParams": "DBas",
+            "MenuButton": null,
+            "TabButton": null,
+            "IconName": null,
+            "DisplayField": null
+        },
+        "BRExp": {
+            "NormalControl": "0101",
+            "GridControl": [
+                {
+                    "ACode": "BP",
+                    "AHead": "BP"
+                },
+                {
+                    "ACode": "BR",
+                    "AHead": "BR"
+                }
+            ]
+        }
+    }
+}

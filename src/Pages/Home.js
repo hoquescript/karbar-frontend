@@ -1,9 +1,10 @@
 import React from 'react'
+import TabMenu from '../Components/Forms/Controls/Containers/TabMenu'
 
 const Home = () => {
     return (
         <div>
-            Home
+            {/* <TabMenu/> */}
         </div>
     )
 }

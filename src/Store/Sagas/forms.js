@@ -1,11 +1,13 @@
 import Axios from "axios";
 import { put } from "redux-saga/effects";
 import * as actions from "../Actions/forms";
+import { resetTabMenuProperty } from "../Actions/menu";
 import Dexie from "dexie";
 import DateHelper from "../../Constants/DateHelper";
 
 export function* fetchFormControls(action) {
     try {
+        // yield put(resetTabMenuProperty());        
         yield put(actions.fetchFormControl());        
         // console.log(dexieOpen)
         // Dexie.getDatabaseNames(database => {
@@ -40,8 +42,13 @@ export function* fetchFormControls(action) {
             yield put(actions.storeFormControl(controls)); 
         }
 
-        //Fetching Data
-        const { data } = yield Axios.get(`http://localhost:8080/api/form/${action.menuParams}`)
+        //Fetching Controls
+        //Formating Tab Params.
+        let tabParams = `', '${action.tabParams.join("', '")}`
+        const { data } = yield Axios.post(`http://localhost:8080/api/form/${action.menuParams}`, {
+            tabParams
+        })
+
         yield put(actions.storeFormControl(data));
         yield db.table('controls').bulkPut(data,{allKeys: true});
     } catch (error) {

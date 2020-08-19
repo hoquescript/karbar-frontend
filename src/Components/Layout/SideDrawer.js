@@ -3,7 +3,7 @@ import { Menu, Icon } from "antd";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { slugStringGenarator } from '../../Constants/StringHelper'
+import { slugStringGenarator, tabMenuFormatter } from '../../Constants/StringHelper'
 import { menuPathSelection, routeFinding } from '../../Store/Actions/menu'
 
 const { SubMenu } = Menu;
@@ -128,31 +128,46 @@ const SideDrawer = ({ data, collapsed, styles, isBasic, isMaster }) => {
 
   const subMenuHandler = (item) => {
     let thirdMenu =  null;
-
     if(isBasic){
       const secondACode = item.key.slice(0,4);
       const secondMenu = basicMenuData.find(data => data.ACode === secondACode);
+
       thirdMenu = secondMenu.children.find(data => data.ACode === item.key)
-      dispatch(menuPathSelection('Basic Data', secondMenu.IconName, secondMenu.AHead, thirdMenu.AHead))
+      const [tabButton, tabParams] = tabMenuFormatter(thirdMenu.TabButton);
+
+      dispatch(menuPathSelection('Basic Data', secondMenu.IconName, secondMenu.AHead, thirdMenu.AHead, thirdMenu.MenuButton, tabButton, tabParams ))
     }
 
     if(isMaster){
       const secondACode = item.key.slice(0,4);
       const secondMenu = masterMenuData.find(data => data.ACode === secondACode);
+
       thirdMenu = secondMenu.children.find(data => data.ACode === item.key)
-      dispatch(menuPathSelection('Master Data', secondMenu.IconName, secondMenu.AHead, thirdMenu.AHead))
+      const [tabButton, tabParams] = tabMenuFormatter(thirdMenu.TabButton);
+
+      dispatch(menuPathSelection('Master Data', secondMenu.IconName, secondMenu.AHead, thirdMenu.AHead, thirdMenu.MenuButton, tabButton, tabParams))
     }
 
     if(!isBasic && !isMaster && (data.formMenu || data.reportMenu)){      
       if(item.key.startsWith('03')){
-        thirdMenu = data.formMenu.find(dt => dt.ACode === item.key);       
-        dispatch(menuPathSelection(data.AHead, data.IconName, 'Forms', thirdMenu.AHead))
+        thirdMenu = data.formMenu.find(dt => dt.ACode === item.key);
+        const tab = tabMenuFormatter(thirdMenu.TabButton);
+        if(tab){
+          const [tabButton, tabParams] = tab;
+          console.log(tabButton)
+
+          dispatch(menuPathSelection(data.AHead, data.IconName, 'Forms', thirdMenu.AHead, thirdMenu.MenuButton, tabButton, tabParams))
+        }
       }
       else if(item.key.startsWith('04')){
         thirdMenu = data.reportMenu.find(dt => dt.ACode === item.key);
-        dispatch(menuPathSelection(data.AHead, data.IconName, 'Reports', thirdMenu.AHead))
-      }   
+        const [tabButton, tabParams] = thirdMenu.TabButton && tabMenuFormatter(thirdMenu.TabButton);
+
+        dispatch(menuPathSelection(data.AHead, data.IconName, 'Reports', thirdMenu.AHead, thirdMenu.MenuButton, tabButton, tabParams))
+      }    
     }
+    //--- firstMenu, icon, secondMenu, thirdMenu, menuButton, tabButton
+    // dispatch(menuPathSelection(data.AHead, data.IconName, 'Reports', thirdMenu.AHead, thirdMenu.MenuButton, thirdMenu.TabButton));
 
     const slugStr = slugStringGenarator(thirdMenu.AHead)
     dispatch(routeFinding(slugStr,thirdMenu.MenuParams))

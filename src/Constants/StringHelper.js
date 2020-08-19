@@ -59,6 +59,20 @@ export const genarateSQL = control => {
     return sql;
 };
 
+export const tabMenuFormatter = tabMenu => {
+    if(tabMenu){
+        tabMenu = tabMenu.split(' ')
+        let tab = [], params = []
+    
+        tabMenu.forEach(cat => {
+            let [menuParams, tabButton] = cat.split('~')
+            tab.push(tabButton);
+            params.push(menuParams)
+        })
+    
+        return [tab, params]
+    }
+}
 
 {/* <Controller
 fullWidth

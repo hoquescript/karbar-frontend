@@ -3,7 +3,8 @@ import {
     FETCH_MASTER_MENU,
     FETCH_MODULES_MENU,
     MENU_PATH_SELECTION,
-    ROUTE_FINDING
+    ROUTE_FINDING,
+    RESET_TAB_MENU_PROPERTY
 } from "../Actions/actionTypes";
 
 const initialState = {
@@ -12,9 +13,12 @@ const initialState = {
     modulesMenu: [],
     menuPathways: {
         first: "",
-        icon: "",
         second: "",
-        third: ""
+        third: "",
+        icon: "",
+        menuButton: "",
+        tabButton: [],
+        tabParams: [],
     },
     route: {
         path: "",
@@ -46,9 +50,12 @@ export default (state = initialState, action) => {
                 ...state,
                 menuPathways: {
                     first: action.firstMenu,
-                    icon: action.icon,
                     second: action.secondMenu,
-                    third: action.thirdMenu
+                    third: action.thirdMenu,
+                    icon: action.icon,
+                    menuButton: action.menuButton,
+                    tabButton: action.tabButton,
+                    tabParams: action.tabParams,
                 }
             };
 
@@ -60,7 +67,16 @@ export default (state = initialState, action) => {
                     menuParams: action.menuParams,
                 }
             };
-
+        case RESET_TAB_MENU_PROPERTY:
+            return {
+                ...state,
+                menuPathways: {
+                    ...state.menuPathways,
+                    menuButton: '',
+                    tabButton: [],
+                    tabParams: [],
+                },
+            };
         default:
             return state;
     }

@@ -11,7 +11,8 @@ import Layout from "./Pages/Layout";
 const Home = React.lazy(() => import(`./Pages/Home`));
 const Form = React.lazy(() => import(`./Pages/Form`));
 
-const App = () => {
+const App = (props) => {
+  console.log(props)
   const path = useSelector( state => state.menu.route.path )
   // console.log(theme)
   return (
