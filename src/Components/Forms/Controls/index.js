@@ -58,9 +58,9 @@ const Controls = ({ controls, menuParams }) => {
         {editGridData && editGridData.length > 0 && (
           <EditControl data={editGridData}/>
         )}
-        {tabData && tabData.length > 0 && (
+        {/* {tabData && tabData.length > 0 && (
           <TabMenu controls = {tabData}/>
-        )}
+        )} */}
       </>
 )
 }

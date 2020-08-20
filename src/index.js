@@ -3,25 +3,28 @@ import { render } from "react-dom";
 import App from "./app";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers } from "redux";
 import { Provider } from "react-redux";
-import { composeWithDevTools } from "redux-devtools-extension"
-import createSaga from "redux-saga"
-import menuReducer from './Store/Reducers/menu'
+import createSaga from "redux-saga";
+import uiReducer from './Store/interface'
+import menuReducer, { watchMenu } from './Store/menu'
+// import menuReducer from './Store/Reducers/menu'
 import formReducer from "./Store/Reducers/forms";
-import { watchMenu, watchControl } from "./Store/Sagas";
+import { watchControl } from "./Store/Sagas";
 
 const rootReducer = combineReducers({
+    ui: uiReducer,
     menu: menuReducer,
     forms: formReducer
 })
 
 const saga = createSaga();
-const composeEnhancers = composeWithDevTools({
-  trace: true
+
+const store = configureStore({
+  reducer: rootReducer, 
+  middleware: [ saga ]
 });
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(saga)));
 
 saga.run(watchMenu);
 saga.run(watchControl);

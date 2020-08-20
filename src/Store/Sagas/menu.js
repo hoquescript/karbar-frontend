@@ -22,7 +22,7 @@ export function* fetchModulesMenu(action) {
     // } 
     // catch (error) {
         const menu = yield axios.get("http://localhost:8080/api/menu");
-        console.log(menu)
+        // console.log(menu)
         const record = menu.data;
 
         const db = yield new Dexie("Menu");

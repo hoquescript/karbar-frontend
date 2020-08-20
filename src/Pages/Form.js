@@ -37,8 +37,8 @@ const Form = () => {
   const classes = useStyles();
   const hookFormMethods = useForm();
 
-  const menuParams = useSelector(state => state.menu.route.menuParams);
-  const tabParams = useSelector(state => state.menu.menuPathways.tabParams);
+  const menuParams = useSelector(state => state.menu.selectedMenu.MenuParams);
+  const tabParams = ["BRCareer", "BRExp"]
 
   const isLoading = useSelector(state => state.forms.isFormLoading);
   const controls = useSelector(state => state.forms.forms);
@@ -48,7 +48,7 @@ const Form = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(initiateFetchFormControl(menuParams, tabParams));
-  }, [menuParams, tabParams, dispatch]);
+  }, [menuParams, dispatch]);
 
   return(
     <>

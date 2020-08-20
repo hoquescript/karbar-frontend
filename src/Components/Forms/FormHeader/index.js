@@ -7,6 +7,7 @@ import IconGenarator from "../../Util/IconGenarator/IconGenarator"
 
 const useStyles = makeStyles(theme => ({
     root : {
+        marginTop: "7.5rem",
         padding: '15px 0',
         width:'100%',
         backgroundColor: theme.palette.background.default
@@ -58,28 +59,28 @@ const useStyles = makeStyles(theme => ({
 
 const FormHeader = () => {
     const classes = useStyles();
-    const {icon, first, second, third} = useSelector ( state => state.menu.menuPathways )
+    const {icon, primary, secondary, tertiary} = useSelector ( state => state.ui.breadCrumb )
     return (
         <div className={classes.root}>
             <Grid container justify="space-between" alignItems="center" style={{width: '130rem', margin: '0 auto'}}>
                 <Grid item className={classes.headbar}> 
-                    <span className={classes.headIcon}>{IconGenarator(second === "Forms" ? "FormOutlined" : "CopyOutlined")}</span>
+                    <span className={classes.headIcon}>{IconGenarator(secondary === "Forms" ? "FormOutlined" : "CopyOutlined")}</span>
                     <div className={classes.titleWrapper}>
-                        <Typography variant="h6" className={classes.mainTitle}>{third}</Typography>
-                        <Typography variant="subtitle2" className={classes.subTitle}>{first}</Typography>
+                        <Typography variant="h6" className={classes.mainTitle}>{tertiary}</Typography>
+                        <Typography variant="subtitle2" className={classes.subTitle}>{primary}</Typography>
                     </div>
                 </Grid>
                 <Grid item>
                     <Breadcrumbs separator={<CaretRightOutlined/>} className={classes.breadcrumb}>
                         <Typography className={classes.link}>
                             <span className={classes.icon}>{IconGenarator(icon)}</span>
-                            {first || 'Loading'}
+                            {primary || 'Loading'}
                         </Typography>
                         <Typography className={classes.link}>
-                            {second || '...' }
+                            {secondary || '...' }
                         </Typography>
                         <Typography className={`${classes.link} ${classes.main}`}>
-                            {third || '...' }
+                            {tertiary || '...' }
                         </Typography>
                     </Breadcrumbs>
                 </Grid>

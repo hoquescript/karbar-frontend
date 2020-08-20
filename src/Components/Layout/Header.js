@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Box } from "@material-ui/core";
 import logo from "../../Assets/logo-color.png";
 // import logo from "../../Assets/logo-white.png";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import Profile from "./HeaderMenu/Profile";
 import Notification from "./HeaderMenu/Notifcation";
 import Settings from "./HeaderMenu/Settings";
@@ -13,8 +12,12 @@ import Searchbar from "./Searchbar/Searchbar";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    height: '7.5rem',
-    backgroundColor: theme.palette.header.background
+    backgroundColor: theme.palette.header.background,
+    height: "7.5rem",
+    width: "calc(100% - 8rem)",
+    position: "absolute",
+    zIndex: 100000000000,
+    left: "8rem"
   },
   menuCollapse: {
     backgroundColor: theme.palette.header.collapseBackground,
@@ -22,10 +25,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  menuCollapseLogo: {
-    fontSize: '2.5rem',
-    color: theme.palette.header.icon
   },
   menuWrapper: {
     width: '100%',
@@ -47,17 +46,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const HeaderMenu = props => {
+const HeaderMenu = () => {
   const classes = useStyles();
   return (
     <Grid className={classes.root}>
-      <Box
-        className={classes.menuCollapse}
-        onClick={props.collapseMenu} 
-        style={props.collapse ? {minWidth: 80} : {minWidth: 220}}
-      >
-        {props.collapse ? <MenuUnfoldOutlined className={classes.menuCollapseLogo}/> : <MenuFoldOutlined className={classes.menuCollapseLogo}/>}
-      </Box>
       <Box className={classes.menuWrapper}>
 
         <img style={{height: '4rem'}} src={logo} alt="Logo of Dot Bangladesh" />
