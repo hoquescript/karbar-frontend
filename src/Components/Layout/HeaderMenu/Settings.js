@@ -1,4 +1,6 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
 import { SettingOutlined } from "@ant-design/icons";
 import IconButton from "@material-ui/core/IconButton";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -45,7 +47,11 @@ const Settings = ({style}) => {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <NavLink to='/mail'>
+                        Bulk Mail Sender
+                      </NavLink>
+                    </MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>
                   </MenuList>

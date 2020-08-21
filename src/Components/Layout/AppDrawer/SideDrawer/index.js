@@ -150,7 +150,7 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
         Object.keys(items).map(item => (
             <Menu.Item key={items[item].MenuParams}>
                 <NavLink to={`/${slugStringGenarator(items[item].AHead)}`}>
-                {items[item].AHead}
+                    {items[item].AHead}
                 </NavLink>
             </Menu.Item>
         ))

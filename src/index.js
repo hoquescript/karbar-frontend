@@ -7,11 +7,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from "redux";
 import { Provider } from "react-redux";
 import createSaga from "redux-saga";
+
 import uiReducer from './Store/interface'
-import menuReducer, { watchMenu } from './Store/menu'
+import menuReducer from './Store/menu'
 // import menuReducer from './Store/Reducers/menu'
 import formReducer from "./Store/Reducers/forms";
-import { watchControl } from "./Store/Sagas";
+import {watchMenu, watchControl } from "./Store/Sagas";
 
 const rootReducer = combineReducers({
     ui: uiReducer,

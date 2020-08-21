@@ -7,7 +7,6 @@ import IconGenarator from "../../Util/IconGenarator/IconGenarator"
 
 const useStyles = makeStyles(theme => ({
     root : {
-        marginTop: "7.5rem",
         padding: '15px 0',
         width:'100%',
         backgroundColor: theme.palette.background.default

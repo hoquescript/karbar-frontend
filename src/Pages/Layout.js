@@ -32,7 +32,9 @@ const LayoutModel = (props) => {
             <AppDrawer/>
             <Layout className={classes.body}>
                 <Header/>
-                {props.children}
+                <div style={{marginTop: '7.5rem'}}>
+                    {props.children}
+                </div>
             </Layout>
         </Layout>
     );

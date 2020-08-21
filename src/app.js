@@ -10,6 +10,7 @@ import Layout from "./Pages/Layout";
 
 const Home = React.lazy(() => import(`./Pages/Home`));
 const Form = React.lazy(() => import(`./Pages/Form`));
+const Mail = React.lazy(() => import(`./Pages/Settings/Mail`));
 
 const App = () => {
   const path = useSelector( state => state.ui.urlPath)
@@ -20,6 +21,7 @@ const App = () => {
         <Suspense fallback={<p>Loading.......</p>}>
           <Switch>
             <Route path="/" exact render={(props) => <Home {...props}/>}/>
+            <Route path="/mail" exact render={(props) => <Mail {...props}/>}/>
             <Route path={`/${path}`} exact render={(props) => <Form {...props}/>}/>
           </Switch>
         </Suspense>
