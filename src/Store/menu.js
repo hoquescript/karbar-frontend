@@ -1,6 +1,6 @@
 import { createAction, createSlice } from '@reduxjs/toolkit'
 
-export const fetchMenu = createAction('fetchMenu');
+export const fetchMenu = createAction('menu/fetchMenu');
 
 const menu = createSlice({
     name: 'menu',

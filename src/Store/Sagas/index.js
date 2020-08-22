@@ -4,6 +4,7 @@ import * as actionTypes from '../Actions/actionTypes'
 import { fetchMenu } from '../menu';
 import { fetchModulesMenu } from './menu'
 
+import { fetchControl } from '../form'
 import { fetchFormControls, viewReportData, postFormData } from '../Sagas/forms';
 
 export function* watchMenu(){
@@ -11,7 +12,7 @@ export function* watchMenu(){
 }
 
 export function* watchControl(){
-    yield takeEvery(actionTypes.INITIATE_FETCH_FORM_CONTROL, fetchFormControls)
-    yield takeEvery(actionTypes.POST_FORM_DATA, postFormData)
-    yield takeEvery(actionTypes.VIEW_REPORT_DATA, viewReportData)
+    yield takeEvery(fetchControl, fetchFormControls)
+    // yield takeEvery(actionTypes.POST_FORM_DATA, postFormData)
+    // yield takeEvery(actionTypes.VIEW_REPORT_DATA, viewReportData)
 }

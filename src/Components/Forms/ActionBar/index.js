@@ -7,7 +7,8 @@ import AddBookmark from "./AddBookmark";
 const useStyles = makeStyles(theme => ({
     actionWrapper : {
         backgroundColor: theme.palette.background.default,
-        margin: "20px 0",
+        margin: "20px auto",
+        width: "120rem"
     },
     actionButton:{
       display: 'flex',

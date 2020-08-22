@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     }
 });
 
-const PriceField = ({ ctrlName, placeHolder, rowData, editControl, value }) => {
+const PriceField = ({ ctrlName, controlLabel, placeHolder, rowData, editControl, value , isTabControl, }) => {
     const classes = useStyles();
     
     const { control } = useFormContext();
@@ -46,8 +46,9 @@ const PriceField = ({ ctrlName, placeHolder, rowData, editControl, value }) => {
                 <Controller
                     fullWidth
                     variant="outlined"
+                    label={isTabControl ? controlLabel : null}
+                    className={isTabControl ? `tabTextField` : classes.control}    
                     size="small"
-                    className={classes.control}
                     disabled={rowData && rowData.key !== editControl}
                     name={ctrlName}
                     defaultValue={placeHolder}
@@ -56,9 +57,11 @@ const PriceField = ({ ctrlName, placeHolder, rowData, editControl, value }) => {
                     placeholder='0.00'
                 />
             )}
+            {!isTabControl && ( 
             <div className={classes.iconWrapper}>
                 <img src={taka} className={classes.icon} alt='$'/>
             </div>
+            )}
         </div>
     );
 };

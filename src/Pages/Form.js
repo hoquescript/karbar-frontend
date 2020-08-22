@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { initiateFetchFormControl } from "../Store/Actions/forms";
+import { fetchControl } from "../Store/form";
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Box } from "@material-ui/core";
 
 import { useForm, FormContext } from 'react-hook-form';
 
+import { tabMenuFormatter } from '../Constants/StringHelper'
 import Loading from '../Components/Util/Loading/Loading'
 import FormHeader from '../Components/Forms/FormHeader';
 import ActionBar from "../Components/Forms/ActionBar";
@@ -38,16 +39,18 @@ const Form = () => {
   const hookFormMethods = useForm();
 
   const menuParams = useSelector(state => state.menu.selectedMenu.MenuParams);
-  const tabParams = ["BRCareer", "BRExp"]
+  const tabButton = useSelector(state => state.menu.selectedMenu.TabButton);
+  const [ tabHeader, tabParams ] = tabMenuFormatter(tabButton)
 
-  const isLoading = useSelector(state => state.forms.isFormLoading);
-  const controls = useSelector(state => state.forms.forms);
-  const isGridView = useSelector(state => state.forms.gridData.isGridView);
-  const menuButton = controls && controls.length > 0 && controls[0].MenuButton && controls[0].MenuButton.split(  "~");
+  const isLoading = useSelector(state => state.form.isFormLoading);
+  const isGridView = false;
+  const controls = useSelector(state => state.form.controls);
+
+  const menuButton = controls && controls.length > 0 && controls[0].MenuButton && controls[0].MenuButton.split("~");
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(initiateFetchFormControl(menuParams, tabParams));
+    dispatch(fetchControl({menuParams, tabParams}));
   }, [menuParams, dispatch]);
 
   return(
@@ -57,8 +60,8 @@ const Form = () => {
         <FormContext {...hookFormMethods}> 
           <ActionBar menuButton={menuButton} gridSQL={""}/>
           {/* <MuiAlert elevation={6} variant="filled" severity="success">This is a success message!</MuiAlert> */}
-          <Grid item container className={classes.contentWrapper} style={{marginBottom: isGridView ? 20 : 40}}>
-            { isLoading ? <Loading/> : <Controls controls={controls} menuParams={menuParams}/> }
+          <Grid item container className={classes.contentWrapper} style={{margin: '0 auto', marginBottom: isGridView ? 20 : 40}}>
+            { isLoading ? <Loading/> : <Controls controls={controls} menuParams={menuParams} tabButton={[tabHeader, tabParams]}/> }
           </Grid>
           {isGridView && (
             <Grid item className={classes.contentWrapper} style={{marginBottom: 40}}>

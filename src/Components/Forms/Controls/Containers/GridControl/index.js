@@ -46,11 +46,11 @@ const GridControl = ({ controls }) => {
 
     const [editControl, setEditControl] = useState('')
     const [isControlEditMode, setIsControlEditMode] = useState(false)
-    const gridControlData = useSelector(state => state.forms.gridControlData);
+    const gridControls = useSelector(state => state.form.values.gridControls);
     const gridRowControlForm = useForm({defaultValues});
     // console.log(controls)
     const totalCounter = (ctrlName) => {
-        return `${gridControlData.reduce((total, row) => total + parseInt(row[ctrlName] || 0), 0)}`
+        return `${gridControls.reduce((total, row) => total + parseInt(row[ctrlName] || 0), 0)}`
     }
     return (
         <div className={classes.root}>
@@ -63,7 +63,7 @@ const GridControl = ({ controls }) => {
                             defaultValues={defaultValues}
                         />
                         <TableBody>
-                            {gridControlData && gridControlData.map((data) => (
+                            {gridControls && gridControls.map((data) => (
                                 <TableRow key={data.key}>
                                 <FormContext {...gridRowControlForm}>
                                     {controls.map((ctrl,index) => (
@@ -91,7 +91,7 @@ const GridControl = ({ controls }) => {
                                 </FormContext>
                             </TableRow>
                             ))}
-                            {gridControlData.length > 0 && (
+                            {gridControls.length > 0 && (
                                 <TableRow>
                                     {controls.map((ctrl) => 
                                         ctrl.ControlElementType === 'txt' || 

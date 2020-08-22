@@ -8,12 +8,12 @@ import TabMenu from "./Containers/TabMenu";
 
 // import { genarateSQL } from "../Constants/StringHelper";
 
-const Controls = ({ controls, menuParams }) => {
+const Controls = ({ controls, menuParams, tabButton }) => {
     let treeChild, editGridData, gridSQL ;
     let gridControlChild = [], tabData= [];
   
     const controlEl = controls && controls.map(ctrl => {
-        ctrl.ControlName = ctrl.ControlName.trim()
+        // ctrl.ControlName = ctrl.ControlName.trim()
         if(ctrl.MenuParams !== menuParams){
           tabData.push(ctrl)
           return null;
@@ -36,7 +36,7 @@ const Controls = ({ controls, menuParams }) => {
           return null;
         }
         return (
-            <Control key={ctrl.ControlName} control={ctrl} />
+            <Control key={ctrl.ControlName} control={ctrl} isTabControl={false}/>
         )
       })
     
@@ -52,15 +52,15 @@ const Controls = ({ controls, menuParams }) => {
             {controlEl}
           </Grid>
         </Grid>
-        {gridControlChild && gridControlChild.length > 0 && (
+        {/* {gridControlChild && gridControlChild.length > 0 && (
           <GridControl controls={gridControlChild}/>
-        )}
+        )} */}
         {editGridData && editGridData.length > 0 && (
           <EditControl data={editGridData}/>
         )}
-        {/* {tabData && tabData.length > 0 && (
-          <TabMenu controls = {tabData}/>
-        )} */}
+        {tabData && tabData.length > 0 && (
+          <TabMenu controls={tabData} tabButton={tabButton}/>
+        )}
       </>
 )
 }

@@ -1,56 +1,22 @@
 import Axios from "axios";
 import { put } from "redux-saga/effects";
 import * as actions from "../Actions/forms";
+
+import { storeControl, resetFormState } from '../form'
 import { resetTabMenuProperty } from "../Actions/menu";
 import Dexie from "dexie";
 import DateHelper from "../../Constants/DateHelper";
 
 export function* fetchFormControls(action) {
+    let { menuParams, tabParams } = action.payload;
     try {
-        // yield put(resetTabMenuProperty());        
-        yield put(actions.fetchFormControl());        
-        // console.log(dexieOpen)
-        // Dexie.getDatabaseNames(database => {
-        //     database.map(dbName => {
-        //         const db = new Dexie(dbName).open();
-        //         console.log(db)
-        //         yield db.table('postData').toCollection().keys(async (keys) => {
-        //             return await db.table('postData').bulkGet(keys);
-        //         })   
-        //     })
-        // })
-    //Checking if database exists or not
-        let db;
-        const isDbExist = yield Dexie.exists(action.menuParams);
-        if(!isDbExist){
-            //Creating a new store
-            db = yield new Dexie(action.menuParams);
-            db.version(1).stores({
-                controls: "ControlIndex",
-                getData: "MenuParams",
-                postData: "id",
-            });
-            console.log('!isDbExist')
-        }
-        else if(isDbExist){
-            //Opening the store to manipulate
-            let controls;
-            db = yield new Dexie(action.menuParams).open();
-            yield db.table('controls').toCollection().keys(async (keys) => {
-                controls = await db.table('controls').bulkGet(keys);
-            })   
-            yield put(actions.storeFormControl(controls)); 
-        }
-
-        //Fetching Controls
-        //Formating Tab Params.
-        let tabParams = `', '${action.tabParams.join("', '")}`
-        const { data } = yield Axios.post(`http://localhost:8080/api/form/${action.menuParams}`, {
+        yield put(resetFormState());        
+        tabParams = `', '${tabParams.join("', '")}`
+        const records = yield Axios.post(`http://localhost:8080/api/form/${menuParams}/`, {
+            // menuParams, //! Have to upgrade it later
             tabParams
         })
-
-        yield put(actions.storeFormControl(data));
-        yield db.table('controls').bulkPut(data,{allKeys: true});
+        yield put(storeControl({controls: records.data}));
     } catch (error) {
         console.log(error)
     }

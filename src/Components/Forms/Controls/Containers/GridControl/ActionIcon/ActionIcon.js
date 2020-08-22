@@ -3,11 +3,11 @@ import { v4 as uuid } from "uuid";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import {
-    addGridControlData,
-    editGridControlData,
-    deleteGridControlData,
-    deleteAllGridControlData
-} from "../../../../../../Store/Actions/forms";
+    addGridControl, 
+    editGridControl, 
+    deleteGridControl, 
+    deleteAllGridControl,
+} from '../../../../../../Store/form'
 import { useFormContext } from "react-hook-form";
 import { PlusOutlined, EditOutlined, DeleteOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons'
 import { IconButton } from "@material-ui/core";
@@ -46,15 +46,15 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
             else if(+data.decDebit === +data.decCredit)
                 alert('Debit & Credit cant be both Zero')
             else{
-                console.log(data, data.decDebit, data.decCredit)
-                dispatch(addGridControlData({ ...data, key: uuid() }));
+                // console.log(data, data.decDebit, data.decCredit)
+                dispatch(addGridControl({gridControl: { key: uuid(), ...data  }}));
             }
         }
         reset(defaultValues);
     };
 
     const deleteAllBtnHandler = data => {
-        dispatch(deleteAllGridControlData());
+        dispatch(deleteAllGridControl());
     };
 
     const editBtnHandler = () => {
@@ -62,12 +62,12 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
     };
 
     const saveBtnHandler = data => {
-        dispatch(editGridControlData(rowData.key, data[rowData.key]));
+        dispatch(editGridControl({key: rowData.key, gridControl: data[rowData.key]}));
         setEditControl('')
     };
 
     const deleteBtnHandler = data => {
-        dispatch(deleteGridControlData(rowData.key));
+        dispatch(deleteGridControl({key: rowData.key}));
     };
 
     return type === "add" ? (

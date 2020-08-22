@@ -10,14 +10,15 @@ import createSaga from "redux-saga";
 
 import uiReducer from './Store/interface'
 import menuReducer from './Store/menu'
-// import menuReducer from './Store/Reducers/menu'
-import formReducer from "./Store/Reducers/forms";
+import formReducer from './Store/form'
+import formsReducer from "./Store/Reducers/forms";
 import {watchMenu, watchControl } from "./Store/Sagas";
 
 const rootReducer = combineReducers({
     ui: uiReducer,
     menu: menuReducer,
-    forms: formReducer
+    form: formReducer,
+    forms: formsReducer
 })
 
 const saga = createSaga();

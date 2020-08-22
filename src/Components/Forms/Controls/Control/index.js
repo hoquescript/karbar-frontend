@@ -9,9 +9,8 @@ import ComboBox from "./ControlElement/ComboBox";
 import DatePicker from "./ControlElement/DatePicker";
 
 const Control = props => {
-    const { control, name, placeholder, rowData, editControl, value } = props;
+    const { control, name, placeholder, rowData, editControl, value, isTabControl } = props;
     const { ControlLabel, ControlElementType, ControlName, IsGridControl, Params } = control;
-
     let inputEl;
     switch (ControlElementType && ControlElementType.trim()) {
         case "txt":
@@ -21,6 +20,8 @@ const Control = props => {
                     placeHolder={placeholder}
                     rowData={rowData}
                     editControl={editControl}
+                    controlLabel = {ControlLabel}
+                    isTabControl = {isTabControl}
                 />
             );
             break;
@@ -32,14 +33,16 @@ const Control = props => {
                     placeHolder={placeholder}
                     rowData={rowData}
                     editControl={editControl}
+                    controlLabel = {ControlLabel}
+                    isTabControl = {isTabControl}
                 />
             );
             break;
         case "dtp":
-            inputEl = <DatePicker ctrlName={name || ControlName} />;
+            inputEl = <DatePicker ctrlName={name || ControlName} controlLabel = {ControlLabel}/>;
             break;
         case "chp":
-            inputEl = <ChipField />;
+            inputEl = <ChipField isTabControl/>;
             break;
         case "dec":
             inputEl = (
@@ -49,6 +52,8 @@ const Control = props => {
                     rowData={rowData}
                     editControl={editControl}
                     value={value}
+                    controlLabel={ControlLabel}
+                    isTabControl={isTabControl}
                 />
             );
             break;
@@ -60,6 +65,8 @@ const Control = props => {
                     placeHolder={'Default'}
                     rowData={rowData}
                     editControl={editControl}
+                    controlLabel = {ControlLabel}
+                    isTabControl
                 />
             );
             break;
@@ -72,13 +79,17 @@ const Control = props => {
             direction="row"
             alignItems="center"
             justify="space-around"
-            xs={9}
-            style={{ marginBottom: 20 }}
-        >
+            xs={isTabControl ? 12 : 9}
+            style={{ marginBottom: isTabControl ? 10 : 20 }}
+        >   
+        {
+            isTabControl ? null : (
             <Grid item xs={3}>
                 <Label>{ControlLabel}</Label>
             </Grid>
-            <Grid item xs={9}>
+            )
+        }
+            <Grid item xs={isTabControl ? 12 : 9}>
                 {inputEl}
             </Grid>
         </Grid>
