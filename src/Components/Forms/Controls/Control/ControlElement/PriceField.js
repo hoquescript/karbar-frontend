@@ -35,9 +35,10 @@ const useStyles = makeStyles({
     }
 });
 
-const PriceField = ({ ctrlName, controlLabel, placeHolder, rowData, editControl, value , isTabControl, }) => {
-    const classes = useStyles();
-    
+const PriceField = (props) => {
+    const classes = useStyles(props);
+    // { ctrlName, controlLabel, placeHolder, rowData, editControl, value , isTabControl, }
+    const { name, label, disabled, defaultValue, value, isTabControl} = props;
     const { control } = useFormContext();
     return (
         <div className={classes.root}>
@@ -46,12 +47,16 @@ const PriceField = ({ ctrlName, controlLabel, placeHolder, rowData, editControl,
                 <Controller
                     fullWidth
                     variant="outlined"
-                    label={isTabControl ? controlLabel : null}
+                    label={isTabControl ? label : null}
                     className={isTabControl ? `tabTextField` : classes.control}    
                     size="small"
-                    disabled={rowData && rowData.key !== editControl}
-                    name={ctrlName}
-                    defaultValue={placeHolder}
+                    disabled={disabled}
+                    name={name}
+                    defaultValue={defaultValue}
+    
+                    // disabled={rowData && rowData.key !== editControl}
+                    // name={ctrlName}
+                    // defaultValue={placeHolder}
                     as={TextField}
                     control={control}
                     placeholder='0.00'

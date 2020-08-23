@@ -36,18 +36,26 @@ const Controls = ({ controls, menuParams, tabButton }) => {
           return null;
         }
         return (
-            <Control key={ctrl.ControlName} control={ctrl} isTabControl={false}/>
+            <Control 
+              key={ctrl.ControlName}
+              type={ctrl.ControlElementType}
+              name={ctrl.ControlName}
+              label={ctrl.ControlLabel}
+              params={ctrl.Params}
+              // disabled={}
+              // defaultValue ={}
+            />
         )
       })
     
     return (
       <>
         <Grid item container>
-          {treeChild && (
+          {/* {treeChild && (
               <Grid item xs={3} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
                 <Tree params={treeChild}/>
               </Grid>
-          )}
+          )} */}
           <Grid item container justify="center" alignItems="center" xs={treeChild ?  9 : 12}>
             {controlEl}
           </Grid>

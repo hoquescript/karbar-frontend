@@ -1,22 +1,23 @@
-import React from 'react';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { Grid, Box, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { useSelector } from "react-redux";
+import { useForm, FormContext } from "react-hook-form";
+import { Grid, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Control from '../../../Control';
 import GridControl from '../../GridControl';
+import ActionIcon from '../ActionButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: '#eee',
-    // border: '1px solid #333',
     padding: '1.5rem 1rem'
   },
   tabForm:{
     backgroundColor: '#fff',
     padding: '3.5rem 2rem 2rem',
+    marginRight: '1rem',
+    marginBottom: '1rem'
   },
   button: {
     marginRight: '1rem',
@@ -26,36 +27,86 @@ const useStyles = makeStyles(theme => ({
 
 const TabPanel = (props) => {
     const classes = useStyles()
-    const { value, index, controls} = props;
-    const elements = controls.filter(ctrl => ctrl.MenuParams ===  index)
+    const { value, index, controls} = props;  
+    const elements = controls.filter(ctrl => ctrl.MenuParams ===  index);
+    const tabControlForms = useSelector(state => state.form.values.tabControls[index]);
+
+    // console.log(tabControlForms)
+    const defaultValues = {};
+    const refs = controls.map(ctrl => ctrl.ControlName);
+    refs.forEach(ref => {
+        defaultValues[ref] = ''
+    });
+    const tabControlForm = useForm({defaultValues});
   
+    const [ editableForm, setEditableForm ] = useState('')
+    const editModeHandler = (key) => {
+      setEditableForm(key)
+    }
+
     let gridControl = [];
     return (
       <div hidden={value !== index} className={classes.root}>
         <Grid container>
           <Grid item xs={6}>
-            <Box className={classes.tabForm} style={{marginRight: '1rem'}}>
-              {value === index && elements && elements.map(el => {
-                if(el.IsGridControl) {
-                  return gridControl.push(el);
-                }
-                return <Control key={el.ControlName} control={el} isTabControl={true}/>
-              })}
-              <Button startIcon={<AddIcon />} variant="contained" color="primary" className={classes.button}>Add</Button>
-              <Button startIcon={<DeleteSweepIcon />} variant="contained" color="secondary" className={classes.button}>Clear All</Button>
+            <Box className={classes.tabForm}>
+              <FormContext  {...tabControlForm}>
+                {value === index && elements && elements.map(el => {
+                  if(el.IsGridControl) {
+                    return gridControl.push(el);
+                  }
+                  return (
+                    <Control
+                      isTabControl
+                      key={el.ControlName} 
+                      type={el.ControlElementType}
+                      name={el.ControlName}
+                      label={el.ControlLabel}
+                      params={el.Params}
+                      disabled={editableForm}
+                    />
+                  )
+                })}
+                <ActionIcon style={classes.button} index={index}/>
+              </FormContext>
             </Box>
           </Grid>
-          
-          {/* <Grid item xs={6}>
-            <Box className={classes.tabForm}>
-              {value === index && elements && elements.map(el => {
-                if(el.IsGridControl) {
-                  return gridControl.push(el);
-                }
-                return <Control key={el.ControlName} control={el} isTabControl={true}/>
-              })}
-            </Box>
-          </Grid> */}
+          {
+            tabControlForms && tabControlForms.length > 0 && tabControlForms.map(form => (
+              <Grid item xs={6} key={form.key}>
+                <Box className={classes.tabForm} style={{marginRight: '1rem'}}>
+                  <FormContext  {...tabControlForm}>
+                    {value === index && elements && elements.map(el => {
+                      // if(el.IsGridControl) {
+                      //   return gridControl.push(el);
+                      // }
+                      return (
+                        <Control
+                          isTabControl
+                          key={el.ControlName} 
+                          type={el.ControlElementType}
+                          // name={form[el.ControlName]}
+                          label={el.ControlLabel}
+                          params={el.Params}
+                          name = {`${form.key}[${el.ControlName}]`}
+                          defaultValue={form[el.ControlName]}
+                          disabled={!(editableForm && editableForm === form.key)}
+                        />
+                      )
+                    })}
+                    <ActionIcon 
+                      style={classes.button} 
+                      index={index} 
+                      id={form.key} 
+                      editableForm={editableForm} 
+                      editModeHandler={editModeHandler}
+                    />
+                  </FormContext>
+                </Box>
+              </Grid>
+            ))
+          }
+          {/* </FormContext> */}
         </Grid>
         <>
           {gridControl && gridControl.length > 0 && <GridControl controls={gridControl}/>}

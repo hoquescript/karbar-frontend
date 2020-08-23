@@ -6,9 +6,10 @@ import {
     KeyboardDatePicker
 } from "@material-ui/pickers";
 
-const DatePicker = ({ ctrlName }) => {
+const DatePicker = (props) => {
     const { control, errors } = useFormContext();
-    
+    const { name, label, isTabControl} = props;
+
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
@@ -16,17 +17,19 @@ const DatePicker = ({ ctrlName }) => {
                     <KeyboardDatePicker
                         clearable
                         autoOk
+                        label={isTabControl ? label : ''}
+                        variant="inline"
                         inputVariant="outlined"
                         format="dd/MM/yyyy"
                         size="small"
+                        value = {new Date()}
                     />
                 }
                 control={control}
-                name={ctrlName}
-                defaultValue=""
-                // rules={{required: true}}
-                error={errors && errors[ctrlName] ? true : false}
-                helperText={errors[ctrlName] && '* Your Input is Required'}
+                name={name}
+                defaultValue="data"
+                error={errors && errors[name] ? true : false}
+                helperText={errors[name] && '* Your Input is Required'}
             />
         </MuiPickersUtilsProvider>
     );

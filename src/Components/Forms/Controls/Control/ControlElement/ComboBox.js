@@ -1,11 +1,14 @@
 import React from "react";
 import { useFormContext, Controller } from 'react-hook-form';
-import { FormControl, Select, MenuItem, FormHelperText } from "@material-ui/core";
+import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@material-ui/core";
 
-const ComboBox = ({ctrlName, params, placeHolder, rowData, editControl}) => {
+const ComboBox = (props) => {
     const { control, errors } = useFormContext();
+    const { name, label, params, disabled, defaultValue, isTabControl} = props
+
     return (
-        <FormControl variant="outlined" size="small" name={ctrlName} style={{ width: "100%" }} error={errors && errors[ctrlName] ? true : false}>
+        <FormControl variant="outlined" size="small" name={name} style={{ width: "100%" }} error={errors && errors[name] ? true : false}>
+            <InputLabel style={{fontSize: '1.3rem'}}>{isTabControl ? label : null}</InputLabel>
             <Controller
                 as={
                     <Select value={""}>
@@ -20,13 +23,13 @@ const ComboBox = ({ctrlName, params, placeHolder, rowData, editControl}) => {
                         )}
                     </Select>
                 }
-                name = {ctrlName}
-                defaultValue = {placeHolder || ''}
-                disabled = {rowData && rowData.key !== editControl}
+                name = {name}
+                disabled = {disabled}
+                defaultValue = {defaultValue}
                 control = {control}
                 // rules={{required: true}}
             />
-            <FormHelperText>{errors[ctrlName] && '⚠️ Your Input is Required'}</FormHelperText>
+            <FormHelperText>{errors[name] && '⚠️ Your Input is Required'}</FormHelperText>
         </FormControl>
     );
 };

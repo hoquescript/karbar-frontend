@@ -37,6 +37,27 @@ const form = createSlice({
         deleteAllGridControl: (form) => {
             form.values.gridControls = [];
         },
+        syncTabControl: (form, action) => {
+            action.payload.tabParams.forEach(tabParam => {
+                form.values.tabControls[`${tabParam}`] = []
+            })
+        },
+        addTabControl: (form, action) => {
+            const key = form.values.tabControls[action.payload.index].length + 1 
+            form.values.tabControls[action.payload.index].push({ key, ...action.payload.values })
+        },
+        editTabControl: (form, action) => {
+            const index = form.values.tabControls[action.payload.index].findIndex(tabControl => tabControl.key === action.payload.key);
+            console.log(index,action.payload.values)
+            form.values.tabControls[action.payload.index][index] = {key: action.payload.key, ...action.payload.values};
+        },
+        deleteTabControl: (form, action) => {
+            const index = form.values.gridControls.findIndex(gridControl => gridControl.key === action.payload.key);
+            form.values.gridControls.splice(index, 1);
+        },
+        deleteAllTabControl: (form) => {
+            form.values.gridControls = [];
+        },
         resetFormState: (form) => {
             form.isFormLoading = true;
             form.controls = [];
@@ -60,6 +81,11 @@ export const {
     editGridControl, 
     deleteGridControl, 
     deleteAllGridControl,
+    syncTabControl,
+    addTabControl,
+    editTabControl,
+    deleteTabControl,
+    deleteAllTabControl
 } = form.actions;
 
 

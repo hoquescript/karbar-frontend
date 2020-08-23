@@ -38,7 +38,7 @@ const GridControl = ({ controls }) => {
     // console.log(1)
     const classes = useStyles();
 
-    const defaultValues = {}
+    const defaultValues = {};
     const refs = controls.map(ctrl => ctrl.ControlName);
     refs.forEach(ref => {
         defaultValues[ref] = ''
@@ -48,10 +48,10 @@ const GridControl = ({ controls }) => {
     const [isControlEditMode, setIsControlEditMode] = useState(false)
     const gridControls = useSelector(state => state.form.values.gridControls);
     const gridRowControlForm = useForm({defaultValues});
-    // console.log(controls)
     const totalCounter = (ctrlName) => {
         return `${gridControls.reduce((total, row) => total + parseInt(row[ctrlName] || 0), 0)}`
     }
+
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -69,12 +69,13 @@ const GridControl = ({ controls }) => {
                                     {controls.map((ctrl,index) => (
                                     <TableCell align="center" key={ctrl.ControlName} style={{borderRight: '1px solid rgb(210, 225, 238)'}}>
                                         <Control
-                                            name = {`${data.key}[${ctrl.ControlName}]`}
-                                            placeholder={data[ctrl.ControlName]}
-                                            editControl={editControl}
-                                            rowData={data} 
-                                            keyIndex = {index}
-                                            control={ctrl}
+                                            isGridControl
+                                            key={ctrl.ControlName}
+                                            type={ctrl.ControlElementType}
+                                            name={`${data.key}[${ctrl.ControlName}]`}
+                                            label={ctrl.ControlLabel}
+                                            disabled={data && data.key !== editControl}
+                                            defaultValue={data[ctrl.ControlName]}
                                         />
                                     </TableCell>
                                     ))}
@@ -98,7 +99,13 @@ const GridControl = ({ controls }) => {
                                         ctrl.ControlElementType === 'cbo' || 
                                         ctrl.ControlElementType === 'dtp' ? <TableCell></TableCell> : (
                                             <TableCell className={classes.totalCell}>
-                                                <Control value={totalCounter(ctrl.ControlName)} control={ctrl}/>
+                                                <Control 
+                                                    value={totalCounter(ctrl.ControlName)} 
+                                                    isGridControl
+                                                    key={ctrl.ControlName}
+                                                    type={ctrl.ControlElementType}
+                                                    name={ctrl.ControlName}
+                                                />
                                             </TableCell>
                                         )
                                     )}

@@ -72,6 +72,9 @@ export const tabMenuFormatter = tabMenu => {
     
         return [tab, params]
     }
+    else{
+        return [[], []]
+    }
 }
 
 {/* <Controller

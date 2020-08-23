@@ -9,87 +9,48 @@ import ComboBox from "./ControlElement/ComboBox";
 import DatePicker from "./ControlElement/DatePicker";
 
 const Control = props => {
-    const { control, name, placeholder, rowData, editControl, value, isTabControl } = props;
-    const { ControlLabel, ControlElementType, ControlName, IsGridControl, Params } = control;
+    const { type } = props;
+    // const { control, name, placeholder, rowData, editControl, value, props.isTabControl } = props;
+    // const { ControlLabel, ControlElementType, ControlName, isGridControl, Params } = control;
     let inputEl;
-    switch (ControlElementType && ControlElementType.trim()) {
+    switch (type) {
         case "txt":
-            inputEl = (
-                <TextField
-                    ctrlName={name || ControlName.trim()}
-                    placeHolder={placeholder}
-                    rowData={rowData}
-                    editControl={editControl}
-                    controlLabel = {ControlLabel}
-                    isTabControl = {isTabControl}
-                />
-            );
+            inputEl = <TextField {...props}/>
             break;
         case "cbo":
-            inputEl = (
-                <ComboBox
-                    ctrlName={name || ControlName}
-                    params={Params}
-                    placeHolder={placeholder}
-                    rowData={rowData}
-                    editControl={editControl}
-                    controlLabel = {ControlLabel}
-                    isTabControl = {isTabControl}
-                />
-            );
+            inputEl = <ComboBox {...props}/>
             break;
         case "dtp":
-            inputEl = <DatePicker ctrlName={name || ControlName} controlLabel = {ControlLabel}/>;
+            inputEl = <DatePicker {...props}/>;
             break;
         case "chp":
-            inputEl = <ChipField isTabControl/>;
+            inputEl = <ChipField/>;
             break;
         case "dec":
-            inputEl = (
-                <PriceField
-                    ctrlName={name || ControlName}
-                    placeHolder={placeholder}
-                    rowData={rowData}
-                    editControl={editControl}
-                    value={value}
-                    controlLabel={ControlLabel}
-                    isTabControl={isTabControl}
-                />
-            );
+            inputEl = <PriceField {...props}/>
             break;
-    
         default:
-            inputEl = (
-                <TextField
-                    ctrlName={ControlName}
-                    placeHolder={'Default'}
-                    rowData={rowData}
-                    editControl={editControl}
-                    controlLabel = {ControlLabel}
-                    isTabControl
-                />
-            );
-            break;
+            inputEl = <TextField {...props} label="Default"/>
     }
 
-    return !IsGridControl ? (
+    return !props.isGridControl ? (
         <Grid
             item
             container
             direction="row"
             alignItems="center"
             justify="space-around"
-            xs={isTabControl ? 12 : 9}
-            style={{ marginBottom: isTabControl ? 10 : 20 }}
+            xs={props.isTabControl ? 12 : 9}
+            style={{ marginBottom: props.isTabControl ? 10 : 20 }}
         >   
         {
-            isTabControl ? null : (
+            props.isTabControl ? null : (
             <Grid item xs={3}>
-                <Label>{ControlLabel}</Label>
+                <Label>{props.label}</Label>
             </Grid>
             )
         }
-            <Grid item xs={isTabControl ? 12 : 9}>
+            <Grid item xs={props.isTabControl ? 12 : 9}>
                 {inputEl}
             </Grid>
         </Grid>
@@ -99,3 +60,89 @@ const Control = props => {
 };
 
 export default Control;
+
+
+// switch (ControlElementType && ControlElementType.trim()) {
+//     case "txt":
+//         inputEl = (
+//             <TextField
+//                 ctrlName={name || ControlName}
+//                 placeHolder={placeholder}
+//                 rowData={rowData}
+//                 editControl={editControl}
+//                 controlLabel = {ControlLabel}
+//                 props.isTabControl = {props.isTabControl}
+//             />
+//         );
+//         break;
+//     case "cbo":
+//         inputEl = (
+//             <ComboBox
+//                 ctrlName={name || ControlName}
+//                 params={Params}
+//                 placeHolder={placeholder}
+//                 rowData={rowData}
+//                 editControl={editControl}
+//                 controlLabel = {ControlLabel}
+//                 props.isTabControl = {props.isTabControl}
+//             />
+//         );
+//         break;
+//     case "dtp":
+//         inputEl = <DatePicker ctrlName={name || ControlName} controlLabel = {ControlLabel}/>;
+//         break;
+//     case "chp":
+//         inputEl = <ChipField props.isTabControl/>;
+//         break;
+//     case "dec":
+//         inputEl = (
+//             <PriceField
+//                 ctrlName={name || ControlName}
+//                 placeHolder={placeholder}
+//                 rowData={rowData}
+//                 editControl={editControl}
+//                 value={value}
+//                 controlLabel={ControlLabel}
+//                 props.isTabControl={props.isTabControl}
+//             />
+//         );
+//         break;
+
+//     default:
+//         inputEl = (
+//             <TextField
+//                 ctrlName={ControlName}
+//                 placeHolder={'Default'}
+//                 rowData={rowData}
+//                 editControl={editControl}
+//                 controlLabel = {ControlLabel}
+//                 props.isTabControl
+//             />
+//         );
+//         break;
+// }
+
+// return !isGridControl ? (
+//     <Grid
+//         item
+//         container
+//         direction="row"
+//         alignItems="center"
+//         justify="space-around"
+//         xs={props.isTabControl ? 12 : 9}
+//         style={{ marginBottom: props.isTabControl ? 10 : 20 }}
+//     >   
+//     {
+//         props.isTabControl ? null : (
+//         <Grid item xs={3}>
+//             <Label>{ControlLabel}</Label>
+//         </Grid>
+//         )
+//     }
+//         <Grid item xs={props.isTabControl ? 12 : 9}>
+//             {inputEl}
+//         </Grid>
+//     </Grid>
+// ) : (
+//     inputEl
+// );

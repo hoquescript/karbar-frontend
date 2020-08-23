@@ -60,7 +60,12 @@ const GridControlHead = props => {
                         align="center"
                         className={classes.tableCell}
                     >
-                        <Control control={ctrl}/>
+                        <Control 
+                            isGridControl
+                            key={ctrl.ControlName}
+                            type={ctrl.ControlElementType}
+                            name={ctrl.ControlName}
+                        />
                     </TableCell>
                     ))}
                     <TableCell>
