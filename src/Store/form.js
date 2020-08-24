@@ -24,18 +24,22 @@ const form = createSlice({
             form.controls = action.payload.controls;
         },
         addGridControl: (form, action) => {
-            form.values.gridControls.push(action.payload.gridControl)
+            const container = action.payload.tabIndex ? form.values.tabControls[`${action.payload.tabIndex}`]: form.values.gridControls;
+            container.push(action.payload.gridControl);
         },
         editGridControl: (form, action) => {
-            const index = form.values.gridControls.findIndex(gridControl => gridControl.key === action.payload.key);
-            form.values.gridControls[index] = action.payload.gridControl;
+            const container = action.payload.tabIndex ? form.values.tabControls[`${action.payload.tabIndex}`]: form.values.gridControls;
+            const index = container.findIndex(gridControl => gridControl.key === action.payload.key);
+            container[index] = action.payload.gridControl;
         },
         deleteGridControl: (form, action) => {
-            const index = form.values.gridControls.findIndex(gridControl => gridControl.key === action.payload.key);
-            form.values.gridControls.splice(index, 1);
+            const container = action.payload.tabIndex ? form.values.tabControls[`${action.payload.tabIndex}`]: form.values.gridControls;
+            const index = container.findIndex(gridControl => gridControl.key === action.payload.key);
+            container.splice(index, 1);
         },
-        deleteAllGridControl: (form) => {
-            form.values.gridControls = [];
+        deleteAllGridControl: (form, action) => {
+            let container = action.payload.tabIndex ? form.values.tabControls[`${action.payload.tabIndex}`]: form.values.gridControls;
+            container.splice(0, container.length);
         },
         syncTabControl: (form, action) => {
             action.payload.tabParams.forEach(tabParam => {

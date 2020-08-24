@@ -34,22 +34,21 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const GridControl = ({ controls }) => {
-    // console.log(1)
+const GridControl = ({ controls, gridValue, tabIndex }) => {
     const classes = useStyles();
-
-    const defaultValues = {};
-    const refs = controls.map(ctrl => ctrl.ControlName);
-    refs.forEach(ref => {
-        defaultValues[ref] = ''
-    });
+    console.log(gridValue)
 
     const [editControl, setEditControl] = useState('')
-    const [isControlEditMode, setIsControlEditMode] = useState(false)
-    const gridControls = useSelector(state => state.form.values.gridControls);
+    const [isControlEditMode, setIsControlEditMode] = useState(false);
+
+    const defaultValues = {};
+    controls.forEach(control => {
+        defaultValues[control.ControlName] = ''
+    });
     const gridRowControlForm = useForm({defaultValues});
+
     const totalCounter = (ctrlName) => {
-        return `${gridControls.reduce((total, row) => total + parseInt(row[ctrlName] || 0), 0)}`
+        return `${gridValue.reduce((total, row) => total + parseInt(row[ctrlName] || 0), 0)}`
     }
 
     return (
@@ -61,9 +60,10 @@ const GridControl = ({ controls }) => {
                             classes={classes}
                             headCells={controls}
                             defaultValues={defaultValues}
+                            tabIndex={tabIndex}
                         />
                         <TableBody>
-                            {gridControls && gridControls.map((data) => (
+                            {gridValue && gridValue.length > 0 && gridValue.map((data) => (
                                 <TableRow key={data.key}>
                                 <FormContext {...gridRowControlForm}>
                                     {controls.map((ctrl,index) => (
@@ -87,12 +87,13 @@ const GridControl = ({ controls }) => {
                                             setIsControlEditMode={setIsControlEditMode}
                                             editControl={editControl}
                                             setEditControl={setEditControl}
+                                            tabIndex={tabIndex}
                                         />
                                     </TableCell>
                                 </FormContext>
                             </TableRow>
                             ))}
-                            {gridControls.length > 0 && (
+                            {gridValue && gridValue.length > 0 && (
                                 <TableRow>
                                     {controls.map((ctrl) => 
                                         ctrl.ControlElementType === 'txt' || 

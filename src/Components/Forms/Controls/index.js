@@ -1,5 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
+import { useSelector } from "react-redux";
+
 import Control from "./Control";
 import Tree from "../Controls/Control/ControlElement/Tree"
 import GridControl from "./Containers/GridControl";
@@ -9,6 +11,9 @@ import TabMenu from "./Containers/TabMenu";
 // import { genarateSQL } from "../Constants/StringHelper";
 
 const Controls = ({ controls, menuParams, tabButton }) => {
+    
+    const gridControlsValue = useSelector(state => state.form.values.gridControls)
+
     let treeChild, editGridData, gridSQL ;
     let gridControlChild = [], tabData= [];
   
@@ -60,9 +65,9 @@ const Controls = ({ controls, menuParams, tabButton }) => {
             {controlEl}
           </Grid>
         </Grid>
-        {/* {gridControlChild && gridControlChild.length > 0 && (
-          <GridControl controls={gridControlChild}/>
-        )} */}
+        {gridControlChild && gridControlChild.length > 0 && (
+          <GridControl tabIndex='' controls={gridControlChild} gridValue={gridControlsValue}/>
+        )}
         {editGridData && editGridData.length > 0 && (
           <EditControl data={editGridData}/>
         )}

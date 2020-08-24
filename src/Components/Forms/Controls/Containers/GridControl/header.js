@@ -9,12 +9,12 @@ import Control from "../../Control";
 import ActionIcon from "./ActionIcon/ActionIcon";
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        backgroundColor: theme.palette.drawer.side.selectedMenuBackground
-    },
-    tableHead: {
-        color: theme.palette.primary.light
-    },
+    // root: {
+    //     backgroundColor: theme.palette.drawer.side.selectedMenuBackground
+    // },
+    // tableHead: {
+    //     color: theme.palette.primary.light
+    // },
     tableCell: {
         textAlign: "center",
         borderRight: `1px solid ${theme.palette.grey[200]}` ,
@@ -29,13 +29,12 @@ const useStyles = makeStyles(theme => ({
 
 const GridControlHead = props => {
     const classes = useStyles();
-
-    const { headCells, defaultValues } = props;
+    const { headCells, defaultValues, tabIndex } = props;
     const gridControlForm = useForm({ defaultValues });
 
     return (
         <TableHead>
-            <TableRow className={classes.root}>
+            <TableRow className={classes.root} style={{backgroundColor: tabIndex ? '#fff' : '#e6f7ff'}}>
                 {headCells.map(headCell => (
                     <TableCell
                         key={headCell.ControlName}
@@ -43,12 +42,12 @@ const GridControlHead = props => {
                         className={classes.tableCell}
                         style={{width: `${headCell.GridWidth}%`}}
                     >
-                        <TableSortLabel className={classes.tableHead}>
+                        <TableSortLabel className={classes.tableHead} style={{color: tabIndex ? '#6386a7' : '#1890ff'}}>
                             {headCell.ControlLabel}
                         </TableSortLabel>
                     </TableCell>
                 ))}
-                <TableCell className={classes.actionCell}>
+                <TableCell className={classes.actionCell} style={{color: tabIndex ? '#6386a7' : '#1890ff'}}>
                     Action
                 </TableCell>
             </TableRow>
@@ -69,7 +68,7 @@ const GridControlHead = props => {
                     </TableCell>
                     ))}
                     <TableCell>
-                        <ActionIcon type="add" defaultValues={defaultValues}/>
+                        <ActionIcon type="add" defaultValues={defaultValues} tabIndex={tabIndex}/>
                     </TableCell>
                 </FormContext>
             </TableRow>

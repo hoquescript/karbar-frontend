@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}) => {
+const ActionIcon = ({ type, tabIndex, rowData, defaultValues, editControl, setEditControl}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { handleSubmit, reset} = useFormContext();
@@ -42,19 +42,17 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
         console.log(data, data.decDebit, data.decCredit)
         if(+data.decDebit > -1 && +data.decCredit > -1){
             if(+data.decDebit > 0 && +data.decCredit > 0)
-                alert('Debit & Credit cant be valued together')
-            else if(+data.decDebit === +data.decCredit)
-                alert('Debit & Credit cant be both Zero')
-            else{
-                // console.log(data, data.decDebit, data.decCredit)
-                dispatch(addGridControl({gridControl: { key: uuid(), ...data  }}));
-            }
+                return alert('Debit & Credit cant be valued together')
+            else if(+data.decDebit === 0 && +data.decCredit === 0)
+                return alert('Debit & Credit cant be both Zero')
+            console.log(data.decDebit, data.decCredit)
         }
+        dispatch(addGridControl({tabIndex, gridControl: { key: uuid(), ...data  }}));
         reset(defaultValues);
     };
 
     const deleteAllBtnHandler = data => {
-        dispatch(deleteAllGridControl());
+        dispatch(deleteAllGridControl({tabIndex}));
     };
 
     const editBtnHandler = () => {
@@ -62,12 +60,12 @@ const ActionIcon = ({ type, rowData, defaultValues, editControl, setEditControl}
     };
 
     const saveBtnHandler = data => {
-        dispatch(editGridControl({key: rowData.key, gridControl: data[rowData.key]}));
+        dispatch(editGridControl({tabIndex, key: rowData.key, gridControl: data[rowData.key]}));
         setEditControl('')
     };
 
     const deleteBtnHandler = data => {
-        dispatch(deleteGridControl({key: rowData.key}));
+        dispatch(deleteGridControl({tabIndex, key: rowData.key}));
     };
 
     return type === "add" ? (
