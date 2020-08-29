@@ -29,17 +29,18 @@ const useStyles = makeStyles((theme) => ({
   menuWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent:'space-around',
+    justifyContent:'flex-end',
     alignItems: 'center',
     borderBottom: `1px solid ${theme.palette.grey[1000]}`
   },
   iconWrapper:{
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginRight: '6rem'
   },
   icon: {
-    fontSize: '2.5rem',
+    fontSize: '2.3rem',
     color: theme.palette.header.icon,
     marginRight: '.5rem'
   }
@@ -52,10 +53,10 @@ const HeaderMenu = () => {
     <Grid className={classes.root}>
       <Box className={classes.menuWrapper}>
 
-        <img style={{height: '4rem'}} src={logo} alt="Logo of Dot Bangladesh" />
+        <img style={{height: '4rem', marginLeft: '6rem'}} src={logo} alt="Logo of Dot Bangladesh" />
+
 
         <Searchbar/>
-
         <Box className={classes.iconWrapper}>
           <Bookmarks style={classes.icon}/>
           <Notification style={classes.icon}/>

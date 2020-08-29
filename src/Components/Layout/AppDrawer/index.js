@@ -13,7 +13,7 @@ import SideDrawer from "./SideDrawer";
 
 const useStyles = makeStyles((theme) => ({
   menuCollapse: {
-    backgroundColor: theme.palette.header.collapseBackground,
+    backgroundColor: theme.palette.drawer.main.background,
     transition: "all 0.2s",
     display: "flex",
     justifyContent: "center",
@@ -70,47 +70,10 @@ const AppDrawer = () => {
       } else {
           setSideDrawerActive(true);
       }
-
       //Setting the Current Selected Module
       setKey(item.key);
-
-      // switch (item.key) {
-      //   case "home":
-      //     setSideDrawerActive(false);
-      //     setKey("home");
-      //     break;
-      //   case "basic":
-      //     setKey("basic")
-      //     break;
-      //   case "master":
-      //     setKey("master")
-      //     break;
-      //   default:
-      //     setKey("ite")
-      //     break;
-      // }
-      // if (item.key === ) {
-      // }
-      // else if()
-
-      // if (parseInt(item.key) === 2) {
-      //     return;
-      // }
-
-      // if (parseInt(item.key) === 3) {
-      //     setIsBasic(false);
-      //     setIsMaster(true);
-      //     return;
-      // }
-
-      // //Deriving Single Detailed Object of the clicked Module Menu
-      // // if (modulesMenu.length > 0) {
-      // //     const module = modulesMenu.find((menu) => menu.ACode === item.key);
-      // //     setIsBasic(false);
-      // //     setIsMaster(false);
-      // //     setSubMenuData(module);
-      // // }
   };
+  
   return (
   <div style={{display: 'flex', flexDirection:'column'}}>
       <Box

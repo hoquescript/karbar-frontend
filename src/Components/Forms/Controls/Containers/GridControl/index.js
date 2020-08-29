@@ -73,6 +73,7 @@ const GridControl = ({ controls, gridValue, tabIndex }) => {
                                             key={ctrl.ControlName}
                                             type={ctrl.ControlElementType}
                                             name={`${data.key}[${ctrl.ControlName}]`}
+                                            params={ctrl.Params}
                                             label={ctrl.ControlLabel}
                                             disabled={data && data.key !== editControl}
                                             defaultValue={data[ctrl.ControlName]}

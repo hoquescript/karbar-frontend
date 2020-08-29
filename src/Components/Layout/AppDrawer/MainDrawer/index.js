@@ -25,13 +25,13 @@ const MainDrawer = ({ collapse, mainDrawerHandler }) => {
     const moduleMenu = useSelector((state) => state.menu.allMenu.module);  
 
     return (
-        <Sider className={classes.mainDrawer} collapsed={collapse} width={220}>
-            <Menu className={classes.mainDrawer} theme="dark" defaultSelectedKeys={["1"]} mode="inline" onClick={mainDrawerHandler} >
+        <Sider className={classes.mainDrawer} collapsed={collapse} width={280}>
+            <Menu className={classes.mainDrawer} theme="dark" defaultSelectedKeys={["home"]} mode="inline" onClick={mainDrawerHandler} >
                 <Menu.Item key="home">
-                    <NavLink to="/">
+                    {/* <NavLink to="/"> */}
                         <HomeOutlined />
                         <span>Home</span>
-                    </NavLink>
+                    {/* </NavLink> */}
                 </Menu.Item>
                 <Menu.Item key="basic">
                     <PicCenterOutlined />

@@ -64,6 +64,7 @@ const GridControlHead = props => {
                             key={ctrl.ControlName}
                             type={ctrl.ControlElementType}
                             name={ctrl.ControlName}
+                            params={ctrl.Params}
                         />
                     </TableCell>
                     ))}

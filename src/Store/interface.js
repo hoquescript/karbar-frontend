@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const ui = createSlice({
     name: 'ui',
     initialState: {
-        urlPath: '',
+        urlPath: '/',
         breadCrumb: {
             icon: '',
             primary: '',

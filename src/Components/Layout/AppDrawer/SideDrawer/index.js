@@ -7,6 +7,8 @@ import { NavLink } from 'react-router-dom';
 import { selectMenu } from '../../../../Store/menu'
 import { setBreadcrumb, setUrlPath } from '../../../../Store/interface'
 import { slugStringGenarator } from '../../../../Constants/StringHelper'
+import IconGenarator from "../../../Util/IconGenarator/IconGenarator";
+
 
 const { SubMenu } = Menu;
 
@@ -40,17 +42,31 @@ const useStyles = makeStyles(theme => ({
 const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
   const classes = useStyles({collapsed});
   const dispatch = useDispatch()
-  
+  console.log(primaryModule)
   const allMenu = useSelector ( state => state.menu.allMenu )
 
   const subMenuHandler = (item) => {
+    console.log(item)
     const [tertiaryModule, secondaryModule] = item.keyPath;
-
-    if(primaryModule === "basic" || primaryModule === "master"){
+    if(primaryModule === "home"){
+      const mainModule = allMenu.module[item.key]
+      dispatch(selectMenu({selectedMenu: mainModule}))
+      dispatch(setBreadcrumb({
+        breadCrumb: {
+            icon: 'form',
+            primary: 'Dashboard',
+            secondary: 'Modules',
+            tertiary: mainModule.AHead
+        }
+      }))
+      dispatch(setUrlPath({path: `${slugStringGenarator(mainModule.AHead)}`}))
+    }
+    else if(primaryModule === "basic" || primaryModule === "master"){
         dispatch(selectMenu({selectedMenu: {...allMenu[primaryModule][secondaryModule].children[tertiaryModule]}}))
         dispatch(setBreadcrumb({
             breadCrumb: {
                 icon: 'form',
+
                 primary: `${primaryModule.charAt(0).toUpperCase() + primaryModule.slice(1)} Data`,
                 secondary: allMenu[primaryModule][secondaryModule].AHead,
                 tertiary: allMenu[primaryModule][secondaryModule].children[tertiaryModule].AHead
@@ -59,6 +75,7 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
         dispatch(setUrlPath({path: slugStringGenarator(allMenu[primaryModule][secondaryModule].children[tertiaryModule].AHead)}))
     }
     else{
+        console.log(slugStringGenarator(allMenu.module[primaryModule][`${secondaryModule}Menu`][tertiaryModule].AHead))
         dispatch(selectMenu({selectedMenu: {...allMenu.module[primaryModule][`${secondaryModule}Menu`][tertiaryModule]}}))
         dispatch(setBreadcrumb({
             breadCrumb: {
@@ -70,53 +87,20 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
         }))
         dispatch(setUrlPath({path: slugStringGenarator(allMenu.module[primaryModule][`${secondaryModule}Menu`][tertiaryModule].AHead)}))
     }
-    // let thirdMenu =  null;
-    // if(isBasic){
-    //   const secondACode = item.key.slice(0,4);
-    //   const secondMenu = basicMenuData.find(data => data.ACode === secondACode);
-
-    //   thirdMenu = secondMenu.children.find(data => data.ACode === item.key)
-    //   const [tabButton, tabParams] = tabMenuFormatter(thirdMenu.TabButton);
-
-    //   dispatch(menuPathSelection('Basic Data', secondMenu.IconName, secondMenu.AHead, thirdMenu.AHead, thirdMenu.MenuButton, tabButton, tabParams ))
-    // }
-
-    // if(isMaster){
-    //   const secondACode = item.key.slice(0,4);
-    //   const secondMenu = masterMenuData.find(data => data.ACode === secondACode);
-
-    //   thirdMenu = secondMenu.children.find(data => data.ACode === item.key)
-    //   const [tabButton, tabParams] = tabMenuFormatter(thirdMenu.TabButton);
-
-    //   dispatch(menuPathSelection('Master Data', secondMenu.IconName, secondMenu.AHead, thirdMenu.AHead, thirdMenu.MenuButton, tabButton, tabParams))
-    // }
-
-    // if(!isBasic && !isMaster && (data.formMenu || data.reportMenu)){      
-    //   if(item.key.startsWith('03')){
-    //     thirdMenu = data.formMenu.find(dt => dt.ACode === item.key);
-    //     const tab = tabMenuFormatter(thirdMenu.TabButton);
-    //     if(tab){
-    //       const [tabButton, tabParams] = tab;
-    //       console.log(tabButton)
-
-    //       dispatch(menuPathSelection(data.AHead, data.IconName, 'Forms', thirdMenu.AHead, thirdMenu.MenuButton, tabButton, tabParams))
-    //     }
-    //   }
-    //   else if(item.key.startsWith('04')){
-    //     thirdMenu = data.reportMenu.find(dt => dt.ACode === item.key);
-    //     const [tabButton, tabParams] = thirdMenu.TabButton && tabMenuFormatter(thirdMenu.TabButton);
-
-    //     dispatch(menuPathSelection(data.AHead, data.IconName, 'Reports', thirdMenu.AHead, thirdMenu.MenuButton, tabButton, tabParams))
-    //   }    
-    // }
-    // //--- firstMenu, icon, secondMenu, thirdMenu, menuButton, tabButton
-    // // dispatch(menuPathSelection(data.AHead, data.IconName, 'Reports', thirdMenu.AHead, thirdMenu.MenuButton, thirdMenu.TabButton));
-
-    // const slugStr = slugStringGenarator(thirdMenu.AHead)
-    // dispatch(routeFinding(slugStr,thirdMenu.MenuParams))
   }
-
+  const menuRender = (items, init) => (
+    Object.keys(items).map(item => (
+        <Menu.Item key={items[item].MenuParams}>
+            <NavLink to={`${init ? `/${init}` : ''}/${slugStringGenarator(items[item].AHead)}`}>
+                {items[item].IconName && IconGenarator(items[item].IconName)}
+                {items[item].AHead}
+            </NavLink>
+        </Menu.Item>
+    ))
+  )
   if(primaryModule === "basic" || primaryModule === "master"){
+    
+  
     const secondaryModule = allMenu[primaryModule]
     return (
       <Menu className={classes.root} mode="inline" onClick={subMenuHandler}>
@@ -146,33 +130,30 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
     ) 
   }
   else{
-    const menuRender = (items) => (
-        Object.keys(items).map(item => (
-            <Menu.Item key={items[item].MenuParams}>
-                <NavLink to={`/${slugStringGenarator(items[item].AHead)}`}>
-                    {items[item].AHead}
-                </NavLink>
-            </Menu.Item>
-        ))
-    )
     return (
-        <Menu className={classes.root} mode="inline" defaultOpenKeys={['form', 'report']} onClick={subMenuHandler}>
-            <SubMenu className={classes.sideDrawer} key="form" title={
+        <Menu className={classes.root} mode="inline" defaultOpenKeys={['home', 'form', 'report']} onClick={subMenuHandler}>
+            <SubMenu className={classes.sideDrawer} key={primaryModule === "home" ? "home" : "form"} title={
                 <span className={classes.headMenu}>
                     <Icon type="form" className={classes.icon}/>
-                    <span>Forms</span>
+                    <span>{primaryModule === "home" ? "Dashboard" : "Forms"}</span>
                 </span>
             }>
-                {allMenu.module[primaryModule] && menuRender(allMenu.module[primaryModule].formMenu)}
+                {primaryModule === "home" ? 
+                  allMenu.module && menuRender(allMenu.module, 'dashboard') :
+                  allMenu.module[primaryModule] && menuRender(allMenu.module[primaryModule].formMenu)
+                }
             </SubMenu>
-            <SubMenu key="report" className={classes.sideDrawer} title={
-                <span>
-                    <Icon type="copy" className={classes.icon}/>
-                    <span>Reports</span>
-                </span>
-            }>
-                {allMenu.module[primaryModule] && menuRender(allMenu.module[primaryModule].reportMenu)}
-            </SubMenu>
+            {
+              primaryModule === "home" ? null : (
+              <SubMenu key="report" className={classes.sideDrawer} title={
+                  <span>
+                      <Icon type="copy" className={classes.icon}/>
+                      <span>Reports</span>
+                  </span>
+              }>
+                  {allMenu.module[primaryModule] && menuRender(allMenu.module[primaryModule].reportMenu)}
+              </SubMenu>
+            )}
         </Menu>
     );
     }

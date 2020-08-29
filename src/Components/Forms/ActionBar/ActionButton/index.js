@@ -33,23 +33,25 @@ const style = {
     width: 90,
 };
 
-const postHandler = (dispatch, data, chipData, gridControlData) => {
-    console.log({data, chipData, gridControlData});
-    if (data && data.dtpVDate && isFuture(data.dtpVDate)) {
-        alert("Future Date");
-    }
-    if ( gridControlData.length > 0 && +gridControlData[0].decDebit > -1 && +gridControlData[0].decCredit > -1) {
-        let totalDebit = 0,totalCredit = 0;
-        gridControlData.forEach(({ decDebit, decCredit }) => {
-            totalDebit += +decDebit;
-            totalCredit += +decCredit;
-        });
+const postHandler = (dispatch, data, values) => {
+    const value = {...values, common: data};
+    console.log(value);
+    window.wahid = value;
+    // if (data && data.dtpVDate && isFuture(data.dtpVDate)) {
+    //     alert("Future Date");
+    // }
+    // if ( gridControlData.length > 0 && +gridControlData[0].decDebit > -1 && +gridControlData[0].decCredit > -1) {
+    //     let totalDebit = 0,totalCredit = 0;
+    //     gridControlData.forEach(({ decDebit, decCredit }) => {
+    //         totalDebit += +decDebit;
+    //         totalCredit += +decCredit;
+    //     });
 
-        if (totalDebit !== totalCredit)
-            alert("Total Debit & Credit Should be Same");
-    } else {
-        dispatch(postFormData(data, chipData, gridControlData));
-    }
+    //     if (totalDebit !== totalCredit)
+    //         alert("Total Debit & Credit Should be Same");
+    // } else {
+    //     dispatch(postFormData(data, chipData, gridControlData));
+    // }
 };
 
 const viewHandler = (dispatch, data, gridSQL, chipData) => {
@@ -64,16 +66,13 @@ const viewHandler = (dispatch, data, gridSQL, chipData) => {
 
 const MenuButton = ({ type, gridSQL }) => {
     const dispatch = useDispatch();
-    const chipData = useSelector((state) => state.forms.chipData).map(
-        (chip) => chip.key
-    );
-    const gridControlData = useSelector((state) => state.forms.gridControlData);
+    const values = useSelector(state => state.form.values)
     const { handleSubmit } = useFormContext();
     const btnHandler = (data) => {
         switch (type) {
             // Insert in Voucher Table
             case "Post":
-                postHandler(dispatch, data, chipData, gridControlData);
+                postHandler(dispatch, data, values);
                 return;
             // Print + Previeww Report
             case "Journal":
@@ -88,7 +87,7 @@ const MenuButton = ({ type, gridSQL }) => {
             case "Add":
                 return;
             case "View":
-                viewHandler(dispatch, data, gridSQL, chipData);
+                viewHandler(dispatch);
                 return;
             case "Delete":
                 return "#e17055";

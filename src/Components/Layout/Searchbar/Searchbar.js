@@ -8,32 +8,34 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        transform: 'translateX(-5px)'
+        transform: 'translateX(-5px)',
+        marginLeft: '6rem'
     },
     input: {
         fontFamily: 'inherit',
         fontSize: 'inherit',
-        width: '60%',
+        width: '100%',
         padding: '.8rem 2rem',
         backgroundColor: theme.palette.header.searchBackground,
         borderRadius: '.5rem',
-        border: `1px solid ${theme.palette.grey[1000]}`,
+        // border: `1px solid ${theme.palette.grey[1000]}`,
         transition: 'all 0.3s',
         marginRight: '-3.25rem',
         '&:focus' : {
             outline: 'none',
-            width: '75%',
+            // width: '75%',
+            backgroundColor: '#f7f7f7'
         },
         '&::-webkit-input-placeholder' : {
             fontSize: '1.4rem',
             fontWeight: 100,
-            color: 'blue',
+            color: '#aaa',
         }
     },
     button: {
         border: 'none',
         backgroundColor: 'transparent',
-        transform: 'translateX(-1.5rem)',
+        transform: 'translateX(.5rem)',
         borderTopRightRadius: '.5rem',
         borderBottomRightRadius: '.5rem',
         '&:focus' : {
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     icon: {
-        fontSize: '2.5rem',
+        fontSize: '2rem',
         color: theme.palette.primary.icon,
     }
 }));
@@ -50,10 +52,10 @@ const Searchbar = () => {
     const classes = useStyles();
     return (
         <form className={classes.search}>
-            <input type="text" placeholder="Search" className={classes.input}/>
             <button className={classes.button}>
                 <SearchOutlined className={classes.icon} />
             </button>
+            <input type="text" placeholder="Search for Something..." className={classes.input}/>
         </form>
     )
 }

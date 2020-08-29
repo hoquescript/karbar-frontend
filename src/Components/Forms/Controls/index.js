@@ -47,8 +47,6 @@ const Controls = ({ controls, menuParams, tabButton }) => {
               name={ctrl.ControlName}
               label={ctrl.ControlLabel}
               params={ctrl.Params}
-              // disabled={}
-              // defaultValue ={}
             />
         )
       })
@@ -65,9 +63,9 @@ const Controls = ({ controls, menuParams, tabButton }) => {
             {controlEl}
           </Grid>
         </Grid>
-        {gridControlChild && gridControlChild.length > 0 && (
+        {/* {gridControlChild && gridControlChild.length > 0 && (
           <GridControl tabIndex='' controls={gridControlChild} gridValue={gridControlsValue}/>
-        )}
+        )} */}
         {editGridData && editGridData.length > 0 && (
           <EditControl data={editGridData}/>
         )}
