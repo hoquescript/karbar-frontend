@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 
-import avatar from '../../../Assets/pic.jpg'
+import avatar from '../../../../Assets/pic.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -6,7 +6,7 @@ import theme from './Constants/Theme';
 import "antd/dist/antd.css";
 import "./style.css"
 
-import Layout from "./Pages/Layout";
+import Layout from "./Components/Layout";
 
 const Home = React.lazy(() => import(`./Pages/Home`));
 const Dashboard = React.lazy(() => import(`./Pages/Dashboard`));
