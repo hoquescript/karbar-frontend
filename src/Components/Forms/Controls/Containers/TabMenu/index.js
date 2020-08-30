@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 
 import TabPanel from './TabPanel';
 import { syncTabControl } from '../../../../../Store/form'
+import { hasNoPersistance } from '../../../../../Constants/misc';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,13 +30,18 @@ export default function TabMenu({ controls, tabButton }) {
   const [ tabHeader, tabParams ] = tabButton;
   const [ value, setValue ] = React.useState(tabParams[0]);
 
+  const tabControl = useSelector(state => state.form.values.tabControls);
+
+  useEffect(() => {
+    if(hasNoPersistance(tabControl)){
+      dispatch(syncTabControl({tabParams}))
+    }
+  }, [dispatch, tabControl, tabParams])
+
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  useEffect(() => {
-    dispatch(syncTabControl({tabParams}))
-  }, [dispatch, tabParams])
 
   if(tabHeader.length && tabParams.length){
     return (

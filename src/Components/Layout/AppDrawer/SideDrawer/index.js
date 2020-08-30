@@ -8,6 +8,7 @@ import { selectMenu } from '../../../../Store/menu'
 import { setBreadcrumb, setUrlPath } from '../../../../Store/interface'
 import { slugStringGenarator } from '../../../../Constants/StringHelper'
 import IconGenarator from "../../../Util/IconGenarator/IconGenarator";
+import { resetFormState } from "../../../../Store/form";
 
 
 const { SubMenu } = Menu;
@@ -60,6 +61,9 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
         }
       }))
       dispatch(setUrlPath({path: `${slugStringGenarator(mainModule.AHead)}`}))
+
+      //Resetting Form Beacause going to home page
+      dispatch(resetFormState())
     }
     else if(primaryModule === "basic" || primaryModule === "master"){
         dispatch(selectMenu({selectedMenu: {...allMenu[primaryModule][secondaryModule].children[tertiaryModule]}}))

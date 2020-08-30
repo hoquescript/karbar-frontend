@@ -13,6 +13,7 @@ import FormHeader from '../Components/Forms/FormHeader';
 import ActionBar from "../Components/Forms/ActionBar";
 import Controls from "../Components/Forms/Controls";
 import GridView from "../Components/Forms/Controls/Containers/GridView";
+import { hasNoPersistance } from "../Constants/misc";
 
 const useStyles = makeStyles(theme => ({
   contentWrapper: {
@@ -44,15 +45,19 @@ const Form = () => {
 
   const isLoading = useSelector(state => state.form.isFormLoading);
   const isGridView = false;
+
   const controls = useSelector(state => state.form.controls);
 
-  const menuButton = controls && controls.length > 0 && controls[0].MenuButton && controls[0].MenuButton.split("~");
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchControl({menuParams, tabParams}));
+    if(controls.length === 0 || menuParams !== controls[0].MenuParams){
+      dispatch(fetchControl({menuParams, tabParams}));
+    }
   }, [menuParams, dispatch]);
 
+
+  const menuButton = controls && controls.length > 0 && controls[0].MenuButton && controls[0].MenuButton.split("~");
   return(
     <>
       <FormHeader/>

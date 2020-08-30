@@ -3,7 +3,6 @@ import { put } from "redux-saga/effects";
 import * as actions from "../Actions/forms";
 
 import { storeControl, resetFormState } from '../form'
-import { resetTabMenuProperty } from "../Actions/menu";
 import Dexie from "dexie";
 import DateHelper from "../../Constants/DateHelper";
 
