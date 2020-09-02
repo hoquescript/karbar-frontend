@@ -13,6 +13,7 @@ import avatar from '../../../../Assets/pic.jpg'
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 10,
+    display: 'flex'
   },
   avatar: {
     '&:focus': {
@@ -52,6 +53,7 @@ const Profile = () => {
  
   return (
     <div className={classes.root}>
+      {/* <h3>Wahid Hoque</h3> */}
       <div>
         <span>
             <Avatar alt="User" src={avatar} ref={anchorRef} onClick={handleToggle}  className={classes.avatar}/>
@@ -75,6 +77,7 @@ const Profile = () => {
           )}
         </Popper>
       </div>
+      {/* <h2>Wahid</h2> */}
     </div>
   );
 }

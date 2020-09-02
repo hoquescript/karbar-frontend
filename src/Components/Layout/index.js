@@ -48,8 +48,6 @@ const LayoutModel = (props) => {
                 <Layout>
                     {props.children}
                 </Layout>
-                {/* <div style={{marginTop: '7.5rem'}}>
-                </div> */}
             </Layout>
         </Layout>
     );

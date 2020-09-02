@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import { StarOutlined  } from "@ant-design/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,17 +10,19 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import { BellOutlined } from "@ant-design/icons";
+
 
 const useStyles = makeStyles({
     list: {
-        width: '25rem'
+        width: '36rem'
     },
     fullList: {
         width: "auto"
     }
 });
 
-const Bookmarks = ({style}) => {
+const Notification = ({style}) => {
     const classes = useStyles();
     const [state, setState] = React.useState(false);
 
@@ -72,13 +73,13 @@ const Bookmarks = ({style}) => {
     return (
         <div>
             <IconButton onClick={toggleDrawer(true)}>
-                <StarOutlined className={style}/>
+                <BellOutlined className={style} />
             </IconButton>
-            <Drawer anchor={"right"} open={state} onClose={toggleDrawer(false)}>
+            <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)}>
                 {list("right")}
             </Drawer>
         </div>
     );
 };
 
-export default Bookmarks;
+export default Notification;

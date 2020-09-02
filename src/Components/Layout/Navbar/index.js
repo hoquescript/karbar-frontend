@@ -7,9 +7,9 @@ import logo from "../../../Assets/logo-color.png";
 // import logo from "../../Assets/logo-white.png";
 
 import Profile from "./Menu/Profile";
-import Notification from "./Menu/Notifcation";
-import Settings from "./Menu/Settings";
 import Bookmarks from "./Menu/Bookmarks";
+import Settings from "./Menu/Settings";
+import Notification from "./Menu/Notification";
 import Searchbar from "./Searchbar";
 
 const useStyles = makeStyles((theme) => ({
@@ -79,9 +79,9 @@ const Navbar = ({collapse, collapseHandler, isSideDrawerActive}) => {
         <Grid item>
           <img style={{height: '4rem', ...styles(3)}} src={logo} alt="Logo of Dot Bangladesh" />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <Searchbar style={{...styles(8)}}/>
-        </Grid>
+        </Grid> */}
         <Grid item className={classes.iconWrapper}>
           <Bookmarks style={classes.icon}/>
           <Notification style={classes.icon}/>
