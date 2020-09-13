@@ -31,7 +31,6 @@ const useStyles = makeStyles({
   },
   logo: {
     height: '4.5rem',
-
   }
 });
 

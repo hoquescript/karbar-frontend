@@ -12,19 +12,27 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { BellOutlined } from "@ant-design/icons";
 
+import logo from '../../../../../Assets/logo-color.png'
+import ActionCard from "./action";
+import Notifier from "./notifier";
+
 
 const useStyles = makeStyles({
     list: {
-        width: '36rem'
+        width: '36rem',
+        padding: '1rem 1.5rem'
     },
     fullList: {
         width: "auto"
+    },
+    logo: {
+        height: '4.5rem',
     }
 });
 
 const Notification = ({style}) => {
     const classes = useStyles();
-    const [state, setState] = React.useState(false);
+    const [state, setState] = React.useState(true);
 
     const toggleDrawer = open => event => {
         if (
@@ -44,29 +52,13 @@ const Notification = ({style}) => {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
-            <List>
-                {["Inbox", "Starred", "Send email", "Drafts"].map(
-                    (text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    )
-                )}
-            </List>
-            <Divider />
-            <List>
-                {["All mail", "Trash", "Spam"].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
+            <div style={{margin: '1rem auto', textAlign:'center'}}>
+                <img src={logo} alt="Logo" className={classes.logo}/>
+            </div>
+            <div style={{marginTop: '3rem'}}>
+                <ActionCard/>
+                <Notifier/>
+            </div>
         </div>
     );
 
