@@ -29,6 +29,9 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.drawer.side.headText,
     '& ul':{
       background: `${theme.palette.drawer.side.background} !important`,
+      '& li.ant-menu-item-selected': {
+        background: `${theme.palette.drawer.side.selectedMenuBackground} !important`,
+      },
       '& a':{
         color: theme.palette.drawer.side.menuText,
         transition: 'all 400ms cubic-bezier(0.25,0.8,0.25,1)',

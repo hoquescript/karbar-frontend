@@ -27,6 +27,7 @@ const Input = (props) => {
                 // rules={{required: true, maxLength: 2}}
                 error={errors && errors[name] ? true : false}
                 helperText={errors[name] && '* Your Input is Required'}
+                style={{backgroundColor: '#313743'}}
             />
         </>
     );

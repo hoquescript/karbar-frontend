@@ -42,10 +42,10 @@ const LayoutModel = (props) => {
     
     return (
         <Layout className={classes.root}>
-            <Navbar collapse={collapse} collapseHandler={modulesMenuCollapseHandler} isSideDrawerActive={isSideDrawerActive}/>
+            <Navbar mode={props.mode} collapse={collapse} collapseHandler={modulesMenuCollapseHandler} isSideDrawerActive={isSideDrawerActive}/>
             <Layout className={classes.body}>
                 <AppDrawer values={{collapse, setCollapse, isSideDrawerActive, setSideDrawerActive}}/>
-                <Layout>
+                <Layout style={{backgroundColor: props.mode ? '#151a25' : '#eee'}}>
                     {props.children}
                 </Layout>
             </Layout>

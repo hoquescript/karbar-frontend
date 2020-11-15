@@ -1,14 +1,12 @@
-import React from 'react';
-import Avatar from "@material-ui/core/Avatar";
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import React, { useState } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setDarkMode } from '../../../../Store/interface'
+
+import { Avatar, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList, Switch } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
-import avatar from '../../../../Assets/pic.jpg'
+import avatar from '../../../../Assets/pic.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,36 +22,39 @@ const useStyles = makeStyles((theme) => ({
         // border: '2px solid red',
         outline: '#4CAF50 solid 1px'
     }
-
   }
 }));
 
 const Profile = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(false);
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
-
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
     setOpen(false);
   };
-
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
     }
   }
- 
+
+  const darkMode = useSelector((state) => state.ui.darkMode);  
+  const handleDarkModeChange = (e) => {
+    dispatch(setDarkMode({ darkMode: e.target.checked }))
+  }
+
   return (
     <div className={classes.root}>
-      {/* <h3>Wahid Hoque</h3> */}
       <div>
         <span>
             <Avatar alt="User" src={avatar} ref={anchorRef} onClick={handleToggle}  className={classes.avatar}/>
@@ -68,7 +69,10 @@ const Profile = () => {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem>
+                      Dark Theme
+                      <Switch checked={darkMode} onChange={handleDarkModeChange}/>
+                    </MenuItem>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

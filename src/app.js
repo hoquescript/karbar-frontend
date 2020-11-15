@@ -1,8 +1,11 @@
 import React, {Suspense} from "react";
 import { Switch, Route, Redirect } from "react-router";
-import { useSelector } from "react-redux"
-import { ThemeProvider, CssBaseline } from '@material-ui/core'
-import theme from './Constants/Theme';
+import { useSelector } from "react-redux";
+import { ThemeProvider, CssBaseline } from '@material-ui/core';
+
+import lightTheme from './Constants/theme-light.js';
+import darkTheme from './Constants/theme-dark.js';
+
 import "antd/dist/antd.css";
 import "./style.css"
 
@@ -14,12 +17,13 @@ const Form = React.lazy(() => import(`./Pages/Form`));
 const Mail = React.lazy(() => import(`./Pages/Settings/Mail`));
 
 const App = () => {
-  const path = useSelector( state => state.ui.urlPath)
-  console.log(path)
+  const path = useSelector( state => state.ui.urlPath);
+  const darkMode = useSelector( state => state.ui.darkMode);
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline/>
-      <Layout>
+      <Layout mode={darkMode}>
         <Suspense fallback={<p>Loading.......</p>}>
           <Switch>
             {/* <Route path="/mail" render={(props) => <Mail {...props}/>}/> */}

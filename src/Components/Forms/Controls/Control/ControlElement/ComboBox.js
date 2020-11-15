@@ -27,6 +27,8 @@ const ComboBox = (props) => {
                 disabled = {disabled}
                 defaultValue = {defaultValue}
                 control = {control}
+                style={{backgroundColor: '#313743'}}
+
                 // rules={{required: true}}
             />
             <FormHelperText>{errors[name] && '⚠️ Your Input is Required'}</FormHelperText>

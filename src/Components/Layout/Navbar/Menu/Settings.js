@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { SettingOutlined } from "@ant-design/icons";
@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
 const Settings = ({style}) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
@@ -24,6 +24,7 @@ const Settings = ({style}) => {
     }
     setOpen(false);
   };
+
 
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {
@@ -52,7 +53,6 @@ const Settings = ({style}) => {
                         Bulk Mail Sender
                       </NavLink>
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

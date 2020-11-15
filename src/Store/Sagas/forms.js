@@ -8,6 +8,7 @@ import DateHelper from "../../Constants/DateHelper";
 
 export function* fetchFormControls(action) {
     let { menuParams, tabParams } = action.payload;
+    console.log(menuParams)
     try {
         yield put(resetFormState());        
         tabParams = `', '${tabParams.join("', '")}`

@@ -9,7 +9,7 @@ const useStyles = makeStyles({
         width: "100%",
         display: 'flex',
         alignItems: 'center',
-        position: 'relative'
+        position: 'relative',
     },
     control: {
         '& div': {
@@ -53,10 +53,11 @@ const PriceField = (props) => {
                     disabled={disabled}
                     name={name}
                     defaultValue={defaultValue}
-    
                     // disabled={rowData && rowData.key !== editControl}
                     // name={ctrlName}
                     // defaultValue={placeHolder}
+                    style={{backgroundColor: '#313743'}}
+
                     as={TextField}
                     control={control}
                     placeholder='0.00'

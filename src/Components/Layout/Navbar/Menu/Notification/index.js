@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
 const Notification = ({style}) => {
     const classes = useStyles();
-    const [state, setState] = React.useState(true);
+    const [state, setState] = React.useState(false);
 
     const toggleDrawer = open => event => {
         if (

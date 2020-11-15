@@ -12,7 +12,8 @@ import TabMenu from "./Containers/TabMenu";
 
 const Controls = ({ controls, menuParams, tabButton }) => {
     
-    const gridControlsValue = useSelector(state => state.form.values.gridControls)
+  const darkMode = useSelector(state => state.ui.darkMode)
+  const gridControlsValue = useSelector(state => state.form.values.gridControls)
 
     let treeChild, editGridData, gridSQL ;
     let gridControlChild = [], tabData= [];
@@ -52,7 +53,7 @@ const Controls = ({ controls, menuParams, tabButton }) => {
       })
     
     return (
-      <>
+      <div style={{color: darkMode ? '#ccd5f7' : '#333'}}>
         <Grid item container>
           {/* {treeChild && (
               <Grid item xs={3} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
@@ -72,7 +73,7 @@ const Controls = ({ controls, menuParams, tabButton }) => {
         {tabData && tabData.length > 0 && (
           <TabMenu controls={tabData} tabButton={tabButton}/>
         )}
-      </>
+      </div>
 )
 }
 

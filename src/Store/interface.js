@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const ui = createSlice({
     name: 'ui',
     initialState: {
+        darkMode: false,
         urlPath: '/',
         breadCrumb: {
             icon: '',
@@ -17,9 +18,12 @@ const ui = createSlice({
         },
         setUrlPath: (ui, action) => {
             ui.urlPath = action.payload.path
+        },
+        setDarkMode: (ui, action) => {
+            ui.darkMode = action.payload.darkMode
         }
     }
 })
 
 export default ui.reducer;
-export const { setBreadcrumb, setUrlPath } = ui.actions;
+export const { setBreadcrumb, setUrlPath, setDarkMode } = ui.actions;

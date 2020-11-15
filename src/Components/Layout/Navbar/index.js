@@ -3,8 +3,8 @@ import { Grid, Box } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 
-import logo from "../../../Assets/logo-color.png";
-// import logo from "../../Assets/logo-white.png";
+import lightLogo from "../../../Assets/logo-color.png";
+import darkLogo from "../../../Assets/logo-white.png";
 
 import Profile from "./Menu/Profile";
 import Bookmarks from "./Menu/Bookmarks";
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Navbar = ({collapse, collapseHandler, isSideDrawerActive}) => {
+const Navbar = ({mode, collapse, collapseHandler, isSideDrawerActive}) => {
   const classes = useStyles();
   const styles = (offside) => ({
     transform: isSideDrawerActive ? `translateX(${offside}rem)`:'',
@@ -77,7 +77,7 @@ const Navbar = ({collapse, collapseHandler, isSideDrawerActive}) => {
 
       <Grid container justify="space-between" alignItems="center" className={classes.menubar}>
         <Grid item>
-          <img style={{height: '4rem', ...styles(3)}} src={logo} alt="Logo of Dot Bangladesh" />
+          <img style={{height: '4rem', ...styles(3)}} src={mode ? darkLogo : lightLogo} alt="Logo of Dot Bangladesh" />
         </Grid>
         {/* <Grid item>
           <Searchbar style={{...styles(8)}}/>
