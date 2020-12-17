@@ -3,57 +3,74 @@ import { render } from "react-dom";
 import App from "./app";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { Provider } from "react-redux";
 import createSaga from "redux-saga";
-import { persistStore, persistReducer } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage";
 
-import uiReducer from './Store/interface'
-import menuReducer from './Store/menu'
-import formReducer from './Store/form'
+import uiReducer from "./Store/interface";
+import menuReducer from "./Store/menu";
+import formReducer from "./Store/form";
 import formsReducer from "./Store/Reducers/forms";
-import {watchMenu, watchControl } from "./Store/Sagas";
+import { watchMenu, watchControl } from "./Store/Sagas";
 
-
-const uiPersistConfig = {
-  key: 'ui',
-  storage,
-  blacklist: ['breadCrumb']
-}
 const rootReducer = combineReducers({
-    ui: uiReducer,
-    menu: menuReducer,
-    form: formReducer,
-    forms: formsReducer
-})
-
-const persistConfig = {
-  key: 'root',
-  storage,
-  blacklist: ['breadCrumb']
-}
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
+  ui: uiReducer,
+  menu: menuReducer,
+  form: formReducer,
+  forms: formsReducer,
+});
 const saga = createSaga();
 
-const store = configureStore({
-  reducer: persistedReducer, 
-  middleware: [ saga ]
-});
+let store;
+
+//Normal Redux Setup
+if (process.env.REACT_APP_BASE_URL === "development") {
+  store = configureStore({
+    reducer: rootReducer,
+    middleware: [saga],
+  });
+}
+
+
+//Redux setup with Persisting/Caching State
+if (process.env.REACT_APP_BASE_URL === "production") {
+  const persistConfig = {
+    key: "root",
+    storage,
+    blacklist: ["breadCrumb"],
+  };
+
+  const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+  store = configureStore({
+    reducer: persistedReducer,
+    middleware: [saga],
+  });
+}
+
 
 saga.run(watchMenu);
 saga.run(watchControl);
 
 const app = (
   <Provider store={store}>
-    <PersistGate loading={"null"} persistor={persistStore(store)}>
+    {process.env.REACT_APP_BASE_URL === "development" && (
       <Router>
         <App />
       </Router>
-    </PersistGate>
+    )}
+
+    {process.env.REACT_APP_BASE_URL === "production" && (
+      <PersistGate loading={"null"} persistor={persistStore(store)}>
+        <Router>
+          <App />
+        </Router>
+      </PersistGate>
+    )}
   </Provider>
 );
 

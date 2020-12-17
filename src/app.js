@@ -27,7 +27,12 @@ const App = () => {
         <Suspense fallback={<p>Loading.......</p>}>
           <Switch>
             {/* <Route path="/mail" render={(props) => <Mail {...props}/>}/> */}
-            <Route path={`/dashboard/:${path}`} exact render={(props) => <Dashboard {...props}/>}/>
+
+            {/* //* The following route is the actual route type. Commenting it for developement Purpose */}
+            {/* //* When loading screen will be developed the following line will be uncommented, Page > Home also */}
+            {/* <Route path={`/dashboard/:${path}`} exact render={(props) => <Dashboard {...props}/>}/> */}
+
+            <Route path={`/dashboard`} exact render={(props) => <Dashboard {...props}/>}/>
             <Route path={`/:${path}`} exact render={(props) => <Form {...props}/>}/>
             <Route path="/" exact render={(props) => <Home {...props}/>}/>
             <Redirect to="/" />

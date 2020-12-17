@@ -1,0 +1,14 @@
+{
+  "dev" : {
+    "REACT_APP_BASE_URL": "development" ,
+    "REACT_APP_BACKEND_SERVER": "http://localhost:8080"
+  },
+  "qa" : {
+    "REACT_APP_BASE_URL": "qa" ,
+    "REACT_APP_BACKEND_SERVER": "https://karbar.herokuapp.com"
+  },
+  "prod" : {
+    "REACT_APP_BASE_URL": "production" ,
+    "REACT_APP_BACKEND_SERVER": "https://karbar.herokuapp.com"
+  }
+}

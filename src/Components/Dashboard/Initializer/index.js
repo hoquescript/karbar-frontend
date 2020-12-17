@@ -42,7 +42,7 @@ const Initializer = () => {
   return (
     <Grid container style={{ marginBottom: "2rem" }} spacing={5}>
       <Grid item xs={6}>
-        <h1>Dashboard</h1>
+        <h1>{process.env.REACT_APP_BASE_URL}</h1>
         <Breadcrumbs separator={<FiberManualRecordIcon/>} className={classes.breadcrumb}>
           <Typography className={classes.link}>
             <span className={classes.icon}><HomeIcon/></span>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import Dexie from "dexie";
+// import Dexie from "dexie";
 import { put } from "redux-saga/effects";
 import { storeMenu } from "../menu";
 
@@ -36,7 +36,7 @@ const modulesMenu = (records, modules) => {
 
 export function* fetchModulesMenu(action) {
     let basicMenu, masterMenu, moduleMenu;
-    const menuData = yield axios.get("https://karbar.herokuapp.com/api/menu");
+    const menuData = yield axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/api/menu`);
     const record = menuData.data;
 
     //Formatting database into Modules

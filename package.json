@@ -98,7 +98,15 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "developement": "LocalHost Frontend Server + LocalHost Backend Server",
+    "start": "./node_modules/.bin/env-cmd -e dev node scripts/start.js",
+
+    "qualityAssurace": "LocalHost Frontend Server + Heroku Hosted Backend Server",
+    "start-qa": "./node_modules/.bin/env-cmd -e qa node scripts/start.js",
+
+    "production": "Deployed in Frontend Server + Heroku Hosted Backend Server (It will enable cache storing)",
+    "start-prod": "./node_modules/.bin/env-cmd -e prod node scripts/start.js",
+
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "sw": "yarn build && workbox injectManifest workbox-config.js && workbox copyLibraries build/ && http-server build/ -c 0"

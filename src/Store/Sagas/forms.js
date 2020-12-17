@@ -12,7 +12,7 @@ export function* fetchFormControls(action) {
     try {
         yield put(resetFormState());        
         tabParams = `', '${tabParams.join("', '")}`
-        const records = yield Axios.post(`https://karbar.herokuapp.com/api/form/${menuParams}/`, {
+        const records = yield Axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/form/${menuParams}/`, {
             // menuParams, //! Have to upgrade it later
             tabParams
         })
