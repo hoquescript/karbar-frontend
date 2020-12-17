@@ -44,6 +44,7 @@ const Controls = ({ controls, menuParams, tabButton }) => {
         return (
             <Control 
               key={ctrl.ControlName}
+              darkMode={darkMode}
               type={ctrl.ControlElementType}
               name={ctrl.ControlName}
               label={ctrl.ControlLabel}

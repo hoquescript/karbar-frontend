@@ -4,7 +4,7 @@ import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mate
 
 const ComboBox = (props) => {
     const { control, errors } = useFormContext();
-    const { name, label, params, disabled, defaultValue, isTabControl} = props
+    const { darkMode, name, label, params, disabled, defaultValue, isTabControl} = props
 
     return (
         <FormControl variant="outlined" size="small" name={name} style={{ width: "100%" }} error={errors && errors[name] ? true : false}>
@@ -27,8 +27,7 @@ const ComboBox = (props) => {
                 disabled = {disabled}
                 defaultValue = {defaultValue}
                 control = {control}
-                style={{backgroundColor: '#313743'}}
-
+                style={ darkMode ? {backgroundColor: '#313743'} : null}
                 // rules={{required: true}}
             />
             <FormHelperText>{errors[name] && '⚠️ Your Input is Required'}</FormHelperText>

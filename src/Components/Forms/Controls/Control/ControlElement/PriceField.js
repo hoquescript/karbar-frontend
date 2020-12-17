@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 const PriceField = (props) => {
     const classes = useStyles(props);
     // { ctrlName, controlLabel, placeHolder, rowData, editControl, value , isTabControl, }
-    const { name, label, disabled, defaultValue, value, isTabControl} = props;
+    const { darkMode, name, label, disabled, defaultValue, value, isTabControl} = props;
     const { control } = useFormContext();
     return (
         <div className={classes.root}>
@@ -56,8 +56,7 @@ const PriceField = (props) => {
                     // disabled={rowData && rowData.key !== editControl}
                     // name={ctrlName}
                     // defaultValue={placeHolder}
-                    style={{backgroundColor: '#313743'}}
-
+                    style={ darkMode ? {backgroundColor: '#313743'} : null}
                     as={TextField}
                     control={control}
                     placeholder='0.00'

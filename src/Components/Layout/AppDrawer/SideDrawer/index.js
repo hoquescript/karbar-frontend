@@ -57,9 +57,9 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
       dispatch(selectMenu({selectedMenu: mainModule}))
       dispatch(setBreadcrumb({
         breadCrumb: {
-            icon: 'form',
-            primary: 'Dashboard',
-            secondary: 'Modules',
+            icon: mainModule.IconName,
+            primary: 'Home',
+            secondary: 'Dashboard',
             tertiary: mainModule.AHead
         }
       }))

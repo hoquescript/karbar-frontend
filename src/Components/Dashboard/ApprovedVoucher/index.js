@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 
 const ApprovedVoucher = () => {
   const [summaryData, setSummaryData] = useState(chartData());
-
+  // backgroundColor: "#1a202e"
   return (
     <Card>
       <div style={{ overflow: "none" }}>
@@ -14,7 +14,6 @@ const ApprovedVoucher = () => {
           options={summaryData.options}
           width="100%"
           height={400}
-          style={{ borderRadius: "3.25rem" }}
         />
       </div>
     </Card>

@@ -5,7 +5,7 @@ import { TextField } from "@material-ui/core";
 const Input = (props) => {
     // { ctrlName, controlLabel, placeHolder, rowData, editControl, isTabControl }
     const { control, errors } = useFormContext();
-    const { name, label, disabled, defaultValue, isTabControl} = props
+    const { darkMode, name, label, disabled, defaultValue, isTabControl} = props
     // console.log(props)
 
     return (
@@ -27,7 +27,7 @@ const Input = (props) => {
                 // rules={{required: true, maxLength: 2}}
                 error={errors && errors[name] ? true : false}
                 helperText={errors[name] && '* Your Input is Required'}
-                style={{backgroundColor: '#313743'}}
+                style={ darkMode ? {backgroundColor: '#313743'} : null}
             />
         </>
     );

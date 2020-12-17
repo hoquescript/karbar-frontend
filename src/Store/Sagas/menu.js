@@ -36,7 +36,7 @@ const modulesMenu = (records, modules) => {
 
 export function* fetchModulesMenu(action) {
     let basicMenu, masterMenu, moduleMenu;
-    const menuData = yield axios.get("http://localhost:8080/api/menu");
+    const menuData = yield axios.get("https://karbar.herokuapp.com/api/menu");
     const record = menuData.data;
 
     //Formatting database into Modules

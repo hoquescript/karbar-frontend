@@ -8,7 +8,7 @@ import {
 
 const DatePicker = (props) => {
     const { control, errors } = useFormContext();
-    const { name, label, isTabControl} = props;
+    const { darkMode, name, label, isTabControl} = props;
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -30,7 +30,7 @@ const DatePicker = (props) => {
                 defaultValue="data"
                 error={errors && errors[name] ? true : false}
                 helperText={errors[name] && '* Your Input is Required'}
-                style={{backgroundColor: '#313743'}}
+                style={ darkMode ? {backgroundColor: '#313743'} : null}
             />
         </MuiPickersUtilsProvider>
     );
