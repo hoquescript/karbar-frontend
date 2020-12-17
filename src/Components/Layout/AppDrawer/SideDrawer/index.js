@@ -46,11 +46,12 @@ const useStyles = makeStyles(theme => ({
 const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
   const classes = useStyles({collapsed});
   const dispatch = useDispatch()
-  console.log(primaryModule)
+
   const allMenu = useSelector ( state => state.menu.allMenu )
 
   const subMenuHandler = (item) => {
     const [tertiaryModule, secondaryModule] = item.keyPath;
+
     if(primaryModule === "home"){
       const mainModule = allMenu.module[item.key]
       dispatch(selectMenu({selectedMenu: mainModule}))
@@ -67,6 +68,7 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
       //Resetting Form Beacause going to home page
       dispatch(resetFormState())
     }
+
     else if(primaryModule === "basic" || primaryModule === "master"){
         dispatch(selectMenu({selectedMenu: {...allMenu[primaryModule][secondaryModule].children[tertiaryModule]}}))
         dispatch(setBreadcrumb({
@@ -80,6 +82,7 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
         }))
         dispatch(setUrlPath({path: slugStringGenarator(allMenu[primaryModule][secondaryModule].children[tertiaryModule].AHead)}))
     }
+
     else{
         console.log(slugStringGenarator(allMenu.module[primaryModule][`${secondaryModule}Menu`][tertiaryModule].AHead))
         dispatch(selectMenu({selectedMenu: {...allMenu.module[primaryModule][`${secondaryModule}Menu`][tertiaryModule]}}))
@@ -97,7 +100,7 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
   const menuRender = (items, init) => (
     Object.keys(items).map(item => (
         <Menu.Item key={items[item].MenuParams}>
-          
+
           {/* Route for developement with all selected Menu info */}
           {process.env.REACT_APP_BASE_URL === "development" && (
             <NavLink to={
@@ -118,9 +121,9 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
         </Menu.Item>
     ))
   )
+
+
   if(primaryModule === "basic" || primaryModule === "master"){
-    
-  
     const secondaryModule = allMenu[primaryModule]
     return (
       <Menu className={classes.root} mode="inline" onClick={subMenuHandler}>
@@ -137,9 +140,23 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
                     const tertiaryModule = secondaryModule[module].children[data];
                     return (
                         <Menu.Item key={tertiaryModule.MenuParams}>
-                            <NavLink to={`/${slugStringGenarator(tertiaryModule.AHead)}`}>
-                            {tertiaryModule.AHead}
+
+                          {/* Route for developement with all selected Menu info */}
+                          {process.env.REACT_APP_BASE_URL === "development" && (
+                            <NavLink 
+                              to={`/${slugStringGenarator(tertiaryModule.AHead)}/CCode=${tertiaryModule.ClientCode}/MCode=${tertiaryModule.ModuleCode}/ACode=${tertiaryModule.ACode}/MenuParams=${tertiaryModule.MenuParams}/MenuType=${tertiaryModule.MenuType}`}
+                            >
+                              {tertiaryModule.AHead}
                             </NavLink>
+                          )}
+
+
+                          {/* Production Level URL/ Need to modify further like form/form_name or report/form_name */}
+                          {process.env.REACT_APP_BASE_URL === "production" && (
+                            <NavLink to={`/${slugStringGenarator(tertiaryModule.AHead)}`}>
+                              {tertiaryModule.AHead}
+                            </NavLink>                          
+                          )}
                         </Menu.Item>
                     )
                 })
@@ -149,6 +166,7 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
       </Menu>
     ) 
   }
+
   else{
     return (
         <Menu className={classes.root} mode="inline" defaultOpenKeys={['home', 'form', 'report']} onClick={subMenuHandler}>
