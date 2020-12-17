@@ -50,7 +50,6 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
   const allMenu = useSelector ( state => state.menu.allMenu )
 
   const subMenuHandler = (item) => {
-    console.log(item)
     const [tertiaryModule, secondaryModule] = item.keyPath;
     if(primaryModule === "home"){
       const mainModule = allMenu.module[item.key]
@@ -98,10 +97,24 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
   const menuRender = (items, init) => (
     Object.keys(items).map(item => (
         <Menu.Item key={items[item].MenuParams}>
-            <NavLink to={`${init ? `/${init}` : ''}/${slugStringGenarator(items[item].AHead)}`}>
-                {items[item].IconName && IconGenarator(items[item].IconName)}
-                {items[item].AHead}
+          
+          {/* Route for developement with all selected Menu info */}
+          {process.env.REACT_APP_BASE_URL === "development" && (
+            <NavLink to={
+              `${init ? `/${init}` : ''}/${slugStringGenarator(items[item].AHead)}/CCode=${items[item].ClientCode}/MCode=${items[item].ModuleCode}/ACode=${items[item].ACode}/MenuParams=${items[item].MenuParams}/MenuType=${items[item].MenuType}`}
+            >
+              {items[item].IconName && IconGenarator(items[item].IconName)}
+              {items[item].AHead}
             </NavLink>
+          )}
+
+          {/* Production Level URL/ Need to modify further like form/form_name or report/form_name */}
+          {process.env.REACT_APP_BASE_URL === "production" && (
+            <NavLink to={`${init ? `/${init}` : ''}/${slugStringGenarator(items[item].AHead)}`}>
+              {items[item].IconName && IconGenarator(items[item].IconName)}
+              {items[item].AHead}
+            </NavLink>
+          )}
         </Menu.Item>
     ))
   )
