@@ -49,9 +49,17 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
 
   const allMenu = useSelector ( state => state.menu.allMenu )
 
+  //*********************** Handling the Submenu - When we select any menu ***********************/
+  /*
+    - Storing the details of the selected menu
+    - Setting up the breadcrumb url
+    - Setting up the url for the browser
+    - Resetting the form's iunput value for changing the menu/moving to a new form interface
+  */
   const subMenuHandler = (item) => {
     const [tertiaryModule, secondaryModule] = item.keyPath;
 
+    //******************** Home Page *********************//
     if(primaryModule === "home"){
       const mainModule = allMenu.module[item.key]
       dispatch(selectMenu({selectedMenu: mainModule}))
@@ -69,6 +77,7 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
       dispatch(resetFormState())
     }
 
+    //******************** Basic Data & Master Data *********************//
     else if(primaryModule === "basic" || primaryModule === "master"){
         dispatch(selectMenu({selectedMenu: {...allMenu[primaryModule][secondaryModule].children[tertiaryModule]}}))
         dispatch(setBreadcrumb({
@@ -83,6 +92,8 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
         dispatch(setUrlPath({path: slugStringGenarator(allMenu[primaryModule][secondaryModule].children[tertiaryModule].AHead)}))
     }
 
+
+    //******************** Other Module's Menu *********************//
     else{
         console.log(slugStringGenarator(allMenu.module[primaryModule][`${secondaryModule}Menu`][tertiaryModule].AHead))
         dispatch(selectMenu({selectedMenu: {...allMenu.module[primaryModule][`${secondaryModule}Menu`][tertiaryModule]}}))
@@ -97,6 +108,8 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
         dispatch(setUrlPath({path: slugStringGenarator(allMenu.module[primaryModule][`${secondaryModule}Menu`][tertiaryModule].AHead)}))
     }
   }
+
+
   const menuRender = (items, init) => (
     Object.keys(items).map(item => (
         <Menu.Item key={items[item].MenuParams}>
@@ -123,6 +136,7 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
   )
 
 
+  //*********************** Rendering the menu for Basic Data & Master Data ***********************/
   if(primaryModule === "basic" || primaryModule === "master"){
     const secondaryModule = allMenu[primaryModule]
     return (
@@ -167,6 +181,8 @@ const SideDrawer = ({ data, collapsed, primaryModule, isBasic, isMaster }) => {
     ) 
   }
 
+
+  //*********************** Rendering the menu for Other module's menu ***********************/
   else{
     return (
         <Menu className={classes.root} mode="inline" defaultOpenKeys={['home', 'form', 'report']} onClick={subMenuHandler}>

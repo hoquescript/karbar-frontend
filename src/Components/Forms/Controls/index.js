@@ -15,7 +15,7 @@ const Controls = ({ controls, menuParams, tabButton }) => {
   const darkMode = useSelector(state => state.ui.darkMode)
   const gridControlsValue = useSelector(state => state.form.values.gridControls)
 
-    let treeChild, editGridData, gridSQL ;
+    let treeChild, editGridData;
     let gridControlChild = [], tabData= [];
   
     const controlEl = controls && controls.map(ctrl => {
@@ -24,50 +24,56 @@ const Controls = ({ controls, menuParams, tabButton }) => {
           tabData.push(ctrl)
           return null;
         }
+
         if(ctrl.IsGridControl) {
           gridControlChild.push(ctrl);
           return null;
         }
-        if(ctrl.ControlName.startsWith("lbl"))return null;
+
+        if(ctrl.ControlName.startsWith("lbl"))
+          return null;
+
         if(ctrl.ControlName.startsWith("Tre")) {
           treeChild = ctrl.Params;
           return null;
         }
+
         if(ctrl.ControlElementType.trim() === ("egv")) {
           editGridData = ctrl.Params;
           return null;
         }
+
         if(ctrl.ControlName.startsWith("dgv")) {
           // gridSQL = genarateSQL(ctrl)
           return null;
         }
         return (
-            <Control 
-              key={ctrl.ControlName}
-              darkMode={darkMode}
-              type={ctrl.ControlElementType}
-              name={ctrl.ControlName}
-              label={ctrl.ControlLabel}
-              params={ctrl.Params}
-            />
+          <Control 
+            key={ctrl.ControlName}
+            darkMode={darkMode}
+            type={ctrl.ControlElementType}
+            name={ctrl.ControlName}
+            label={ctrl.ControlLabel}
+            params={ctrl.Params}
+          />
         )
-      })
+    })
     
     return (
       <div style={{color: darkMode ? '#ccd5f7' : '#333'}}>
         <Grid item container>
-          {/* {treeChild && (
-              <Grid item xs={3} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
-                <Tree params={treeChild}/>
-              </Grid>
-          )} */}
+          {treeChild && (
+            <Grid item xs={3} container alignItems="center" style={{transform: 'translateY(-20px)'}}>
+              <Tree params={treeChild}/>
+            </Grid>
+          )}
           <Grid item container justify="center" alignItems="center" xs={treeChild ?  9 : 12}>
             {controlEl}
           </Grid>
         </Grid>
-        {/* {gridControlChild && gridControlChild.length > 0 && (
+        {gridControlChild && gridControlChild.length > 0 && (
           <GridControl tabIndex='' controls={gridControlChild} gridValue={gridControlsValue}/>
-        )} */}
+        )}
         {editGridData && editGridData.length > 0 && (
           <EditControl data={editGridData}/>
         )}

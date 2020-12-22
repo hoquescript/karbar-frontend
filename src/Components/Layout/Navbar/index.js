@@ -79,9 +79,9 @@ const Navbar = ({mode, collapse, collapseHandler, isSideDrawerActive}) => {
         <Grid item>
           <img style={{height: '4rem', ...styles(3)}} src={mode ? darkLogo : lightLogo} alt="Logo of Dot Bangladesh" />
         </Grid>
-        {/* <Grid item>
+        <Grid item>
           <Searchbar style={{...styles(8)}}/>
-        </Grid> */}
+        </Grid>
         <Grid item className={classes.iconWrapper}>
           <Bookmarks style={classes.icon}/>
           <Notification style={classes.icon}/>

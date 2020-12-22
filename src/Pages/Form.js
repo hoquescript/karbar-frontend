@@ -13,7 +13,6 @@ import FormHeader from '../Components/Forms/FormHeader';
 import ActionBar from "../Components/Forms/ActionBar";
 import Controls from "../Components/Forms/Controls";
 import GridView from "../Components/Forms/Controls/Containers/GridView";
-import { hasNoPersistance } from "../Constants/misc";
 
 const useStyles = makeStyles(theme => ({
   contentWrapper: {
@@ -40,6 +39,7 @@ const Form = () => {
   const hookFormMethods = useForm();
 
   const menuParams = useSelector(state => state.menu.selectedMenu.MenuParams);
+
   const tabButton = useSelector(state => state.menu.selectedMenu.TabButton);
   const [ tabHeader, tabParams ] = tabMenuFormatter(tabButton)
 

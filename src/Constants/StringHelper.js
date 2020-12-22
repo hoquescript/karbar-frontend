@@ -60,6 +60,9 @@ export const genarateSQL = control => {
 };
 
 export const tabMenuFormatter = tabMenu => {
+    
+//   BRCareer~Career BRExp~Experience BRMem~Memory BRLang~Language BRRef~Ref
+
     if(tabMenu){
         tabMenu = tabMenu.split(' ')
         let tab = [], params = []

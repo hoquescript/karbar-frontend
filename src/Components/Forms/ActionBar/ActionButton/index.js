@@ -36,7 +36,6 @@ const style = {
 const postHandler = (dispatch, data, values) => {
     const value = {...values, common: data};
     console.log(value);
-    window.wahid = value;
     // if (data && data.dtpVDate && isFuture(data.dtpVDate)) {
     //     alert("Future Date");
     // }

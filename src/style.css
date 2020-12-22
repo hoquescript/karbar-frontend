@@ -1,37 +1,50 @@
 *,
 *::before,
-*::after{
+*::after {
     margin: 0;
     padding: 0;
     border: 0;
     box-sizing: border-box;
 }
-html{
+
+html {
     font-size: 62.5%;
 }
-body{
+
+body {
     font-size: 1.6rem;
 }
-p,h1,h2,h3,h4,h5,h6{
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0
 }
-a{
+
+a {
     text-decoration: none;
     color: #333;
 }
-li{
+
+li {
     list-style-type: none;
 }
-.tabMenu{
-    
-}
-.tabTextField > div{
+
+.tabMenu {}
+
+.tabTextField>div {
     height: 40px;
 }
-.tabTextField > label{
+
+.tabTextField>label {
     font-size: 13px;
 }
-.tabTextField > div > input{
+
+.tabTextField>div>input {
     font-size: 15px;
     padding-top: 5.5px;
     padding-bottom: 5.5px;
