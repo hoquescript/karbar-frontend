@@ -3,14 +3,14 @@
   display: flex;
   -webkit-box-pack: justify;
           justify-content: space-between;
-  width: 80%;
+  width: 70%;
 }
 
 .flipUnitContainer {
   display: block;
   position: relative;
-  width: 140px;
-  height: 120px;
+  width: 120px;
+  height: 100px;
   -webkit-perspective-origin: 50% 50%;
           perspective-origin: 50% 50%;
   -webkit-perspective: 300px;

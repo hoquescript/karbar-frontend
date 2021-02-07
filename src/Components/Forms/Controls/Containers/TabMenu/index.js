@@ -12,7 +12,9 @@ import { hasNoPersistance } from '../../../../../Constants/misc';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    width: '112rem',
     backgroundColor: theme.palette.background.paper,
+    margin: '0 auto',
     marginTop: '2rem'
   },
   appBar: {
@@ -50,8 +52,14 @@ export default function TabMenu({ controls, tabButton }) {
           <Tabs value={value} onChange={handleChange}>
             {tabHeader.map((header, index) => {
               const control = controls.find(control => control.MenuParams === tabParams[index])
+              console.log(header)
+              console.log(control)
               return <Tab key={index} className='tabMenu' label={(control && control.AHead) || 'Default'} value={tabParams[index]}/>
             })}
+            <Tab className='tabMenu' label={'Default'} value={''}/>
+            <Tab className='tabMenu' label={'Default'} value={''}/>
+            <Tab className='tabMenu' label={'Default'} value={''}/>
+            <Tab className='tabMenu' label={'Default'} value={''}/>
           </Tabs>
         </AppBar>
         {tabHeader.map((header, index) => <TabPanel key={index} value={value} index={tabParams[index]} controls={controls}/>)}
